@@ -1,6 +1,9 @@
 ﻿using Cheers.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 
 namespace Cheers.Controllers
 {
@@ -13,14 +16,17 @@ namespace Cheers.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            return Ok("Index");
+            TestModel testModel = new TestModel(10, "Iona");
+            return Ok(JsonConvert.SerializeObject(testModel));
         }
 
         public IActionResult Privacy()
         {
-            return Ok("Privacy");
+            TestModel testModel = new TestModel(10, "Privacy");
+            return Ok(JsonConvert.SerializeObject(testModel));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

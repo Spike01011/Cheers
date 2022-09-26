@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import TestComponentReact from "./TestComponentReact";
+
 
 function App() {
   return (
@@ -9,7 +11,6 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <h1>Ana are mere</h1>
       </header>
     </div>
   );
