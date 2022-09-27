@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {logDOM} from "@testing-library/react";
+import Api from './Utils/Api';
 
 class TestComponentReact extends Component {
     constructor(props) {
@@ -13,30 +14,37 @@ class TestComponentReact extends Component {
 
     fetchData = async () => {
         let response = await fetch(
-            `https://localhost:7021/home/privacy`, {
-                mode: "no-cors",
+            `https://localhost:7152/WeatherForecast`, {
+                // headers: {
+                //     "Acces-Control-Allow-Origin": "*",
+                //     "Acces-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
+                // },
+                Component: "include",
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                mode: "no-cors"
             })
-        return JSON.stringify(await response.json());
+            var ultimateRespone = await response.json();
+            console.log(ultimateRespone);
+        return await response.json();
     }
 
     componentDidMount() {
-        fetch(
-            "https://localhost:7021/home/privacy", {
-                mode: "no-cors",
-                method: "GET",
-            })
-            .then((response) => response.json())
-            .then((result) => {
-                console.log(result)
-                this.setState({
-                    items: result,
-                    DataisLoaded: true
-                });
-            })
+
+        // fetch(
+        //     "https://localhost:7021/home/privacy", {
+        //         Component: "include",
+        //         method: "GET",
+        //     })
+        //     .then((response) => response.json())
+        //     .then((result) => {
+        //         console.log(result)
+        //         this.setState({
+        //             items: result,
+        //             DataisLoaded: true
+        //         });
+        //     })
+
+        this.fetchData();
     }
 
     render() {

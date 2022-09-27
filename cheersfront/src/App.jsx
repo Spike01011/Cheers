@@ -1,18 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import TestComponentReact from "./TestComponentReact";
+import { BrowserRouter, Route, Routes, Switch } from 'react-router-dom';
+import HomeTest from './HomeTest';
+import TestComponentReact from './TestComponentReact';
 
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
-    </div>
+    <>
+    <main id="main">
+      {/* <TestComponentReact/> */}
+      <HomeTest/>
+
+    </main>
+    </>
   );
 }
 

@@ -8,7 +8,7 @@ import TestComponentReact from "./TestComponentReact";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <TestComponentReact />
+    <App />
   </React.StrictMode>
 );
 

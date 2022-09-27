@@ -4,9 +4,11 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Cors;
 
 namespace Cheers.Controllers
 {
+    //[EnableCors("CorsPolicy")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
