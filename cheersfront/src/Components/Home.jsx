@@ -1,9 +1,8 @@
-import { render } from '@testing-library/react';
-import React, {useEffect, useState} from 'react'
-import { json } from 'react-router-dom';
-import Api from './Utils/Api';
+import React, {useEffect, useState} from "react";
+import Api from "../Utils/Api";
 
-const HomeTest = () => {
+
+const Home = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -22,8 +21,8 @@ const HomeTest = () => {
 
 
 
-    return data.length > 0 ? (<>{data.map(x => <p key={x.Id}>{x.Name}</p>)}</>) : (<p>Loading...</p>)
+    return !(data == null) ? (<>{data.map(x => <p key={x.Id}>{x.Name}</p>)}</>) : (<p>Loading...</p>)
 
 }
 
-export default HomeTest
+export default Home;
