@@ -38,9 +38,10 @@ namespace Cheers.Models.Daos
             return _appDbContext.Ideas.ToList();
         }
 
-        public List<Idea> GetByCategoryId(int id)
+        public List<Idea> GetByCategoryId(int categoryId)
         {
-            return _appDbContext.Ideas.Include(idea => idea.Category).Where(idea => idea.Id == id).ToList();
+            return new List<Idea>();
+            //return _appDbContext.Ideas.Include(idea => idea.CategoryId).Where(idea => idea.CategoryId == categoryId).ToList();
         }
     }
 }

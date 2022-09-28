@@ -62,6 +62,7 @@ namespace Cheers
             //app.MapRazorPages();
 
             app.Run();
+
         }
     }
 }

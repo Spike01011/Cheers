@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Cheers.Data.Migrations
+namespace Cheers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220928091138_fixed-typo")]
-    partial class fixedtypo
+    [Migration("20220928113910_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,23 @@ namespace Cheers.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryName = "Games"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryName = "WebApplications"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryName = "EscapeRooms"
+                        });
                 });
 
             modelBuilder.Entity("Cheers.Models.Idea", b =>
@@ -69,6 +86,32 @@ namespace Cheers.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Ideas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Best game ever",
+                            Name = "Game of the year",
+                            ShortDescription = "Best Game"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            Description = "Second best game ever",
+                            Name = "Game of the last year",
+                            ShortDescription = "Second best Game"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 2,
+                            Description = "Best game site",
+                            Name = "Site of the year",
+                            ShortDescription = "Best site"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
