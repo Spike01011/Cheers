@@ -1,4 +1,6 @@
 using Cheers.Data;
+using Cheers.Models.Daos;
+using Cheers.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +20,8 @@ namespace Cheers
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddScoped<IIdeeaDAO, IdeaDbDAO>();
+            builder.Services.AddScoped<IIdeeaDAO, IdeaDbDAO>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddCors(options =>
             {
