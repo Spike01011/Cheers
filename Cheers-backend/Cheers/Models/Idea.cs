@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string ShopDescription { get; set; }
+        public string ShortDescription { get; set; }
         public Category Category { get; set; }
     }
 }
