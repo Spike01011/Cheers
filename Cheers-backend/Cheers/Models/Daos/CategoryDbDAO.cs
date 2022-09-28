@@ -33,7 +33,7 @@ namespace Cheers.Models.Daos
 
         public List<Category> GetAll()
         {
-            throw new NotImplementedException();
+            return _appDbContext.Categories.ToList();
         }
     }
 }

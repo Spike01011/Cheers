@@ -17,9 +17,9 @@ namespace Cheers.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            var gamesCategory = new Category { Id = 1, CategoryName = "Games" };
-            var webCategory = new Category { Id = 2, CategoryName = "WebApplications" };
-            var escapeCategory = new Category { Id = 3, CategoryName = "EscapeRooms" };
+            var gamesCategory = new Category { Id = 1, Name = "Games" };
+            var webCategory = new Category { Id = 2, Name = "WebApplications" };
+            var escapeCategory = new Category { Id = 3, Name = "EscapeRooms" };
             modelBuilder.Entity<Category>().HasData(gamesCategory);
             modelBuilder.Entity<Category>().HasData(webCategory);
             modelBuilder.Entity<Category>().HasData(escapeCategory);

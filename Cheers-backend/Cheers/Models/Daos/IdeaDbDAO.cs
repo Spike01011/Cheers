@@ -15,7 +15,9 @@ namespace Cheers.Models.Daos
 
         public void Add(Idea idea)
         {
+            Console.WriteLine(idea);
             _appDbContext.Ideas.Add(idea);
+            _appDbContext.SaveChanges();
         }
 
         public void Delete(int id)

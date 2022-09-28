@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http.Json;
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Cheers.Models.Daos;
 using Cheers.Models.Interfaces;
@@ -29,10 +30,18 @@ namespace Cheers.Controllers
             return Ok(JsonConvert.SerializeObject(ideas));
         }
 
-        //public IActionResult AddIdea()
-        //{
+        [HttpPost]
+        public IActionResult AddIdea([FromBody] Idea idea)
+        {
+            _daosMananger.AddIdea(idea);
+            return Ok();
+        }
 
-        //}
+        [HttpGet]
+        public IActionResult GetCategories()
+        {
+            return Ok(_daosMananger.GetAllCategories());
+        }
 
         public IActionResult Privacy()
         {
