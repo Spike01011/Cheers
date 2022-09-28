@@ -21,7 +21,7 @@ namespace Cheers
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddScoped<IIdeeaDAO, IdeaDbDAO>();
-            builder.Services.AddScoped<IIdeeaDAO, IdeaDbDAO>();
+            builder.Services.AddScoped<ICategoryDAO, CategoryDbDAO>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddCors(options =>
             {

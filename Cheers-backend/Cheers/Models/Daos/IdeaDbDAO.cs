@@ -1,20 +1,21 @@
 ﻿using Cheers.Data;
 using Cheers.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cheers.Models.Daos
 {
     public class IdeaDbDAO : IIdeeaDAO
     {
-        private readonly ApplicationDbContext _applicationDbContext;
+        private readonly ApplicationDbContext _appDbContext;
 
-        public IdeaDbDAO(ApplicationDbContext applicationDbContext)
+        public IdeaDbDAO(ApplicationDbContext appDbContext)
         {
-            _applicationDbContext = applicationDbContext;
+            _appDbContext = appDbContext;
         }
 
-        public void Add(Idea entity)
+        public void Add(Idea idea)
         {
-            throw new NotImplementedException();
+            _appDbContext.Ideas.Add(idea);
         }
 
         public void Delete(int id)
@@ -29,17 +30,17 @@ namespace Cheers.Models.Daos
 
         public Idea Get(int id)
         {
-            throw new NotImplementedException();
+            return _appDbContext.Ideas.FirstOrDefault(idea => idea.Id == id);
         }
 
         public List<Idea> GetAll()
         {
-            throw new NotImplementedException();
+            return _appDbContext.Ideas.ToList();
         }
 
         public List<Idea> GetByCategoryId(int id)
         {
-            throw new NotImplementedException();
+            return _appDbContext.Ideas.Include(idea => idea.Category).Where(idea => idea.Id == id).ToList();
         }
     }
 }

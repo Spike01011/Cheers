@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization;
+using Cheers.Models.Daos;
+using Cheers.Models.Interfaces;
 using Microsoft.AspNetCore.Cors;
 
 namespace Cheers.Controllers
@@ -12,18 +14,25 @@ namespace Cheers.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly DaoMananger _daosMananger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IIdeeaDAO ideaDao, ICategoryDAO categoryDao)
         {
             _logger = logger;
+            _daosMananger = new DaoMananger(categoryDao, ideaDao);
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            TestModel testModel = new TestModel(10, "Iona");
-            return Ok(JsonConvert.SerializeObject(testModel));
+            List<Idea> ideas = _daosMananger.GetAllIdeas();
+            return Ok(JsonConvert.SerializeObject(ideas));
         }
+
+        //public IActionResult AddIdea()
+        //{
+
+        //}
 
         public IActionResult Privacy()
         {

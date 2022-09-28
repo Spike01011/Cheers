@@ -1,11 +1,13 @@
-﻿namespace Cheers.Models.Daos
+﻿using Cheers.Models.Interfaces;
+
+namespace Cheers.Models.Daos
 {
     public class DaoMananger
     {
-        private CategoryDbDAO _categoryDbDAO;
-        private IdeaDbDAO _ideaDbDAO;
+        private ICategoryDAO _categoryDbDAO;
+        private IIdeeaDAO _ideaDbDAO;
 
-        public DaoMananger(CategoryDbDAO categoryDbDAO, IdeaDbDAO ideaDbDAO)
+        public DaoMananger(ICategoryDAO categoryDbDAO, IIdeeaDAO ideaDbDAO)
         {
             _categoryDbDAO = categoryDbDAO;
             _ideaDbDAO = ideaDbDAO;

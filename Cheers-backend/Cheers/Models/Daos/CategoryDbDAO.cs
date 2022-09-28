@@ -1,13 +1,19 @@
-﻿using Cheers.Models.Interfaces;
+﻿using Cheers.Data;
+using Cheers.Models.Interfaces;
 
 namespace Cheers.Models.Daos
 {
     public class CategoryDbDAO : ICategoryDAO
     {
-        //Services
-        public void Add(Category entity)
+        private readonly ApplicationDbContext _appDbContext;
+
+        public CategoryDbDAO(ApplicationDbContext appDbContext)
         {
-            throw new NotImplementedException();
+            _appDbContext = appDbContext;
+        }
+        public void Add(Category category)
+        {
+            _appDbContext.Categories.Add(category);
         }
 
         public void Delete(int id)
@@ -22,7 +28,7 @@ namespace Cheers.Models.Daos
 
         public Category Get(int id)
         {
-            throw new NotImplementedException();
+            return _appDbContext.Categories.FirstOrDefault(cat => cat.Id == id);
         }
 
         public List<Category> GetAll()
