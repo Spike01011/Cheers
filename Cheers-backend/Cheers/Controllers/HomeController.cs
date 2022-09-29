@@ -43,6 +43,16 @@ namespace Cheers.Controllers
             return Ok(_daosMananger.GetAllCategories());
         }
 
+        [HttpGet]
+        public IActionResult GetIdea(int id)
+        {
+            var idea = _daosMananger.GetIdea(id);
+            //var ideaList = new List<Idea>();
+            //ideaList.Add(idea);
+            //return Ok(JsonConvert.SerializeObject(ideaList));
+            return Ok(JsonConvert.SerializeObject(idea));
+        }
+
         public IActionResult Privacy()
         {
             TestModel testModel = new TestModel(10, "Privacy");

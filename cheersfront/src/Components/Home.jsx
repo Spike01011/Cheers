@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Api from "../Utils/Api";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 	const [data, setData] = useState([]);
@@ -20,7 +21,14 @@ const Home = () => {
 	return data != null ? (
 		<>
 			{data.map((x) => (
-				<p key={x.Id}>{x.Name}</p>
+				<p key={x.Id}>
+					<Link
+						style={{ color: "black" }}
+						to={`/get-details/${x.Id}`}
+					>
+						{x.Name}
+					</Link>
+				</p>
 			))}
 		</>
 	) : (

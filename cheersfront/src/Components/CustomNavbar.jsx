@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import About from "./About";
 import Contact from "./Contact";
 import AddIdea from "./AddIdea";
+import GetDetails from "./GetDetails";
 
 export default class CustomNavbar extends Component {
 	render() {
 		return (
-			<BrowserRouter>
+			<div>
 				<Navbar bg="dark" variant={"dark"} expand="lg">
 					<Container>
 						<Navbar.Brand as={Link} to={"/"}>
@@ -58,8 +59,9 @@ export default class CustomNavbar extends Component {
 					<Route path="/about" element={<About />} />
 					<Route path="/contact" element={<Contact />} />
 					<Route path="/add-idea" element={<AddIdea />} />
+					<Route path="/get-details/:id" element={<GetDetails />} />
 				</Routes>
-			</BrowserRouter>
+			</div>
 		);
 	}
 }
