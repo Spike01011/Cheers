@@ -10,10 +10,11 @@ export default function AddIdea() {
 		Name: "",
 		Description: "",
 		ShortDescription: "",
-		CategoryId: "",
+		CategoryId: "1",
 		Target: "",
 	});
 	const navigate = useNavigate();
+
 	useEffect(() => {
 		const get = async () => {
 			try {
@@ -50,9 +51,9 @@ export default function AddIdea() {
 				Name: data.Name,
 				Description: data.Description,
 				ShortDescription: data.ShortDescription,
-				/* global BigInt */
-				Target: BigInt(data.Target),
 				CategoryId: parseInt(data.CategoryId),
+				/* global BigInt */
+				Target: parseInt(data.Target),
 			})
 			.then((res) => {
 				console.log(res.data);
