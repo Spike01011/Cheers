@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Cheers.Migrations
 {
-    public partial class initial : Migration
+    public partial class remadedatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,7 +54,7 @@ namespace Cheers.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CategoryName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -176,7 +176,8 @@ namespace Cheers.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ShortDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    Target = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -191,33 +192,33 @@ namespace Cheers.Migrations
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "CategoryName" },
+                columns: new[] { "Id", "Name" },
                 values: new object[] { 1, "Games" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "CategoryName" },
+                columns: new[] { "Id", "Name" },
                 values: new object[] { 2, "WebApplications" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "CategoryName" },
+                columns: new[] { "Id", "Name" },
                 values: new object[] { 3, "EscapeRooms" });
 
             migrationBuilder.InsertData(
                 table: "Ideas",
-                columns: new[] { "Id", "CategoryId", "Description", "Name", "ShortDescription" },
-                values: new object[] { 1, 1, "Best game ever", "Game of the year", "Best Game" });
+                columns: new[] { "Id", "CategoryId", "Description", "Name", "ShortDescription", "Target" },
+                values: new object[] { 1, 1, "Best game ever", "Game of the year", "Best Game", 0 });
 
             migrationBuilder.InsertData(
                 table: "Ideas",
-                columns: new[] { "Id", "CategoryId", "Description", "Name", "ShortDescription" },
-                values: new object[] { 2, 1, "Second best game ever", "Game of the last year", "Second best Game" });
+                columns: new[] { "Id", "CategoryId", "Description", "Name", "ShortDescription", "Target" },
+                values: new object[] { 2, 1, "Second best game ever", "Game of the last year", "Second best Game", 0 });
 
             migrationBuilder.InsertData(
                 table: "Ideas",
-                columns: new[] { "Id", "CategoryId", "Description", "Name", "ShortDescription" },
-                values: new object[] { 3, 2, "Best game site", "Site of the year", "Best site" });
+                columns: new[] { "Id", "CategoryId", "Description", "Name", "ShortDescription", "Target" },
+                values: new object[] { 3, 2, "Best game site", "Site of the year", "Best site", 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

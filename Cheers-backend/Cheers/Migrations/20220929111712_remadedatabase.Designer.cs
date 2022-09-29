@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cheers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220928113910_initial")]
-    partial class initial
+    [Migration("20220929111712_remadedatabase")]
+    partial class remadedatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,7 +32,7 @@ namespace Cheers.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("CategoryName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -44,17 +44,17 @@ namespace Cheers.Migrations
                         new
                         {
                             Id = 1,
-                            CategoryName = "Games"
+                            Name = "Games"
                         },
                         new
                         {
                             Id = 2,
-                            CategoryName = "WebApplications"
+                            Name = "WebApplications"
                         },
                         new
                         {
                             Id = 3,
-                            CategoryName = "EscapeRooms"
+                            Name = "EscapeRooms"
                         });
                 });
 
@@ -81,6 +81,9 @@ namespace Cheers.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Target")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -94,7 +97,8 @@ namespace Cheers.Migrations
                             CategoryId = 1,
                             Description = "Best game ever",
                             Name = "Game of the year",
-                            ShortDescription = "Best Game"
+                            ShortDescription = "Best Game",
+                            Target = 0
                         },
                         new
                         {
@@ -102,7 +106,8 @@ namespace Cheers.Migrations
                             CategoryId = 1,
                             Description = "Second best game ever",
                             Name = "Game of the last year",
-                            ShortDescription = "Second best Game"
+                            ShortDescription = "Second best Game",
+                            Target = 0
                         },
                         new
                         {
@@ -110,7 +115,8 @@ namespace Cheers.Migrations
                             CategoryId = 2,
                             Description = "Best game site",
                             Name = "Site of the year",
-                            ShortDescription = "Best site"
+                            ShortDescription = "Best site",
+                            Target = 0
                         });
                 });
 
