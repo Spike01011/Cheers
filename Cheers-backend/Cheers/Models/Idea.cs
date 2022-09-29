@@ -18,7 +18,7 @@ namespace Cheers.Models
         
         [Required(ErrorMessage = "Please select a Category for your Idea!")]
         public int CategoryId { get; set; }
-        
+
         public Category Category { get; set; }
 
         public int Target { get; set; }
@@ -26,7 +26,7 @@ namespace Cheers.Models
         public override string ToString()
         {
             return
-                $"{{ Name: {Name}, Description:{Description}, ShortDesc:{ShortDescription}, CatId:{CategoryId}, Category:{Category}, id: {Id}}}";
+                $"{{ Name: {Name}, Description:{Description}, ShortDesc:{ShortDescription}, CatId:{CategoryId}, Category:{Category}, id: {Id}, Target: {Target}}}";
         }
     }
 }

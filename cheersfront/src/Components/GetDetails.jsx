@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function GetDetails() {
 	const url = "https://localhost:7021/home/GetIdea";
@@ -21,7 +22,7 @@ export default function GetDetails() {
 		get();
 	}, []);
 	return data != null ? (
-		<div>
+		<div className={"DetailsDiv"}>
 			{/*{data.map((x) => (*/}
 			{/*	<div key={x.Id}>*/}
 			{/*		<h1 key={`${x.Id}h1`}>{x.Name}</h1>*/}
@@ -29,9 +30,38 @@ export default function GetDetails() {
 			{/*		<p key={`${x.Id}Desc`}>{x.Description}</p>*/}
 			{/*	</div>*/}
 			{/*))}*/}
-			<h1>{data.Name}</h1>
-			<p>Category: {data.Category.Name}</p>
-			<p>{data.Description}</p>
+			<h1
+				className={"TitleClass"}
+				style={{
+					textAlign: "center",
+					paddingInline: "10%",
+					marginBottom: "50px",
+				}}
+			>
+				{data.Name}
+			</h1>
+			<h3>Category</h3>
+			<h5 className={"DetailsDivContents"}>{data.Category.Name}</h5>
+			<h3>Description</h3>
+			<h5 className={"DetailsDivContents"}>{data.Description}</h5>
+			<h4>TL;DR</h4>
+			<h6 className={"DetailsDivContents"}>{data.ShortDescription}</h6>
+			<h3>Target amount: {data.Target}</h3>
+			<div
+				style={{
+					textAlign: "center",
+					marginTop: "50px",
+				}}
+			>
+				<button
+					style={{ textAlign: "center" }}
+					as={Link}
+					to=""
+					className={"btn btn-info"}
+				>
+					🍻 Buy us a beer
+				</button>
+			</div>
 		</div>
 	) : (
 		<p>Loading...</p>
