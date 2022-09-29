@@ -21,6 +21,8 @@ namespace Cheers.Models
         
         public Category Category { get; set; }
 
+        public long Target { get; set; }
+
         public override string ToString()
         {
             return

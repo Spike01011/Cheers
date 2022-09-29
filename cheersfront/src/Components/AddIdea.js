@@ -11,6 +11,7 @@ export default function AddIdea() {
 		Description: "",
 		ShortDescription: "",
 		CategoryId: "",
+		Target: "",
 	});
 	const navigate = useNavigate();
 	useEffect(() => {
@@ -49,6 +50,8 @@ export default function AddIdea() {
 				Name: data.Name,
 				Description: data.Description,
 				ShortDescription: data.ShortDescription,
+				/* global BigInt */
+				Target: BigInt(data.Target),
 				CategoryId: parseInt(data.CategoryId),
 			})
 			.then((res) => {
@@ -79,6 +82,13 @@ export default function AddIdea() {
 					id={"ShortDescription"}
 					value={data.ShortDescription}
 					placeholder={"ShortDescription"}
+					type={"text"}
+				/>
+				<input
+					onChange={(e) => handle(e)}
+					id={"Target"}
+					value={data.Target}
+					placeholder={"MoneyTarget"}
 					type={"text"}
 				/>
 				<select
