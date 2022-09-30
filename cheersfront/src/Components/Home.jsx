@@ -32,7 +32,8 @@ const Home = () => {
         <React.Fragment className={"container"} style={{height: "650px"}}>
             <Row className="no-gutters" style={{marginInline: "10px", marginTop: "10px"}}>
                 {data.map((idea) => (
-                    <Col xs lg='3' style={{display: "inline-block; max-width: 350px; height: 650px;", marginTop: "20px"}}>
+                    <Col xs lg='3'
+                         style={{display: "inline-block; max-width: 350px; height: 650px;", marginTop: "20px"}}>
                         <Card>
                             {/*<Card className={"card-body"}>*/}
                             <CardContent className="card-body">
@@ -40,7 +41,14 @@ const Home = () => {
                                 {/*    {idea.Author}*/}
                                 {/*</Typography>*/}
                                 <Typography variant="h5" component="div" className={"card-title text-center"}>
-                                    {idea.Name}
+                                    <p key={idea.Id}>
+                                        <Link
+                                            style={{color: "black"}}
+                                            to={`/get-details/${idea.Id}`}
+                                        >
+                                            {idea.Name}
+                                        </Link>
+                                    </p>
                                 </Typography>
                                 <Typography sx={{mb: 1.5}} color="text.secondary">
                                     {idea.ShortDescription}
