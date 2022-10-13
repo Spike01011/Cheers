@@ -6,6 +6,7 @@ import About from "./About";
 import Contact from "./Contact";
 import AddIdea from "./AddIdea";
 import GetDetails from "./GetDetails";
+import AddPhoto from "./AddPhoto"
 
 export default class CustomNavbar extends Component {
 	render() {
@@ -60,6 +61,7 @@ export default class CustomNavbar extends Component {
 					<Route path="/contact" element={<Contact />} />
 					<Route path="/add-idea" element={<AddIdea />} />
 					<Route path="/get-details/:id" element={<GetDetails />} />
+					<Route path="/add-photo/:id" element={<AddPhoto />} />
 				</Routes>
 			</div>
 		);
