@@ -14,6 +14,7 @@ namespace Cheers.Models.Daos
         public void Add(Category category)
         {
             _appDbContext.Categories.Add(category);
+            _appDbContext.SaveChanges();
         }
 
         public void Delete(int id)
@@ -34,6 +35,11 @@ namespace Cheers.Models.Daos
         public List<Category> GetAll()
         {
             return _appDbContext.Categories.ToList();
+        }
+
+        public Category GetByName(string name)
+        {
+            return _appDbContext.Categories.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
         }
     }
 }

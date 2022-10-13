@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 namespace Cheers
@@ -69,6 +70,7 @@ namespace Cheers
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddScoped<IIdeeaDAO, IdeaDbDAO>();
             services.AddScoped<ICategoryDAO, CategoryDbDAO>();
+            services.AddScoped<IImageClDAO, ImageClDbDAO>();
             services.AddControllersWithViews();
             services.AddCors(options =>
             {
@@ -95,7 +97,11 @@ namespace Cheers
             }
 
             //app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "images")),
+                RequestPath = "/Images"
+            });
 
 
             app.UseRouting();
