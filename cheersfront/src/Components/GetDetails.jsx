@@ -43,7 +43,7 @@ export default function GetDetails() {
 			<h3>Category</h3>
 			<h5 className={"DetailsDivContents"}>{data.Category.Name}</h5>
 			<h3>Description</h3>
-			<h5 className={"DetailsDivContents"}>{data.Description}</h5>
+			<h5 className={"DetailsDivContents"}>{data.Description.split("\n").map(x => <p>{x}</p>)}</h5>
 			<h4>TL;DR</h4>
 			<h6 className={"DetailsDivContents"}>{data.ShortDescription}</h6>
 			<h3>Target amount: {data.Target}</h3>
@@ -57,10 +57,17 @@ export default function GetDetails() {
 					style={{ textAlign: "center" }}
 					as={Link}
 					to=""
-					className={"btn btn-info"}
+					className={"btn btn-light"}
 				>
 					🍻 Buy us a beer
 				</button>
+				<Link
+				type={"button"}
+				style={{textAlign: "center"}}
+				to={`/add-photo/${id}`}
+				className={"btn btn-light"}>
+					AddPhoto
+				</Link>
 			</div>
 		</div>
 	) : (

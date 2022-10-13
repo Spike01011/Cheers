@@ -6,11 +6,13 @@ namespace Cheers.Models.Daos
     {
         private ICategoryDAO _categoryDbDAO;
         private IIdeeaDAO _ideaDbDAO;
+        private IImageClDAO _imageClDbDAO;
 
-        public DaoMananger(ICategoryDAO categoryDbDAO, IIdeeaDAO ideaDbDAO)
+        public DaoMananger(ICategoryDAO categoryDbDAO, IIdeeaDAO ideaDbDAO, IImageClDAO imageClDbDAO)
         {
             _categoryDbDAO = categoryDbDAO;
             _ideaDbDAO = ideaDbDAO;
+            _imageClDbDAO = imageClDbDAO;
         }
 
         public void AddCategory(Category category)
@@ -66,6 +68,26 @@ namespace Cheers.Models.Daos
         public List<Idea> GetIdeasByCategoryId(int categoryId)
         {
             return _ideaDbDAO.GetByCategoryId(categoryId);
+        }
+
+        public List<ImageCl> GetAllImages()
+        {
+            return _imageClDbDAO.GetAll();
+        }
+
+        public ImageCl GetImage(int id)
+        {
+            return _imageClDbDAO.Get(id);
+        }
+
+        public void AddImage(ImageCl img)
+        {
+            _imageClDbDAO.Add(img);
+        }
+
+        private void DeleteImage(int id)
+        {
+            _imageClDbDAO.Delete(id);
         }
     }
 }

@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Models\ViewModels\" />
+    <Folder Include="Images\" />
   </ItemGroup>
 
 </Project>
