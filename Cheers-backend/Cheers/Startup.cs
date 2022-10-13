@@ -5,7 +5,6 @@ using Cheers.Models.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -92,6 +91,7 @@ namespace Cheers
             services.AddScoped<IServiceProvider, ServiceProvider>();
             services.AddScoped<IServiceCollection, ServiceCollection>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IImageClDAO, ImageClDbDAO>();
 
             services.AddControllersWithViews();
             services.AddCors(options =>
