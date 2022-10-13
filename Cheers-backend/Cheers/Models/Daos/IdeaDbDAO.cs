@@ -22,7 +22,12 @@ namespace Cheers.Models.Daos
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var idea = _appDbContext.Ideas.Where(x => x.Id == id).FirstOrDefault();
+            if (idea != null)
+            {
+                _appDbContext.Ideas.Remove(idea);
+                _appDbContext.SaveChanges();
+            }
         }
 
         public void Edit(int id)
@@ -32,12 +37,12 @@ namespace Cheers.Models.Daos
 
         public Idea Get(int id)
         {
-            return _appDbContext.Ideas.Include(x => x.Category).FirstOrDefault(idea => idea.Id == id);
+            return _appDbContext.Ideas.Include(x => x.Category ).Include(x => x.ImageNames).FirstOrDefault(idea => idea.Id == id);
         }
 
         public List<Idea> GetAll()
         {
-            return _appDbContext.Ideas.Include(x => x.Category).ToList();
+            return _appDbContext.Ideas.Include(x => x.Category).Include(x => x.ImageNames).ToList();
         }
 
         public List<Idea> GetByCategoryId(int categoryId)

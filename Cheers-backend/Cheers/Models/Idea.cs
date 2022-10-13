@@ -22,6 +22,7 @@ namespace Cheers.Models
         public Category Category { get; set; }
 
         public int Target { get; set; }
+        public List<ImageCl> ImageNames { get; set; }
 
         public override string ToString()
         {

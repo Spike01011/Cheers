@@ -4,6 +4,7 @@ using Cheers.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cheers.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221012110613_changedDbInitAgain2")]
+    partial class changedDbInitAgain2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,28 +118,6 @@ namespace Cheers.Migrations
                             ShortDescription = "Best site",
                             Target = 0
                         });
-                });
-
-            modelBuilder.Entity("Cheers.Models.ImageCl", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int?>("IdeaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImageName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdeaId");
-
-                    b.ToTable("ImageCls");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -353,13 +333,6 @@ namespace Cheers.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Cheers.Models.ImageCl", b =>
-                {
-                    b.HasOne("Cheers.Models.Idea", null)
-                        .WithMany("ImageNames")
-                        .HasForeignKey("IdeaId");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -409,11 +382,6 @@ namespace Cheers.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Cheers.Models.Idea", b =>
-                {
-                    b.Navigation("ImageNames");
                 });
 #pragma warning restore 612, 618
         }

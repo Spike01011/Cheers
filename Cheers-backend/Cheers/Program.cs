@@ -22,6 +22,7 @@ namespace Cheers
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddScoped<IIdeeaDAO, IdeaDbDAO>();
             builder.Services.AddScoped<ICategoryDAO, CategoryDbDAO>();
+            builder.Services.AddScoped<IImageClDAO, ImageClDbDAO>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddCors(options =>
             {
