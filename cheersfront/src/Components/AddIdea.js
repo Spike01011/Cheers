@@ -41,7 +41,6 @@ export default function AddIdea() {
 		const newData = { ...data };
 		newData[e.target.id] = e.target.value;
 		setData(newData);
-		console.log(newData);
 	}
 
 	function submit(e) {

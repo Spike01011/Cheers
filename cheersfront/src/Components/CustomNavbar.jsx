@@ -7,6 +7,7 @@ import Contact from "./Contact";
 import AddIdea from "./AddIdea";
 import GetDetails from "./GetDetails";
 import AddPhoto from "./AddPhoto"
+import AddCategory from "./AddCategory";
 
 export default class CustomNavbar extends Component {
 	render() {
@@ -29,18 +30,15 @@ export default class CustomNavbar extends Component {
 								<Nav.Link as={Link} to={"/contact"}>
 									Contact
 								</Nav.Link>
-								<Nav.Link as={Link} to={"/add-idea"}>
-									Add Idea
-								</Nav.Link>
 								<NavDropdown
-									title="Dropdown"
+									title="Add"
 									id="basic-nav-dropdown"
 								>
-									<NavDropdown.Item href="#action/3.1">
-										Action
+									<NavDropdown.Item href="/add-idea">
+										Idea
 									</NavDropdown.Item>
-									<NavDropdown.Item href="#action/3.2">
-										Another action
+									<NavDropdown.Item href="/add-category">
+										Category
 									</NavDropdown.Item>
 									<NavDropdown.Item href="#action/3.3">
 										Something
@@ -62,6 +60,7 @@ export default class CustomNavbar extends Component {
 					<Route path="/add-idea" element={<AddIdea />} />
 					<Route path="/get-details/:id" element={<GetDetails />} />
 					<Route path="/add-photo/:id" element={<AddPhoto />} />
+					<Route path={"/add-category"} element={<AddCategory />} />
 				</Routes>
 			</div>
 		);
