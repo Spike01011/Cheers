@@ -29,11 +29,30 @@ export default function AddCategory(){
 	}
 
 	return(
-		<div>
-			<form>
-				<input onChange={(e) => handle(e)} id={"Name"} value={data.Name} placeholder={"Name"} type={"text"}/>
-				<button onClick={(e) => submit(e)}>Submit</button>
-			</form>
-		</div>
+		// <div>
+		// 	<form>
+		// 		<input onChange={(e) => handle(e)} id={"Name"} value={data.Name} placeholder={"Name"} type={"text"}/>
+		// 		<button onClick={(e) => submit(e)}>Submit</button>
+		// 	</form>
+		// </div>
+		<form className={"DetailsDiv"}
+		      style={{display: "flex", flexDirection: "column", width: "auto"}}>
+			<h1
+				className={"TitleClass"}
+				style={{
+					textAlign: "center",
+					paddingInline: "10%",
+					marginBottom: "50px",
+				}}
+			>
+				Add Category
+			</h1>
+			<input className={"DetailsDivContents align-self-md-center"}
+			       onChange={(e) => handle(e)} id={"Name"} value={data.Name} placeholder={"Name"} type={"text"}
+			       style={{width: "250px"}}
+			/>
+
+			<button className={"btn btn-info align-self-md-center"} onClick={(e) => submit(e)} style={{width: "100px"}}>Submit</button>
+		</form>
 	)
 }

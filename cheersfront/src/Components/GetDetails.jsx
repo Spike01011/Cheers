@@ -82,18 +82,8 @@ export default function GetDetails() {
 					<Modal.Body>{activePhoto.actualImg}</Modal.Body>
 					<Modal.Footer>
 						<button className={"btn btn-danger"} onClick={(e, imgId = activePhoto.identifier) => DeletePhoto(e, imgId)}>Delete</button>
-						{/*<Button variant="primary" onClick={handleClose}>*/}
-						{/*	Save Changes*/}
-						{/*</Button>*/}
 					</Modal.Footer>
 				</Modal>
-			{/*{data.map((x) => (*/}
-			{/*	<div key={x.Id}>*/}
-			{/*		<h1 key={`${x.Id}h1`}>{x.Name}</h1>*/}
-			{/*		<p key={`${x.Id}Name`}>Category: {x.Category}</p>*/}
-			{/*		<p key={`${x.Id}Desc`}>{x.Description}</p>*/}
-			{/*	</div>*/}
-			{/*))}*/}
 			<h1
 				className={"TitleClass"}
 				style={{

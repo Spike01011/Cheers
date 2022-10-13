@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {Modal} from "react-bootstrap";
 
 export default function AddIdea() {
 	const url = "https://localhost:7021/home/addidea";
@@ -38,7 +39,7 @@ export default function AddIdea() {
 	}, []);
 
 	function handle(e) {
-		const newData = { ...data };
+		const newData = {...data};
 		newData[e.target.id] = e.target.value;
 		setData(newData);
 	}
@@ -60,53 +61,119 @@ export default function AddIdea() {
 			});
 	}
 
-	return cat != null ? (
-		<div>
-			<form>
-				<input
-					onChange={(e) => handle(e)}
-					id={"Name"}
-					value={data.Name}
-					placeholder={"Name"}
-					type={"text"}
-				/>
-				<input
-					onChange={(e) => handle(e)}
-					id={"Description"}
-					value={data.Description}
-					placeholder={"Description"}
-					type={"text"}
-				/>
-				<input
-					onChange={(e) => handle(e)}
-					id={"ShortDescription"}
-					value={data.ShortDescription}
-					placeholder={"ShortDescription"}
-					type={"text"}
-				/>
-				<input
-					onChange={(e) => handle(e)}
-					id={"Target"}
-					value={data.Target}
-					placeholder={"MoneyTarget"}
-					type={"text"}
-				/>
-				<select
-					onChange={(e) => handle(e)}
-					id={"CategoryId"}
-					value={data.CategoryId}
-					placeholder={"Category"}
-				>
-					{cat.map((c) => (
-						<option key={c.id} value={c.id}>
-							{c.name}
-						</option>
-					))}
-				</select>
-				<button onClick={(e) => submit(e)}>Submit</button>
-			</form>
-		</div>
-	) : (
+	// return cat != null ? (
+	// 	<div>
+	// 		<form>
+	// 			<input
+	// 				onChange={(e) => handle(e)}
+	// 				id={"Name"}
+	// 				value={data.Name}
+	// 				placeholder={"Name"}
+	// 				type={"text"}
+	// 			/>
+	// 			<input
+	// 				onChange={(e) => handle(e)}
+	// 				id={"Description"}
+	// 				value={data.Description}
+	// 				placeholder={"Description"}
+	// 				type={"text"}
+	// 			/>
+	// 			<input
+	// 				onChange={(e) => handle(e)}
+	// 				id={"ShortDescription"}
+	// 				value={data.ShortDescription}
+	// 				placeholder={"ShortDescription"}
+	// 				type={"text"}
+	// 			/>
+	// 			<input
+	// 				onChange={(e) => handle(e)}
+	// 				id={"Target"}
+	// 				value={data.Target}
+	// 				placeholder={"MoneyTarget"}
+	// 				type={"text"}
+	// 			/>
+	// 			<select
+	// 				onChange={(e) => handle(e)}
+	// 				id={"CategoryId"}
+	// 				value={data.CategoryId}
+	// 				placeholder={"Category"}
+	// 			>
+	// 				{cat.map((c) => (
+	// 					<option key={c.id} value={c.id}>
+	// 						{c.name}
+	// 					</option>
+	// 				))}
+	// 			</select>
+	// 			<button onClick={(e) => submit(e)}>Submit</button>
+	// 		</form>
+	// 	</div>
+	// ) : (
+	// 	<p>Loading...</p>
+	// );
+	return cat != null ?
+
+		<form className={"DetailsDiv"}
+		      style={{display: "flex", flexDirection: "column"}}>
+			<h1
+				className={"TitleClass"}
+				style={{
+					textAlign: "center",
+					paddingInline: "10%",
+					marginBottom: "50px",
+				}}
+			>
+				Add Idea
+			</h1>
+			<input className={"DetailsDivContents"}
+			       onChange={(e) => handle(e)}
+			       id={"Name"}
+			       value={data.Name}
+			       placeholder={"Name"}
+			       type={"text"}
+			       style={{width: "250px"}}
+
+			/>
+			<select className={"DetailsDivContents"}
+			        style={{width: "250px"}}
+			        onChange={(e) => handle(e)}
+			        id={"CategoryId"}
+			        value={data.CategoryId}
+			        placeholder={"Category"}
+			>
+				{cat.map((c) => (
+					<option key={c.id} value={c.id}>
+						{c.name}
+					</option>
+				))}
+			</select>
+			<input className={"DetailsDivContents"}
+			       style={{width: "250px"}}
+			       onChange={(e) => handle(e)}
+			       id={"Target"}
+			       value={data.Target}
+			       placeholder={"MoneyTarget"}
+			       type={"text"}
+			/>
+			<input className={"DetailsDivContents"}
+			       onChange={(e) => handle(e)}
+			       id={"ShortDescription"}
+			       value={data.ShortDescription}
+			       placeholder={"ShortDescription"}
+			       type={"text"}
+			/>
+			<textarea
+				className={"DetailsDivContents"}
+			       onChange={(e) => handle(e)}
+			       id={"Description"}
+			       value={data.Description}
+			       placeholder={"Description"}
+			       type={"text"}
+			/>
+
+
+
+			<button className={"btn btn-info align-self-md-center"} onClick={(e) => submit(e)} style={{width: "100px"}}>Submit</button>
+		</form>
+		:
 		<p>Loading...</p>
-	);
 }
