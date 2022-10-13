@@ -45,15 +45,15 @@ namespace Cheers.Models.Daos
 
             var authorClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, signInModel.Email),
+                new Claim(ClaimTypes.Email, signInModel.Email),
                 new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var authKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
+            var authKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWTTOKEN:Secret"]));
 
             var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIuser"],
-                audience: _configuration["JWT:ValidAudience"],
+                issuer: _configuration["JWTTOKEN:ValidIuser"],
+                audience: _configuration["JWTTOKEN:ValidAudience"],
                 expires: DateTime.Now.AddDays(1),
                 claims: authorClaims,
                 signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256Signature));

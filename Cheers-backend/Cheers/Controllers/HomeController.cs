@@ -24,7 +24,6 @@ namespace Cheers.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Index()
         {
             List<Idea> ideas = _daosMananger.GetAllIdeas();
