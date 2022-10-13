@@ -8,7 +8,6 @@ using System.Diagnostics;
 
 namespace Cheers.Controllers
 {
-    //[EnableCors("CorsPolicy")]
     [Authorize]
     public class HomeController : Controller
     {

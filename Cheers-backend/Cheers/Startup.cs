@@ -60,29 +60,29 @@ namespace Cheers
                 options.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            //Authentication
+            ////Authentication
             services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(option =>
+            }).AddJwtBearer(tokenAna =>
                 {
-                    option.SaveToken = true;
-                    option.RequireHttpsMetadata = false;
-                    option.TokenValidationParameters =
+                    tokenAna.SaveToken = true;
+                    tokenAna.RequireHttpsMetadata = false;
+                    tokenAna.TokenValidationParameters =
                     new TokenValidationParameters()
                     {
-                        ValidateIssuer = true,
+                        ValidateIssuer = false, //// Why this should be false???!?!
                         ValidateAudience = true,
-                        ValidAudience = Configuration["JWTTOKEN:ValidAudience"],
-                        ValidIssuer = Configuration["JWTTOKEN:ValidIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWTTOKEN:Secret"]))
+                        ValidAudience = Configuration["JWT:ValidAudience"],
+                        ValidIssuer = Configuration["JWT:ValidIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                     };
                 });
 
@@ -118,14 +118,16 @@ namespace Cheers
                 //app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
+            app.UseAuthentication();
 
             app.UseRouting();
+
             app.UseCors("CorsPolicy");
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
