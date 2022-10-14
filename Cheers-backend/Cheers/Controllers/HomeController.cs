@@ -1,17 +1,14 @@
 ﻿using Cheers.Models;
+using Cheers.Models.Daos;
+using Cheers.Models.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Net.Http.Json;
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
-using Cheers.Models.Daos;
-using Cheers.Models.Interfaces;
-using Microsoft.AspNetCore.Cors;
 
 namespace Cheers.Controllers
 {
-    //[EnableCors("CorsPolicy")]
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -49,9 +46,6 @@ namespace Cheers.Controllers
         public IActionResult GetIdea(int id)
         {
             var idea = _daosMananger.GetIdea(id);
-            //var ideaList = new List<Idea>();
-            //ideaList.Add(idea);
-            //return Ok(JsonConvert.SerializeObject(ideaList));
             return Ok(JsonConvert.SerializeObject(idea));
         }
 

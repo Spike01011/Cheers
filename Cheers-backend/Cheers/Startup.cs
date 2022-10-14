@@ -1,13 +1,12 @@
-﻿using System;
-using System.Threading.Tasks;
-using Cheers.Data;
+﻿using Cheers.Data;
 using Cheers.Models;
 using Cheers.Models.Daos;
 using Cheers.Models.Interfaces;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
@@ -26,7 +25,7 @@ namespace Cheers
         {
             IdentityResult roleResult;
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             string[] roleNames = { "Admin", "User" };
             foreach (var roleName in roleNames)
             {
@@ -36,7 +35,7 @@ namespace Cheers
                     roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
-            var user = new IdentityUser()
+            var user = new ApplicationUser()
             {
                 UserName = "admin@admin.admin",
                 Email = "admin@admin.admin",
@@ -44,10 +43,10 @@ namespace Cheers
             string userPwd = "Admin.1234";
             await CreateUser(user, userPwd, serviceProvider);
         }
-        private async Task CreateUser(IdentityUser user, string pass, IServiceProvider serviceProvider)
+        private async Task CreateUser(ApplicationUser user, string pass, IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
             var checkUser = await userManager.FindByEmailAsync(user.Email);
             if (checkUser == null)
             {
@@ -65,12 +64,39 @@ namespace Cheers
                 options.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            ////Authentication
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(tokenAna =>
+                {
+                    tokenAna.SaveToken = true;
+                    tokenAna.RequireHttpsMetadata = false;
+                    tokenAna.TokenValidationParameters =
+                    new TokenValidationParameters()
+                    {
+                        ValidateIssuer = false, //// Why this should be false???!?!
+                        ValidateAudience = true,
+                        ValidAudience = Configuration["JWT:ValidAudience"],
+                        ValidIssuer = Configuration["JWT:ValidIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                    };
+                });
+
             services.AddScoped<IIdeeaDAO, IdeaDbDAO>();
             services.AddScoped<ICategoryDAO, CategoryDbDAO>();
+            services.AddScoped<IServiceProvider, ServiceProvider>();
+            services.AddScoped<IServiceCollection, ServiceCollection>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IImageClDAO, ImageClDbDAO>();
+
             services.AddControllersWithViews();
             services.AddCors(options =>
             {
@@ -80,7 +106,7 @@ namespace Cheers
                 });
             });
             services.AddHttpContextAccessor();
-            CreateRoles(services.BuildServiceProvider()).Wait();
+            //CreateRoles(services.BuildServiceProvider()).Wait(); NU MERGE ASTA
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -103,11 +129,12 @@ namespace Cheers
                 RequestPath = "/Images"
             });
 
+            app.UseAuthentication();
 
             app.UseRouting();
+
             app.UseCors("CorsPolicy");
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -115,7 +142,6 @@ namespace Cheers
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapRazorPages();
             });
         }
     }
