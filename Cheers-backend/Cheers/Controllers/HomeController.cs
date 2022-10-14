@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace Cheers.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,6 +24,14 @@ namespace Cheers.Controllers
 
         [HttpGet]
         public IActionResult Index()
+        {
+            List<Idea> ideas = _daosMananger.GetAllIdeas();
+            return Ok(JsonConvert.SerializeObject(ideas));
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult IndexJWT()
         {
             List<Idea> ideas = _daosMananger.GetAllIdeas();
             return Ok(JsonConvert.SerializeObject(ideas));
