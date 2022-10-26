@@ -9,7 +9,7 @@ using System.Diagnostics;
 namespace Cheers.Controllers
 {
     //[EnableCors("CorsPolicy")]
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
