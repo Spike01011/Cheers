@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./Home";
-import About from "./About";
-import Contact from "./Contact";
 import AddIdea from "./AddIdea";
 import GetDetails from "./GetDetails";
 import AddPhoto from "./AddPhoto"
+import LogInComponent from "../pages/LogInPage/LogInComponent";
+import SignUpComponent from "../pages/SignUpPage/SignUpComponent";
+import About from "./About";
+import Contact from "./Contact";
 
 export default class CustomNavbar extends Component {
 	render() {
@@ -50,18 +52,26 @@ export default class CustomNavbar extends Component {
 										Separated link
 									</NavDropdown.Item>
 								</NavDropdown>
+								<Nav.Link as={Link} to={"/SignUp"}>
+									SignUp
+								</Nav.Link>
+								<Nav.Link as={Link} to={"/LogIn"}>
+									LogIn
+								</Nav.Link>
 							</Nav>
 						</Navbar.Collapse>
 					</Container>
 				</Navbar>
 				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/home" element={<Home />} />
-					<Route path="/about" element={<About />} />
-					<Route path="/contact" element={<Contact />} />
-					<Route path="/add-idea" element={<AddIdea />} />
-					<Route path="/get-details/:id" element={<GetDetails />} />
-					<Route path="/add-photo/:id" element={<AddPhoto />} />
+					<Route path="/" element={<Home/>}/>
+					<Route path="/home" element={<Home/>}/>
+					<Route path="/about" element={<About/>}/>
+					<Route path="/LogIn" element={<LogInComponent/>}/>
+					<Route path="/SignUp" element={<SignUpComponent/>}/>
+					<Route path="/contact" element={<Contact/>}/>
+					<Route path="/add-idea" element={<AddIdea/>}/>
+					<Route path="/get-details/:id" element={<GetDetails/>}/>
+					<Route path="/add-photo/:id" element={<AddPhoto/>}/>
 				</Routes>
 			</div>
 		);
