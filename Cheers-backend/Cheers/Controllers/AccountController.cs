@@ -34,13 +34,13 @@ namespace Cheers.Controllers
         }
 
         [HttpPost]
-        [Route("SignIn")]
+        [Route("LogIn")]
         public async Task<IActionResult> LogIn([FromBody] SingnInModel signUpModel)
         {
             var logInResopnse = await _accountRepository.LogInAsync(signUpModel);
             if (string.IsNullOrEmpty(logInResopnse))
             {
-                return Unauthorized();
+                return Unauthorized("LogIn Error");
             }
             return Ok(logInResopnse);
         }

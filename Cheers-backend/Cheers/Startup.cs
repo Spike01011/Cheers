@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
 
 namespace Cheers
 {
@@ -60,29 +64,29 @@ namespace Cheers
                 options.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddDefaultIdentity<ApplicationUser>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            //Authentication
+            ////Authentication
             services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(option =>
+            }).AddJwtBearer(tokenAna =>
                 {
-                    option.SaveToken = true;
-                    option.RequireHttpsMetadata = false;
-                    option.TokenValidationParameters =
+                    tokenAna.SaveToken = true;
+                    tokenAna.RequireHttpsMetadata = false;
+                    tokenAna.TokenValidationParameters =
                     new TokenValidationParameters()
                     {
-                        ValidateIssuer = true,
+                        ValidateIssuer = false, //// Why this should be false???!?!
                         ValidateAudience = true,
-                        ValidAudience = Configuration["JWTTOKEN:ValidAudience"],
-                        ValidIssuer = Configuration["JWTTOKEN:ValidIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWTTOKEN:Secret"]))
+                        ValidAudience = Configuration["JWT:ValidAudience"],
+                        ValidIssuer = Configuration["JWT:ValidIssuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                     };
                 });
 
@@ -119,13 +123,18 @@ namespace Cheers
             }
 
             //app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-
-            app.UseRouting();
-            app.UseCors("CorsPolicy");
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "images")),
+                RequestPath = "/Images"
+            });
 
             app.UseAuthentication();
+
+            app.UseRouting();
+
+            app.UseCors("CorsPolicy");
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -85,9 +85,20 @@ namespace Cheers.Models.Daos
             _imageClDbDAO.Add(img);
         }
 
-        private void DeleteImage(int id)
+        public void DeleteImage(int id)
         {
             _imageClDbDAO.Delete(id);
+        }
+
+        public List<ImageCl> GetImagesForIdea(int ideaId)
+        {
+            return _imageClDbDAO.GetByIdeaId(ideaId);
+        }
+
+        public bool CategoryExists(Category category)
+        {
+            var check = _categoryDbDAO.GetByName(category.Name);
+            return (check != null);
         }
     }
 }

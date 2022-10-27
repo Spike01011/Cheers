@@ -22,6 +22,11 @@ public class ImageClDbDAO : IImageClDAO
         return _appDbContext.ImageCls.Where(x => x.Id == id).FirstOrDefault();
     }
 
+    public List<ImageCl> GetByIdeaId(int ideaId)
+    {
+        return _appDbContext.ImageCls.Where(x => x.IdeaId == ideaId).ToList();
+    }
+
     public void Edit(int id)
     {
         throw new NotImplementedException();
@@ -39,7 +44,7 @@ public class ImageClDbDAO : IImageClDAO
 
     public void Add(ImageCl entity)
     {
-        _appDbContext.Add(entity);
+            _appDbContext.Add(entity);
         _appDbContext.SaveChanges();
     }
 }

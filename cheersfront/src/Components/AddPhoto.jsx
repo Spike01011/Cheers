@@ -1,14 +1,17 @@
 import React, {useState} from "react";
 import Api from "../Utils/Api";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export default function Employee() {
 
-	const defaultImageSrc = '/img/default-image.png'
+	const defaultImageSrc = '/img/default-image.png';
+	const reactUrl = window.location.href;
+	const reactUrlLength = reactUrl.split("/").length;
+	const id = reactUrl.split("/").at(reactUrlLength - 1);
 
 	const initialValues = {
-		ideaId: 0,
-		imageName: "",
+		ideaId: id,
 		imageSrc: defaultImageSrc,
 		imageFile:null,
 	}
@@ -76,7 +79,6 @@ export default function Employee() {
 			const formData = new FormData();
 			formData.append('ideaId', values.ideaId)
 			formData.append('imageSrc', values.imageSrc)
-			formData.append('imageName', values.imageName)
 			formData.append('imageFile', values.imageFile)
 			PostImage(formData, resetForm)
 		}

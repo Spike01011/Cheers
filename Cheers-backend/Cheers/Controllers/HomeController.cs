@@ -8,8 +8,7 @@ using System.Diagnostics;
 
 namespace Cheers.Controllers
 {
-    //[EnableCors("CorsPolicy")]
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,8 +23,15 @@ namespace Cheers.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Index()
+        {
+            List<Idea> ideas = _daosMananger.GetAllIdeas();
+            return Ok(JsonConvert.SerializeObject(ideas));
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult IndexJWT()
         {
             List<Idea> ideas = _daosMananger.GetAllIdeas();
             return Ok(JsonConvert.SerializeObject(ideas));
@@ -53,14 +59,32 @@ namespace Cheers.Controllers
 
         public IActionResult AddCategory([FromBody] Category category)
         {
-            throw new NotImplementedException();
+            var check = _daosMananger.CategoryExists(category);
+            if (!_daosMananger.CategoryExists(category))
+            {
+                _daosMananger.AddCategory(category);
+            }
+
+            return Ok();
+
         }
 
-        public async Task<IActionResult> AddImage([FromForm]ImageCl img)
+        public IActionResult AddImage([FromForm]ImageCl img)
         {
-            img.ImageName = await SaveImage(img.ImageFile);
+            img.Image = SaveImage(img.ImageFile);
             _daosMananger.AddImage(img);
             return Ok();
+        }
+        [HttpDelete]
+        public IActionResult RemoveImage(int id)
+        {
+            _daosMananger.DeleteImage(id);
+            return Ok();
+        }
+
+        public IActionResult GetImagesForIdea(int id)
+        {
+            return Ok(JsonConvert.SerializeObject(_daosMananger.GetImagesForIdea(id)));
         }
 
         public IActionResult Privacy()
@@ -76,17 +100,24 @@ namespace Cheers.Controllers
         }
 
         [NonAction]
-        public async Task<string> SaveImage(IFormFile imageFile)
+        public string SaveImage(IFormFile imageFile)
         {
-            string imageName =new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
-            var imagePath = Path.Combine(_hostEnv.ContentRootPath, "Images", imageName);
-            using (var fileStream = new FileStream(imagePath, FileMode.Create))
-            {
-                await imageFile.CopyToAsync(fileStream);
-            }
+            string base64string;
+                using (MemoryStream _mStream = new MemoryStream())
+                {
+                    imageFile.CopyTo(_mStream);
+                    byte[] _imageBytes = _mStream.ToArray();
+                    base64string = Convert.ToBase64String(_imageBytes);
+                    return base64string;
+                }
+            //string imageName =new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
+            //imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+            //var imagePath = Path.Combine(_hostEnv.ContentRootPath, "Images", imageName);
+            //using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            //{
+            //    await imageFile.CopyToAsync(fileStream);
+            //}
 
-            return imageName;
         }
     }
 }

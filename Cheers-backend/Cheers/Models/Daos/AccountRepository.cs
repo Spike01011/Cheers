@@ -45,7 +45,7 @@ namespace Cheers.Models.Daos
 
             var authorClaims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, signInModel.Email),
+                new Claim(ClaimTypes.Email, signInModel.Email),
                 new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

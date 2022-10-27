@@ -1,6 +1,16 @@
 ﻿using Cheers.Data;
 using Cheers.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Cheers.Models.Daos
 {
@@ -37,12 +47,12 @@ namespace Cheers.Models.Daos
 
         public Idea Get(int id)
         {
-            return _appDbContext.Ideas.Include(x => x.Category ).Include(x => x.ImageNames).FirstOrDefault(idea => idea.Id == id);
+            return _appDbContext.Ideas.Include(x => x.Category).FirstOrDefault(idea => idea.Id == id);
         }
 
         public List<Idea> GetAll()
         {
-            return _appDbContext.Ideas.Include(x => x.Category).Include(x => x.ImageNames).ToList();
+            return _appDbContext.Ideas.Include(x => x.Category).ToList();
         }
 
         public List<Idea> GetByCategoryId(int categoryId)

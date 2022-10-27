@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 
 namespace Cheers.Models
@@ -22,7 +23,7 @@ namespace Cheers.Models
         public Category Category { get; set; }
 
         public int Target { get; set; }
-        public List<ImageCl> ImageNames { get; set; }
+        [NotMapped]public List<ImageCl> Images { get; set; }
 
         public override string ToString()
         {
