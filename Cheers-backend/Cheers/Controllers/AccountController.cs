@@ -1,5 +1,6 @@
 ﻿using Cheers.Models;
 using Cheers.Models.Interfaces;
+using Cheers.Services.EmailService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cheers.Controllers
@@ -9,10 +10,12 @@ namespace Cheers.Controllers
     public class AccountController : Controller
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly IEmailService _emailService;
 
-        public AccountController(IAccountRepository accountRepository)
+        public AccountController(IAccountRepository accountRepository, IEmailService emailService)
         {
             _accountRepository = accountRepository;
+            _emailService = emailService;
         }
 
         [HttpGet]
@@ -28,6 +31,7 @@ namespace Cheers.Controllers
             var model = await _accountRepository.SignUpAsync(signUpModel);
             if (model.Succeeded)
             {
+                //_emailService.SendEmail(new UseExtensions()..);
                 return Ok(model.Succeeded);
             }
             return Unauthorized("De ce nu merge?");
