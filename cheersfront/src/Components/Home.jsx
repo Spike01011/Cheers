@@ -1,17 +1,10 @@
 import React, {useEffect, useState} from "react";
-import Api from "../Utils/Api";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import {Link} from "react-router-dom";
-import Box from '@mui/material/Box';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
-import {Col, Row} from "react-bootstrap";
-import {getTableRowUtilityClass} from "@mui/material";
-import ReportWebVitals from "../reportWebVitals";
 import axios from "axios";
-
+import {Link} from "react-router-dom";
+import {Col, Row} from "react-bootstrap";
 
 const Home = () => {
     const [data, setData] = useState([]);
@@ -62,9 +55,6 @@ const Home = () => {
                                     {'"a benevolent smile"'}
                                 </Typography>
                             </CardContent>
-                            {/*<CardActions>*/}
-                            {/*    <Button size="small">Learn More</Button>*/}
-                            {/*</CardActions>*/}
                         </Card>
                     </Col>
                 ))}

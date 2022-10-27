@@ -1,4 +1,4 @@
-import React, {Component, useEffect, useState} from "react";
+import React, {Component} from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./Home";
@@ -12,7 +12,7 @@ import SignUpComponent from "../pages/SignUpPage/SignUpComponent";
 import About from "./About";
 import Contact from "./Contact";
 
-
+// Nu clasa
 export default class CustomNavbar extends Component {
 	render() {
 		window.addEventListener("storage", () => {
