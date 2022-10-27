@@ -16,13 +16,7 @@ namespace Cheers.Controllers
         {
             _accountRepository = accountRepository;
         }
-
-        [HttpGet]
-        public string Ana()
-        {
-            return "Anare mrere";
-        }
-
+        
         [HttpPost]
         [Route("SignUp")]
         public async Task<IActionResult> SignUp([FromBody] SignUpModel signUpModel)
