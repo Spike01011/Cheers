@@ -59,7 +59,12 @@ namespace Cheers.Models.Daos
                 signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256Signature));
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-
         }
+
+        public async Task LogOutAsync()
+        {
+            _signInManager.SignOutAsync().Wait();
+        }
+
     }
 }

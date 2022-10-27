@@ -38,6 +38,7 @@ namespace Cheers.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult AddIdea([FromBody] Idea idea)
         {
             _daosMananger.AddIdea(idea);
@@ -56,7 +57,7 @@ namespace Cheers.Controllers
             var idea = _daosMananger.GetIdea(id);
             return Ok(JsonConvert.SerializeObject(idea));
         }
-
+        [Authorize]
         public IActionResult AddCategory([FromBody] Category category)
         {
             var check = _daosMananger.CategoryExists(category);
@@ -68,13 +69,14 @@ namespace Cheers.Controllers
             return Ok();
 
         }
-
+        [Authorize]
         public IActionResult AddImage([FromForm]ImageCl img)
         {
             img.Image = SaveImage(img.ImageFile);
             _daosMananger.AddImage(img);
             return Ok();
         }
+        [Authorize]
         [HttpDelete]
         public IActionResult RemoveImage(int id)
         {
@@ -82,6 +84,7 @@ namespace Cheers.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         public IActionResult GetImagesForIdea(int id)
         {
             return Ok(JsonConvert.SerializeObject(_daosMananger.GetImagesForIdea(id)));

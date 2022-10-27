@@ -1,6 +1,8 @@
 ﻿using Cheers.Models;
 using Cheers.Models.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cheers.Controllers
 {
@@ -42,7 +44,15 @@ namespace Cheers.Controllers
             {
                 return Unauthorized("LogIn Error");
             }
-            return Ok(logInResopnse);
+            return Ok(new LoginModel{Email = signUpModel.Email, Token = logInResopnse});
+        }
+
+        [HttpGet]
+        [Route("LogOut")]
+        public async Task<IActionResult> LogOut()
+        {
+            _accountRepository.LogOutAsync().Wait();
+            return Ok();
         }
     }
 }

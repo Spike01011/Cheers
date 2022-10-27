@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component, useEffect, useState} from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./Home";
@@ -8,9 +8,52 @@ import AddIdea from "./AddIdea";
 import GetDetails from "./GetDetails";
 import AddPhoto from "./AddPhoto"
 import AddCategory from "./AddCategory";
+import Logout from "./Logout";
+import Login from "./Login";
+import Register from "./Register";
+import AccountPage from "./AccountPage";
+
 
 export default class CustomNavbar extends Component {
 	render() {
+		window.addEventListener("storage", () => {
+			this.forceUpdate();
+		})
+		function AccountDropDown(){
+			if (localStorage.getItem("token") != null){
+				return (
+					<NavDropdown
+						title={localStorage.getItem("user")}
+						id="account-dropdown"
+					>
+						<NavDropdown.Item href="/account-page">
+							Account Page
+						</NavDropdown.Item>
+						<NavDropdown.Divider />
+						<NavDropdown.Item href="/logout">
+							Log Out
+						</NavDropdown.Item>
+					</NavDropdown>
+				)
+			}
+			else {
+				return (
+					<NavDropdown
+						title="Account"
+						id="account-dropdown"
+					>
+						<NavDropdown.Item href="/login">
+							Log In
+						</NavDropdown.Item>
+						<NavDropdown.Divider />
+						<NavDropdown.Item href="/register">
+							Register
+						</NavDropdown.Item>
+					</NavDropdown>
+				)
+			}
+		}
+
 		return (
 			<div>
 				<Navbar bg="dark" variant={"dark"} expand="lg">
@@ -48,6 +91,7 @@ export default class CustomNavbar extends Component {
 										Separated link
 									</NavDropdown.Item>
 								</NavDropdown>
+								{AccountDropDown()}
 							</Nav>
 						</Navbar.Collapse>
 					</Container>
@@ -61,6 +105,10 @@ export default class CustomNavbar extends Component {
 					<Route path="/get-details/:id" element={<GetDetails />} />
 					<Route path="/add-photo/:id" element={<AddPhoto />} />
 					<Route path={"/add-category"} element={<AddCategory />} />
+					<Route path={"/register"} element={<Register/> } />
+					<Route path={"/login"} element={<Login/> } />
+					<Route path={"/logout"} element={<Logout/> } />
+					<Route path={"/account-page"} element={<AccountPage/> } />
 				</Routes>
 			</div>
 		);

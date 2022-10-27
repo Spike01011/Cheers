@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import {Col, Row} from "react-bootstrap";
 import {getTableRowUtilityClass} from "@mui/material";
 import ReportWebVitals from "../reportWebVitals";
+import axios from "axios";
 
 
 const Home = () => {
@@ -18,7 +19,9 @@ const Home = () => {
     useEffect(() => {
         const get = async () => {
             try {
-                const response = await Api.get("/");
+                const response = await axios.get("https://localhost:7021/home/indexjwt", {headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`
+                }});
                 const responseJson = await response.data;
                 await setData(responseJson);
             } catch (e) {
