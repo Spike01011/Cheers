@@ -22,7 +22,9 @@ export default function Employee() {
 
 	const PostImage = (formData, onSucces) =>{
 		var url = "/Home/AddImage";
-		Api.post(url, formData)
+		Api.post(url, formData, {headers: {
+			Authorization: `Bearer ${localStorage.getItem("token")}`
+			}})
 			.then(res => {
 			onSucces()
 		})

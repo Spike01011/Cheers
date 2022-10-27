@@ -12,7 +12,7 @@ const Home = () => {
     useEffect(() => {
         const get = async () => {
             try {
-                const response = await axios.get("https://localhost:7021/home/indexjwt", {headers: {
+                const response = await axios.get("https://localhost:7021/home/index", {headers: {
 					Authorization: `Bearer ${localStorage.getItem("token")}`
                 }});
                 const responseJson = await response.data;

@@ -22,7 +22,9 @@ export default function AddCategory(){
 		axios
 			.post(url, {
 				Name: data.Name,
-			})
+			}, {headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`
+				}})
 			.then((res) => {
 				navigate("/");
 			});

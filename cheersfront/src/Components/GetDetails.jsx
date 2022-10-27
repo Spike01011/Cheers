@@ -69,7 +69,9 @@ export default function GetDetails() {
 	const DeletePhoto = (e, imgId) => {
 		e.preventDefault();
 		axios
-			.delete(`${deletePhotoUrl}/${imgId}`)
+			.delete(`${deletePhotoUrl}/${imgId}`, {headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`
+				}})
 			.then((res) => {
 				console.log(res.data);
 				window.location.reload();

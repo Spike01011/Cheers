@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -15,6 +14,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 
 function Copyright(props) {
@@ -38,9 +39,41 @@ function Copyright(props) {
 //     changeBackground('red')
 // });
 
+
+
 const theme = createTheme();
 
 const SignUpComponent = () => {
+	const url = "https://localhost:7021/account/signup";
+	const navigate = useNavigate();
+
+	const [data, setData] = useState({
+		Email: "",
+		Password: "",
+		ConfirmPassword: "",
+	})
+
+	function handle(e) {
+		const newData = {...data};
+		newData[e.target.id] = e.target.value;
+		setData(newData);
+		console.log(data);
+	}
+
+	function submit(e) {
+		e.preventDefault();
+		axios
+			.post(url, {
+				Username: data.Email,
+				Email: data.Email,
+				Password: data.Password,
+				ConfirmPassword: data.ConfirmPassword,
+			})
+			.then((res) => {
+				console.log(res.data);
+				navigate("/");
+			});
+	}
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -68,7 +101,7 @@ const SignUpComponent = () => {
                     <Typography component="h1" variant="h5">
                         Sign up
                     </Typography>
-                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 3}}>
+                    <Box component="form" noValidate onSubmit={(e) => submit(e)} sx={{mt: 3}}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 <TextField
@@ -95,32 +128,35 @@ const SignUpComponent = () => {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="email"
+                                    id="Email"
                                     label="Email Address"
-                                    name="email"
+                                    name="Email"
                                     autoComplete="email"
+                                    onChange={(e) => handle(e)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
                                     fullWidth
-                                    name="password"
+                                    name="Password"
                                     label="Password"
                                     type="password"
-                                    id="password"
+                                    id="Password"
                                     autoComplete="new-password"
+                                    onChange={(e) => handle(e)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField
                                     required
                                     fullWidth
-                                    name="secondPassword"
+                                    name="ConfirmPassword"
                                     label="Second Password"
                                     type="password"
-                                    id="secondPassword"
+                                    id="ConfirmPassword"
                                     autoComplete="new-password"
+                                    onChange={(e) => handle(e)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -131,7 +167,7 @@ const SignUpComponent = () => {
                             </Grid>
                         </Grid>
                         <Fab color="primary" aria-label="add">
-                            <AddIcon/>
+						+
                         </Fab>
                         <Button
                             type="submit"

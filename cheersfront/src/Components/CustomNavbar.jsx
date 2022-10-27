@@ -11,6 +11,7 @@ import LogInComponent from "../pages/LogInPage/LogInComponent";
 import SignUpComponent from "../pages/SignUpPage/SignUpComponent";
 import About from "./About";
 import Contact from "./Contact";
+import AddCategory from "./AddCategory";
 
 // Nu clasa
 export default class CustomNavbar extends Component {
@@ -90,6 +91,7 @@ export default class CustomNavbar extends Component {
 										Separated link
 									</NavDropdown.Item>
 								</NavDropdown>
+								{AccountDropDown()}
 							</Nav>
 						</Navbar.Collapse>
 					</Container>

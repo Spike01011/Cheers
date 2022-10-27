@@ -12,6 +12,9 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import axios from "axios";
 
 function Copyright(props) {
     return (
@@ -29,6 +32,34 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+	const url = "https://localhost:7021/account/login";
+	function handle(e) {
+		const newData = {...data};
+		newData[e.target.id] = e.target.value;
+		setData(newData);
+	}
+
+	function submit(e) {
+		e.preventDefault();
+		axios
+			.post(url, {
+				Email: data.Email,
+				Password: data.Password,
+			},)
+			.then((res) => {
+				console.log(res.data);
+				localStorage.setItem("token", res.data.token);
+				localStorage.setItem("user", res.data.email);
+				window.dispatchEvent(new Event("storage"))
+				navigate("/");
+			});
+	}
+	const navigate = useNavigate();
+
+	const [data, setData] = useState({
+		Email: "",
+		Password: "",
+	})
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -56,26 +87,28 @@ export default function SignIn() {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={(e) => submit(e)} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
+                            id="Email"
                             label="Email Address"
-                            name="email"
+                            name="Email"
                             autoComplete="email"
                             autoFocus
+                            onChange={(e) => handle(e)}
                         />
                         <TextField
                             margin="normal"
                             required
                             fullWidth
-                            name="password"
+                            name="Password"
                             label="Password"
                             type="password"
-                            id="password"
+                            id="Password"
                             autoComplete="current-password"
+                            onChange={(e) => handle(e)}
                         />
                         {/*Il Pastram?*/}
                         <FormControlLabel
