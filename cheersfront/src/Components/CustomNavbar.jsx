@@ -2,16 +2,15 @@ import React, {Component, useEffect, useState} from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./Home";
-import About from "./About";
-import Contact from "./Contact";
 import AddIdea from "./AddIdea";
 import GetDetails from "./GetDetails";
-import AddPhoto from "./AddPhoto"
-import AddCategory from "./AddCategory";
+import AddPhoto from "./AddPhoto";
 import Logout from "./Logout";
-import Login from "./Login";
-import Register from "./Register";
 import AccountPage from "./AccountPage";
+import LogInComponent from "../pages/LogInPage/LogInComponent";
+import SignUpComponent from "../pages/SignUpPage/SignUpComponent";
+import About from "./About";
+import Contact from "./Contact";
 
 
 export default class CustomNavbar extends Component {
@@ -91,7 +90,6 @@ export default class CustomNavbar extends Component {
 										Separated link
 									</NavDropdown.Item>
 								</NavDropdown>
-								{AccountDropDown()}
 							</Nav>
 						</Navbar.Collapse>
 					</Container>
@@ -105,8 +103,8 @@ export default class CustomNavbar extends Component {
 					<Route path="/get-details/:id" element={<GetDetails />} />
 					<Route path="/add-photo/:id" element={<AddPhoto />} />
 					<Route path={"/add-category"} element={<AddCategory />} />
-					<Route path={"/register"} element={<Register/> } />
-					<Route path={"/login"} element={<Login/> } />
+					<Route path={"/register"} element={<SignUpComponent/> } />
+					<Route path={"/login"} element={<LogInComponent/> } />
 					<Route path={"/logout"} element={<Logout/> } />
 					<Route path={"/account-page"} element={<AccountPage/> } />
 				</Routes>
