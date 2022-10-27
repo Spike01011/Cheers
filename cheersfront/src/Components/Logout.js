@@ -1,4 +1,3 @@
-import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
@@ -9,7 +8,6 @@ export default function Logout() {
 	// localStorage.clear()
 	localStorage.removeItem("token");
 	localStorage.removeItem("user");
-	//
 	window.dispatchEvent(new Event("storage"));
 	return navigate("/");
 }
