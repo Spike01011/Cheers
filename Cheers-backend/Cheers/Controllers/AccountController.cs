@@ -27,7 +27,7 @@ namespace Cheers.Controllers
             var model = await _accountRepository.SignUpAsync(signUpModel);
             if (model.Succeeded)
             {
-                //_emailService.SendEmail(new UseExtensions()..);
+                _emailService.SendEmail(signUpModel.Email);
                 return Ok(model.Succeeded);
             }
             return Unauthorized("De ce nu merge?");

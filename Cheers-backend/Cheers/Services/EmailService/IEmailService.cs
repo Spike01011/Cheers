@@ -4,6 +4,6 @@ namespace Cheers.Services.EmailService
 {
     public interface IEmailService
     {
-        void SendEmail(EmailDto emailDto);
+        void SendEmail(string userEmail);
     }
 }
