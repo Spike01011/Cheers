@@ -3,7 +3,7 @@ using Stripe;
 
 namespace Cheers.Services.PaymentService
 {
-    public class PaymentService
+    public class PaymentService : IPaymentService
     {
         private readonly IConfiguration _configuration;
         public PaymentService(IConfiguration configuration)
@@ -16,7 +16,7 @@ namespace Cheers.Services.PaymentService
             StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
             PaymentIntentService service = new();
             PaymentIntent intent = new();
-            long total = 0;
+            long total = 0; // Nu asa :)) trebuie sa le iei din cart sau din order
             if (string.IsNullOrEmpty(cart.PaymentIntentId))
             {
                 var options = new PaymentIntentCreateOptions

@@ -3,6 +3,7 @@ using Cheers.Models;
 using Cheers.Models.Daos;
 using Cheers.Models.Interfaces;
 using Cheers.Services.EmailService;
+using Cheers.Services.PaymentService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -67,7 +68,7 @@ namespace Cheers
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            ////Authentication
+            //Authentication
             services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -80,7 +81,7 @@ namespace Cheers
                     tokenAna.TokenValidationParameters =
                     new TokenValidationParameters()
                     {
-                        ValidateIssuer = false, //// Why this should be false???!?!
+                        ValidateIssuer = false,
                         ValidateAudience = true,
                         ValidAudience = Configuration["JWT:ValidAudience"],
                         ValidIssuer = Configuration["JWT:ValidIssuer"],
@@ -95,6 +96,7 @@ namespace Cheers
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IImageClDAO, ImageClDbDAO>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             services.AddControllersWithViews();
             services.AddCors(options =>
