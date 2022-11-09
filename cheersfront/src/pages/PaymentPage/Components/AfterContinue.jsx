@@ -113,7 +113,7 @@ const AfterContinue = () => {
                                     className="hrt-checkbox-field-label"
                                     htmlFor="email-list">Get occasional
                                     marketing
-                                    updates from GoFundMe. You may unsubscribe
+                                    updates from Cheers. You may unsubscribe
                                     at any
                                     time.
                                 </label>
@@ -177,7 +177,7 @@ const AfterContinue = () => {
                 <div className="text-small color-gray mt3x mb0">By continuing, you
                     agree with <a className="hrt-link hrt-link--gray-dark"
                                   id="link-donate-terms" target="_blank"
-                                  rel="noreferrer" href="/c/terms">GoFundMe
+                                  rel="noreferrer" href="/c/terms">Cheers
                         terms</a> and <a
                         className="hrt-link hrt-link--gray-dark"
                         id="link-donate-privacy" target="_blank" rel="noreferrer"

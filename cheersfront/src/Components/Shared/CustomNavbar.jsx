@@ -6,14 +6,13 @@ import AddIdea from "../AddIdea";
 import GetDetails from "../GetDetails";
 import AddPhoto from "../AddPhoto";
 import Logout from "../Logout";
-import AccountPage from "../AccountPage";
 import LogInComponent from "../../pages/LogInPage/LogInComponent";
 import SignUpComponent from "../../pages/SignUpPage/SignUpComponent";
-import About from "../About";
-import Contact from "../Contact";
 import AddCategory from "../AddCategory";
 import PaymentComponent from "../../pages/PaymentPage/PaymentComponent";
-import Ana from "../../pages/PaymentPage/Ana";
+import About from "../About";
+import AccountPage from "../AccountPage";
+import Contact from "../Contact";
 
 // Nu clasa
 export default class CustomNavbar extends Component {
@@ -78,10 +77,6 @@ export default class CustomNavbar extends Component {
                                 <Nav.Link as={Link} to={"/payment"}>
                                     PaymentTest
                                 </Nav.Link>
-                                <Nav.Link as={Link} to={"/ana"}>
-                                    Ana
-                                </Nav.Link>
-
                                 <NavDropdown
                                     title="Add"
                                     id="basic-nav-dropdown"
@@ -115,7 +110,6 @@ export default class CustomNavbar extends Component {
                     <Route path="/add-photo/:id" element={<AddPhoto/>}/>
                     <Route path={"/add-category"} element={<AddCategory/>}/>
                     <Route path={"/payment"} element={<PaymentComponent/>}/>
-                    <Route path={"/ana"} element={<Ana/>}/>
                     {/*<Route path={"/payment/:id"} element={<PaymentComponent/>}/>*/}
                     <Route path={"/register"} element={<SignUpComponent/>}/>
                     <Route path={"/login"} element={<LogInComponent/>}/>
