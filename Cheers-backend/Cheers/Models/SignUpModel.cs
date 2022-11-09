@@ -14,10 +14,6 @@ namespace Cheers.Models
         public string Password { get; set; }
         [Required]
         public string ConfirmPassword { get; set; }
-        public SignUpModel()
-        {
-
-        }
 
         public SignUpModel(string userName, string email, string password)
         {

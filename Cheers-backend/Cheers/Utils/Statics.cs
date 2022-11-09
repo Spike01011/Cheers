@@ -11,5 +11,10 @@
         {
             return "SignUp Cheers Confirmation Successed";
         }
+
+        public static string GetEmaiPayment()
+        {
+            return "<h1>Payment succesfull!</h1></br><a href='http://localhost:3000/'>Go to the Site</a>";
+        }
     }
 }

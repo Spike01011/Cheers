@@ -32,9 +32,5 @@ namespace Cheers.Services.EmailService
             smtp.Send(email);
             smtp.Disconnect(true);
         }
-        private string GetEmaiBody()
-        {
-            return "<h1>Go to Cheers.com</h1></br><p>https://localhost:7021/</p>";
-        }
     }
 }
