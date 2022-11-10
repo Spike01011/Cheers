@@ -11,13 +11,13 @@ namespace Cheers.Services.PaymentService
             _configuration = configuration;
         }
 
-        public async Task<PaymentIntent> CreateOrUpdatePaymentIntent(Cart cart)
+        public async Task<PaymentIntent> CreateOrUpdatePaymentIntent(Order order)
         {
             StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
             PaymentIntentService service = new();
             PaymentIntent intent = new();
-            long total = 0; // Nu asa :)) trebuie sa le iei din cart sau din order
-            if (string.IsNullOrEmpty(cart.PaymentIntentId))
+            long total = order.Price;
+            if (string.IsNullOrEmpty(order.PaymentIntentId))
             {
                 var options = new PaymentIntentCreateOptions
                 {
@@ -26,8 +26,8 @@ namespace Cheers.Services.PaymentService
                     PaymentMethodTypes = new List<string> { "card" }
                 };
                 intent = await service.CreateAsync(options);
-                cart.PaymentIntentId = intent.Id;
-                cart.ClientSecret = intent.ClientSecret;
+                order.PaymentIntentId = intent.Id;
+                order.ClientSecret = intent.ClientSecret;
             }
             else
             {
@@ -36,9 +36,14 @@ namespace Cheers.Services.PaymentService
                     Amount = total,
                     Currency = "usd"
                 };
-                await service.UpdateAsync(cart.PaymentIntentId, options);
+                await service.UpdateAsync(order.PaymentIntentId, options);
             }
             return intent;
+        }
+
+        public bool IsPaymentSuccesfull()
+        {
+            throw new NotImplementedException();
         }
     }
 }
