@@ -74,13 +74,9 @@ export default class CustomNavbar extends Component {
                                 <Nav.Link as={Link} to={"/contact"}>
                                     Contact
                                 </Nav.Link>
-                                <Nav.Link as={Link} to={"/payment"}>
-                                    PaymentTest
-                                </Nav.Link>
                                 <NavDropdown
                                     title="Add"
-                                    id="basic-nav-dropdown"
-                                >
+                                    id="basic-nav-dropdown">
                                     <NavDropdown.Item href="/add-idea">
                                         Idea
                                     </NavDropdown.Item>
@@ -109,8 +105,7 @@ export default class CustomNavbar extends Component {
                     <Route path="/get-details/:id" element={<GetDetails/>}/>
                     <Route path="/add-photo/:id" element={<AddPhoto/>}/>
                     <Route path={"/add-category"} element={<AddCategory/>}/>
-                    <Route path={"/payment"} element={<PaymentComponent/>}/>
-                    {/*<Route path={"/payment/:id"} element={<PaymentComponent/>}/>*/}
+                    <Route path={"/payment/:id"} element={<PaymentComponent/>}/>
                     <Route path={"/register"} element={<SignUpComponent/>}/>
                     <Route path={"/login"} element={<LogInComponent/>}/>
                     <Route path={"/logout"} element={<Logout/>}/>

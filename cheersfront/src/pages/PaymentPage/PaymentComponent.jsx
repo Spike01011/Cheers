@@ -6,6 +6,7 @@ import DonationPanel from "./Components/DonationPanel";
 import TipComponent from "./Components/TipComponent";
 import ContinuePaymentComponent from "./Components/ContinuePaymentComponent";
 
+
 const PaymentComponent = () => {
     return (
         <div className="parent">
@@ -16,11 +17,16 @@ const PaymentComponent = () => {
                         <div className="core-entity-summary_campaignSummaryImageWrapper__KTBd8">
                             <div className="core-entity-summary_campaignSummaryImage__73KdF"></div>
                         </div>
-                        <div className="core-entity-summary_campaignSummaryText__UZNOj"><h1
-                            className="mb0 text-regular weight-400">You're supporting <strong>SPORT E
-                            SALUTE- coltiviamo campioni</strong></h1><h2
-                            className="color-gray weight-400 text-small mb0">Your donation will
-                            benefit <strong>Filippo Casciaro</strong></h2></div>
+                        <div className="core-entity-summary_campaignSummaryText__UZNOj">
+                            <h1
+                                className="mb0 text-regular weight-400">You're supporting <strong>
+                                SPORT E SALUTE- coltiviamo campioni</strong>
+                            </h1>
+                            <h2
+                                className="color-gray weight-400 text-small mb0">Your donation will
+                                benefit <strong>Filippo Casciaro</strong>
+                            </h2>
+                        </div>
                     </div>
                     <div className="checkout-form">
                         <form name="ucForm">

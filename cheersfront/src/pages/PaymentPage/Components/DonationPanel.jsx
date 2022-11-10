@@ -18,7 +18,6 @@ const DonationPanel = () => {
                         <dd className="color-dark-gray">€0.00</dd>
                     </div>
                 </dl>
-                <div className="hide-for-large mb0 hrt-rule hrt-rule--horizontal"></div>
             </aside>
         </div>
     )

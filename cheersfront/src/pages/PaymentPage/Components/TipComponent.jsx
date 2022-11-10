@@ -19,26 +19,27 @@ const TipComponent = () => {
                         <option value="12.5">12.5%</option>
                         <option value="15">15%</option>
                         <option value="-1">Other</option>
-                    </select><label className="hrt-select-field-label"
-                                    htmlFor="donation-tip-option">Tip
-                        amount</label>
+                    </select>
+                        <label className="hrt-select-field-label"
+                               htmlFor="donation-tip-option">
+                            Tip amount
+                        </label>
                         <svg aria-hidden="true"
                              className="hrt-select-field-icon hrt-icon hrt-icon--large"
                              focusable="false" viewBox="0 0 24 24">
                             <use
                                 href="/_next/static/images/navigation-icons-d4d68bf240b8378d4436209adbaa5a60.svg#caret-down">
-
                             </use>
                         </svg>
                     </div>
                 </div>
-                <span
-                    className="tip-select_tipRemoveLink__7fpuy text-small color-gray">Don’t want to leave a contribution?
-                                                                <button
-                                                                    className="text-small color-dark-gray hrt-text-button hrt-text-button--gray-dark"
-                                                                    type="button">REMOVE IT BY CLICKING HERE
-                                                                </button>
-                                            </span>
+                <span className="tip-select_tipRemoveLink__7fpuy text-small color-gray">
+                    Don’t want to leave a contribution?
+                    <button className="text-small color-dark-gray hrt-text-button hrt-text-button--gray-dark"
+                            type="button">
+                        REMOVE IT BY CLICKING HERE
+                    </button>
+                </span>
             </div>
         </div>
     )
