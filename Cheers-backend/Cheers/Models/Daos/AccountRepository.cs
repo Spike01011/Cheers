@@ -66,5 +66,9 @@ namespace Cheers.Models.Daos
             _signInManager.SignOutAsync().Wait();
         }
 
+        public async Task<ApplicationUser> GetByMail(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
+        }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace Cheers.Controllers
 {
@@ -14,12 +15,14 @@ namespace Cheers.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly DaoMananger _daosMananger;
         private readonly IWebHostEnvironment _hostEnv;
+        private readonly IAccountRepository _accountRepository;
 
-        public HomeController(ILogger<HomeController> logger, IIdeeaDAO ideaDao, ICategoryDAO categoryDao, IImageClDAO imgDao, IWebHostEnvironment hostEnv)
+        public HomeController(ILogger<HomeController> logger, IIdeeaDAO ideaDao, ICategoryDAO categoryDao, IImageClDAO imgDao, IWebHostEnvironment hostEnv, IAccountRepository accountRepository)
         {
             _logger = logger;
             _daosMananger = new DaoMananger(categoryDao, ideaDao, imgDao);
             _hostEnv = hostEnv;
+            _accountRepository = accountRepository;
         }
 
         [HttpGet]
@@ -39,9 +42,16 @@ namespace Cheers.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult AddIdea([FromBody] Idea idea)
+        public async Task<IActionResult> AddIdea([FromBody] Idea idea)
         {
-            _daosMananger.AddIdea(idea);
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var clm = identity.FindFirst(ClaimTypes.Email).Value;
+                var user = await _accountRepository.GetByMail(clm);
+                idea.Author = user;
+                _daosMananger.AddIdea(idea);
+            }
             return Ok();
         }
 

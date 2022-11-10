@@ -10,6 +10,7 @@ namespace Cheers.Models
         
         [Required(ErrorMessage = "Please enter a name for your Idea!")]
         public string Name { get; set; }
+        public ApplicationUser Author { get; set; }
 
         [Required(ErrorMessage = "Please enter a description for your Idea!")]
         public string Description { get; set; }
@@ -23,7 +24,9 @@ namespace Cheers.Models
         public Category Category { get; set; }
 
         public int Target { get; set; }
-        [NotMapped]public List<ImageCl> Images { get; set; }
+        [NotMapped]
+        public List<ImageCl> Images { get; set; }
+        [NotMapped] public string Email { get; set; }
 
         public override string ToString()
         {

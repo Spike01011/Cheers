@@ -47,17 +47,17 @@ namespace Cheers.Models.Daos
 
         public Idea Get(int id)
         {
-            return _appDbContext.Ideas.Include(x => x.Category).FirstOrDefault(idea => idea.Id == id);
+            return _appDbContext.Ideas.Include(idea => idea.Category).Include(idea => idea.Author).FirstOrDefault(idea => idea.Id == id);
         }
 
         public List<Idea> GetAll()
         {
-            return _appDbContext.Ideas.Include(x => x.Category).ToList();
+            return _appDbContext.Ideas.Include(idea => idea.Category).Include(idea => idea.Author).ToList();
         }
 
         public List<Idea> GetByCategoryId(int categoryId)
         {
-            return _appDbContext.Ideas.Include(x => x.Category).Where(idea => idea.CategoryId == categoryId).ToList();
+            return _appDbContext.Ideas.Include(idea => idea.Category).Include(idea => idea.Author).Where(idea => idea.CategoryId == categoryId).ToList();
         }
     }
 }

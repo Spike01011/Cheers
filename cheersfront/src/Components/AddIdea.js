@@ -54,6 +54,7 @@ export default function AddIdea() {
 				CategoryId: parseInt(data.CategoryId),
 				/* global BigInt */
 				Target: parseInt(data.Target),
+				Token: localStorage.getItem("token")
 			}, {headers: {
 				Authorization: `Bearer ${localStorage.getItem("token")}`
 				}})

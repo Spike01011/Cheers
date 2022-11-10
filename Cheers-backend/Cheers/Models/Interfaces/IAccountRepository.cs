@@ -7,5 +7,6 @@ namespace Cheers.Models.Interfaces
         Task<IdentityResult> SignUpAsync(SignUpModel signUpModel);
         Task<string?> LogInAsync(SingnInModel signInModel);
         Task LogOutAsync();
+        public Task<ApplicationUser> GetByMail(string email);
     }
 }
