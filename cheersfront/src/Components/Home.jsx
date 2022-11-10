@@ -24,6 +24,7 @@ const Home = () => {
         get();
     }, []);
 
+
     return data != null ? (
         <React.Fragment className={"container"} style={{height: "650px"}}>
             <Row className="no-gutters" style={{marginInline: "10px", marginTop: "10px"}}>
@@ -31,6 +32,7 @@ const Home = () => {
                     <Col xs lg='3'
                          style={{display: "inline-block; max-width: 350px; height: 650px;", marginTop: "20px"}}>
                         <Card>
+	                        <i>{ (idea.Author === null) ?  "Anonymous" : idea.Author.Email}</i>
                             {/*<Card className={"card-body"}>*/}
                             <CardContent className="card-body">
                                 {/*<Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>*/}

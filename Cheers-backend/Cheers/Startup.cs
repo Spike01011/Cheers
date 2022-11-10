@@ -105,8 +105,8 @@ namespace Cheers
                 });
             });
             services.AddHttpContextAccessor();
-            var lol = services.BuildServiceProvider();
-            CreateRoles(lol).Wait();
+            //var lol = services.BuildServiceProvider();
+            //CreateRoles(lol).Wait();
             //CreateRoles(services.BuildServiceProvider()).Wait(); NU MERGE ASTA
         }
 

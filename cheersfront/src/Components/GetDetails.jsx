@@ -86,7 +86,7 @@ export default function GetDetails() {
 						<button className={"btn btn-danger"} onClick={(e, imgId = activePhoto.identifier) => DeletePhoto(e, imgId)}>Delete</button>
 					</Modal.Footer>
 				</Modal>
-			<i>{data.Author.Email}</i>
+			<i>{data.Author === null ? "Anonymous" : data.Author.Email}</i>
 			<h1
 				className={"TitleClass"}
 				style={{
