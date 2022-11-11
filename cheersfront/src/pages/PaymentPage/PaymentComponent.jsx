@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import "bootstrap/dist/css/bootstrap.min.css";
 import BackToIdea from "./Components/BackToIdea";
 import DonationInput from "./Components/DonationInput";
 import DonationPanel from "./Components/DonationPanel";
 import TipComponent from "./Components/TipComponent";
 import ContinuePaymentComponent from "./Components/ContinuePaymentComponent";
+import {Link} from "react-router-dom";
 
 
 const PaymentComponent = () => {
@@ -22,8 +22,10 @@ const PaymentComponent = () => {
                         </div>
                         <div className="core-entity-summary_campaignSummaryText__UZNOj">
                             <h1
-                                className="mb0 text-regular weight-400">You're supporting <strong>
-                                SPORT E SALUTE- coltiviamo campioni</strong>
+                                className="mb0 text-regular weight-400">You're supporting
+                                <strong>
+                                    SPORT E SALUTE- coltiviamo campioni
+                                </strong>
                             </h1>
                             <h2
                                 className="color-gray weight-400 text-small mb0">Your donation will
@@ -57,13 +59,16 @@ const PaymentComponent = () => {
                             <div className="m-value-prop-content">
                                 <h3 className="heading-3 mb">Cheers protects your donation</h3>
                                 <p
-                                    className="color-gray mt0 mb0 text-small">We guarantee you a full refund
-                                    for up to a year in the rare case that fraud occurs.
-                                    <a
+                                    className="color-gray mt0 mb0 text-small">
+                                    We guarantee you a full refund for up to a year in the rare case that fraud occurs.
+                                    <Link
+                                        type={'button'}
+                                        as={Link} to={'/'}
+                                        // Poate faci o pagină cu asta
                                         className="hrt-link hrt-link--gray-dark"
-                                        href="/c/safety/gofundme-guarantee" target="_blank"
-                                        rel="noreferrer">See our Cheers Giving Guarantee.
-                                    </a>
+                                        target="_blank">
+                                        See our Cheers Giving Guarantee.
+                                    </Link>
                                 </p>
                             </div>
                         </section>

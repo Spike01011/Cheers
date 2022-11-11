@@ -31,16 +31,6 @@ function Copyright(props) {
     );
 }
 
-// function changeBackground(color) {
-//     document.body.style.background = color;
-// }
-//
-// window.addEventListener('load', () => {
-//     changeBackground('red')
-// });
-
-
-
 const theme = createTheme();
 
 const SignUpComponent = () => {

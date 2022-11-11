@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import Button from '@mui/joy/Button';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
@@ -7,8 +8,8 @@ import ListDivider from '@mui/joy/ListDivider';
 import Menu from '@mui/joy/Menu';
 import MenuItem from '@mui/joy/MenuItem';
 import ArrowRight from '@mui/icons-material/ArrowRight';
+import ArrowDown from '@mui/icons-material/ArrowDown';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
-import {useState} from "react";
 
 export default function BasicMenu() {
     const SIZES = ['X-Small', 'Small', 'Medium', 'Large', 'X-Large'];
@@ -32,7 +33,7 @@ export default function BasicMenu() {
                 variant="outlined"
                 color="neutral"
                 onClick={handleClick}
-                endDecorator={<ArrowDropDown />}
+                endDecorator={<ArrowDropDown/>}
             >
                 Size
             </Button>
@@ -42,7 +43,7 @@ export default function BasicMenu() {
                 open={open}
                 onClose={handleClose}
                 aria-labelledby="group-demo-button"
-                sx={{ minWidth: 160, '--List-decorator-size': '24px' }}
+                sx={{minWidth: 160, '--List-decorator-size': '24px'}}
             >
                 <MenuItem
                     onClick={() => {
@@ -64,7 +65,7 @@ export default function BasicMenu() {
                 >
                     Larger
                 </MenuItem>
-                <ListDivider />
+                <ListDivider/>
                 <ListItem nested>
                     <List aria-label="Font sizes">
                         {SIZES.map((item) => (
@@ -78,7 +79,10 @@ export default function BasicMenu() {
                                 }}
                             >
                                 <ListItemDecorator>
-                                    {item === size && <ArrowRight />}
+                                    {item === size && <ArrowRight/>}
+                                </ListItemDecorator>{' '}
+                                <ListItemDecorator>
+                                    {item === size && <ArrowDown/>}
                                 </ListItemDecorator>{' '}
                                 {item}
                             </MenuItem>

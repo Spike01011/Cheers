@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const BackToIdea = () => {
     const reactUrl = window.location.href;
@@ -10,9 +9,9 @@ const BackToIdea = () => {
     return (
         <>
             <Link data-element-id="btn_donate_returnCampaign"
-                type={'button'}
-                to={`/get-details/${id}`} as={Link}
-                className="show-for-large pl hrt-secondary-button hrt-secondary-button--gray
+                  type={'button'}
+                  to={`/get-details/${id}`} as={Link}
+                  className="show-for-large pl hrt-secondary-button hrt-secondary-button--gray
                 hrt-secondary-button--inline hrt-secondary-button--small hrt-base-button">
                 Return to fundraiser
             </Link>
