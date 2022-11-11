@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 
 
-class Index extends Component{
-    componentDidMount() {
-        document.body.style.backgroundColor = "red"
-    }
+class Index extends Component {
     render() {
         this.componentDidMount();
 
@@ -13,4 +10,6 @@ class Index extends Component{
             </>
         );
     }
-} export default Index;
+}
+
+export default Index;

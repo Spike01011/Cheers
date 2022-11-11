@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const DonationPanel = () => {
+    const [price, setPrice] = useState([]);
+    const [tip, setTip] = useState([]);
+
     return (
         <div className="div2">
             <aside

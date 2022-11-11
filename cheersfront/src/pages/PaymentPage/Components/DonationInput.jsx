@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const DonationInput = () => {
+    const [price, setPrice] = useState([]);
+
     return (
         <div className="rounded-3x checkout-currency-field_checkoutCurrencyFieldWrapper__wm_mE">
             <div className="checkout-currency-field_checkoutCurrencyFieldCurrency__oBZgE">

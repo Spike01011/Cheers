@@ -92,58 +92,60 @@ export default function GetDetails() {
             });
     }
 
-	return data != null ? (
-		<div className={"DetailsDiv"}>
-				<Modal show={show} onHide={handleClose} size={"xl"}>
-					<Modal.Body>{activePhoto.actualImg}</Modal.Body>
-					<Modal.Footer>
-						<button className={"btn btn-danger"} onClick={(e, imgId = activePhoto.identifier) => DeletePhoto(e, imgId)}>Delete</button>
-					</Modal.Footer>
-				</Modal>
-			<i>{data.Author === null ? "Anonymous" : data.Author.Email}</i>
-			<h1
-				className={"TitleClass"}
-				style={{
-					textAlign: "center",
-					paddingInline: "10%",
-					marginBottom: "50px",
-				}}
-			>
-				{data.Name}
-			</h1>
-			<h3>Pictures:</h3>
-			{ManagePhotos()}
-			<h3>Category</h3>
-			<h5 className={"DetailsDivContents"}>{data.Category.Name}</h5>
-			<h3>Description</h3>
-			<h5 className={"DetailsDivContents"}>{data.Description.split("\n").map(x => <p>{x}</p>)}</h5>
-			<h4>TL;DR</h4>
-			<h6 className={"DetailsDivContents"}>{data.ShortDescription}</h6>
-			<h3>Target amount: {data.Target}</h3>
-			<div
-				style={{
-					textAlign: "center",
-					marginTop: "50px",
-				}}
-			>
+    return data != null ? (
+        <div className={"DetailsDiv"}>
+            <Modal show={show} onHide={handleClose} size={"xl"}>
+                <Modal.Body>{activePhoto.actualImg}</Modal.Body>
+                <Modal.Footer>
+                    <button className={"btn btn-danger"}
+                            onClick={(e, imgId = activePhoto.identifier) => DeletePhoto(e, imgId)}>Delete
+                    </button>
+                </Modal.Footer>
+            </Modal>
+            <i>{data.Author === null ? "Anonymous" : data.Author.Email}</i>
+            <h1
+                className={"TitleClass"}
+                style={{
+                    textAlign: "center",
+                    paddingInline: "10%",
+                    marginBottom: "50px",
+                }}
+            >
+                {data.Name}
+            </h1>
+            <h3>Pictures:</h3>
+            {ManagePhotos()}
+            <h3>Category</h3>
+            <h5 className={"DetailsDivContents"}>{data.Category.Name}</h5>
+            <h3>Description</h3>
+            <h5 className={"DetailsDivContents"}>{data.Description.split("\n").map(x => <p>{x}</p>)}</h5>
+            <h4>TL;DR</h4>
+            <h6 className={"DetailsDivContents"}>{data.ShortDescription}</h6>
+            <h3>Target amount: {data.Target}</h3>
+            <div
+                style={{
+                    textAlign: "center",
+                    marginTop: "50px",
+                }}
+            >
                 <Link
                     type={"button"}
                     className={"btn btn-light"}
-                    style={{ textAlign: "center" }}
+                    style={{textAlign: "center"}}
                     as={Link} to={`/payment/${id}`}
                 >
                     🍻 Buy us a beer
                 </Link>
-				<Link
-					type={"button"}
-					style={{textAlign: "center"}}
-					to={`/add-photo/${id}`}
-					className={"btn btn-light"}>
-					AddPhoto
-				</Link>
-			</div>
-		</div>
-	) : (
-		<p>Loading...</p>
-	);
+                <Link
+                    type={"button"}
+                    style={{textAlign: "center"}}
+                    to={`/add-photo/${id}`}
+                    className={"btn btn-light"}>
+                    AddPhoto
+                </Link>
+            </div>
+        </div>
+    ) : (
+        <p>Loading...</p>
+    );
 }

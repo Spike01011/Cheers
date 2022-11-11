@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import BackToIdea from "./Components/BackToIdea";
 import DonationInput from "./Components/DonationInput";
@@ -8,6 +8,9 @@ import ContinuePaymentComponent from "./Components/ContinuePaymentComponent";
 
 
 const PaymentComponent = () => {
+    const [price, setPrice] = useState([]);
+    const [tip, setTip] = useState([]);
+
     return (
         <div className="parent">
             <div className="div1">

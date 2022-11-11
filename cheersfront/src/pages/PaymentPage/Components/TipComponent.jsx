@@ -1,25 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const TipComponent = () => {
+    const SIZES = ['0', '10', '12.5', '15', '20'];
+    const [tip, setTip] = useState([]);
+
     return (
         <div className="mt2x"><span
-            className="tip-select_tipSelectDescription__HGXCU text-small color-gray"><div
-            className="a-tipping-copy">We have pre-set a 10% contribution for Cheers. Your contribution helps us provide a safe and reliable fundraising service. <strong>You can select a different percentage from the drop-down menu or eliminate this contribution by clicking on the link below.</strong></div></span>
+            className="tip-select_tipSelectDescription__HGXCU text-small color-gray">
+        <div className="a-tipping-copy">We have pre-set a 10% contribution for Cheers. Your contribution helps us provide a safe and reliable fundraising service. <strong>You can select a different percentage from the drop-down menu or eliminate this contribution by clicking on the link below.</strong></div></span>
             <div className="tip-select_tipSelectTip__dEH0C">
                 <div
                     className="tip-select_tipSelectTipSelection__ZVNDJ hrt-select-field">
-                    <div className="hrt-select-field-wrapper"><select
-                        aria-invalid="false"
-                        className="hrt-select-field-select"
-                        id="donation-tip-option" name="tipOption">
-                        <option value="0">0%</option>
-                        <option value="7.5">7.5%</option>
-                        <option value="10">10%</option>
-                        <option value="12.5">12.5%</option>
-                        <option value="15">15%</option>
-                        <option value="-1">Other</option>
-                    </select>
+                    <div className="hrt-select-field-wrapper">
+                        <select
+                            aria-invalid="false"
+                            className="hrt-select-field-select"
+                            id="donation-tip-option" name="tipOption">
+                            {SIZES.map(elem => <option value={elem}>{elem} %</option>)}
+                        </select>
                         <label className="hrt-select-field-label"
                                htmlFor="donation-tip-option">
                             Tip amount
@@ -39,10 +38,9 @@ const TipComponent = () => {
                             type="button">
                         REMOVE IT BY CLICKING HERE
                     </button>
-                </span>
+            </span>
             </div>
-        </div>
-    )
+        </div>)
 };
 
 export default TipComponent;
