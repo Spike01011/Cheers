@@ -16,7 +16,7 @@ public class ImageClDbDAO : IImageClDAO
     {
         return _appDbContext.ImageCls.ToList();
     }
-        
+
     public ImageCl Get(int id)
     {
         return _appDbContext.ImageCls.Where(x => x.Id == id).FirstOrDefault();
