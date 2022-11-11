@@ -1,16 +1,21 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const BackToIdea = () => {
+    const reactUrl = window.location.href;
+    const reactUrlLength = reactUrl.split("/").length;
+    const id = reactUrl.split("/").at(reactUrlLength - 1);
+
     return (
         <>
-            <a
-                className="show-for-large pl hrt-secondary-button hrt-secondary-button--gray hrt-secondary-button--inline hrt-secondary-button--small hrt-base-button"
-                data-element-id="btn_donate_returnCampaign"
-                href="/f/sport-e-salute-coltiviamo-campioni" id="donate-return"
-                data-analytic-event-listener="true">
+            <Link data-element-id="btn_donate_returnCampaign"
+                type={'button'}
+                to={`/get-details/${id}`} as={Link}
+                className="show-for-large pl hrt-secondary-button hrt-secondary-button--gray
+                hrt-secondary-button--inline hrt-secondary-button--small hrt-base-button">
                 Return to fundraiser
-            </a>
+            </Link>
         </>
     )
 };
