@@ -8,62 +8,49 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Fab from '@mui/material/Fab';
+import axios from "axios";
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
-
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import CopyRight from "../../Components/Shared/CopyRight";
 
 const theme = createTheme();
 
 const SignUpComponent = () => {
-	const url = "https://localhost:7021/account/signup";
-	const navigate = useNavigate();
+    const url = "https://localhost:7021/account/signup";
+    const navigate = useNavigate();
 
-	const [data, setData] = useState({
-		Email: "",
-		Password: "",
-		ConfirmPassword: "",
-	})
+    const [data, setData] = useState({
+        Email: "",
+        Password: "",
+        ConfirmPassword: "",
+    })
 
-	function handle(e) {
-		const newData = {...data};
-		newData[e.target.id] = e.target.value;
-		setData(newData);
-		console.log(data);
-	}
+    function handle(e) {
+        const newData = {...data};
+        newData[e.target.id] = e.target.value;
+        setData(newData);
+        console.log(data);
+    }
 
-	function submit(e) {
-		e.preventDefault();
-		axios
-			.post(url, {
-				Username: data.Email,
-				Email: data.Email,
-				Password: data.Password,
-				ConfirmPassword: data.ConfirmPassword,
-			})
-			.then((res) => {
-				console.log(res.data);
-				navigate("/");
-			});
-	}
+    function submit(e) {
+        e.preventDefault();
+        axios
+            .post(url, {
+                Username: data.Email,
+                Email: data.Email,
+                Password: data.Password,
+                ConfirmPassword: data.ConfirmPassword,
+            })
+            .then((res) => {
+                console.log(res.data);
+                navigate("/");
+            });
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -157,7 +144,7 @@ const SignUpComponent = () => {
                             </Grid>
                         </Grid>
                         <Fab color="primary" aria-label="add">
-						+
+                            +
                         </Fab>
                         <Button
                             type="submit"
@@ -176,7 +163,7 @@ const SignUpComponent = () => {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{mt: 5}}/>
+                <CopyRight sx={{mt: 5}}/>
             </Container>
         </ThemeProvider>
     );

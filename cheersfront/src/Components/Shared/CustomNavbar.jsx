@@ -43,11 +43,11 @@ export default class CustomNavbar extends Component {
                         title="Account"
                         id="account-dropdown"
                     >
-                        <NavDropdown.Item href="/login">
+                        <NavDropdown.Item as={Link} to={'/login'}>
                             Log In
                         </NavDropdown.Item>
                         <NavDropdown.Divider/>
-                        <NavDropdown.Item href="/register">
+                        <NavDropdown.Item as={Link} to={'/register'}>
                             Register
                         </NavDropdown.Item>
                     </NavDropdown>

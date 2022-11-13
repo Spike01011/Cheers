@@ -12,16 +12,12 @@ namespace Cheers.Controllers
     //[Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly DaoMananger _daosMananger;
-        private readonly IWebHostEnvironment _hostEnv;
         private readonly IAccountRepository _accountRepository;
 
-        public HomeController(ILogger<HomeController> logger, IIdeeaDAO ideaDao, ICategoryDAO categoryDao, IImageClDAO imgDao, IWebHostEnvironment hostEnv, IAccountRepository accountRepository)
+        public HomeController(IIdeeaDAO ideaDao, ICategoryDAO categoryDao, IImageClDAO imgDao, IAccountRepository accountRepository)
         {
-            _logger = logger;
             _daosMananger = new DaoMananger(categoryDao, ideaDao, imgDao);
-            _hostEnv = hostEnv;
             _accountRepository = accountRepository;
         }
 
@@ -80,7 +76,7 @@ namespace Cheers.Controllers
 
         }
         [Authorize]
-        public IActionResult AddImage([FromForm]ImageCl img)
+        public IActionResult AddImage([FromForm] ImageCl img)
         {
             img.Image = SaveImage(img.ImageFile);
             _daosMananger.AddImage(img);
@@ -116,21 +112,12 @@ namespace Cheers.Controllers
         public string SaveImage(IFormFile imageFile)
         {
             string base64string;
-                using (MemoryStream _mStream = new MemoryStream())
-                {
-                    imageFile.CopyTo(_mStream);
-                    byte[] _imageBytes = _mStream.ToArray();
-                    base64string = Convert.ToBase64String(_imageBytes);
-                    return base64string;
-                }
-            //string imageName =new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-            //imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
-            //var imagePath = Path.Combine(_hostEnv.ContentRootPath, "Images", imageName);
-            //using (var fileStream = new FileStream(imagePath, FileMode.Create))
-            //{
-            //    await imageFile.CopyToAsync(fileStream);
-            //}
+            using MemoryStream _mStream = new();
 
+            imageFile.CopyTo(_mStream);
+            byte[] _imageBytes = _mStream.ToArray();
+            base64string = Convert.ToBase64String(_imageBytes);
+            return base64string;
         }
     }
 }

@@ -50,11 +50,11 @@ export default function GetDetails() {
     const HandlePicClick = (e, pic) => {
         handleShow();
         setActivePhoto(<img id={pic.Id} src={`data:image/png;base64,${pic.Image}`}
-                            style={{width: "auto", maxWidth: "1100px"}} onClick={HandleModalClick}/>);
+                            style={{width: "auto", maxWidth: "1100px"}} onClick={HandleModalClick} alt={''}/>);
         setActivePhoto({
             identifier: pic.Id,
             actualImg: <img id={pic.Id} src={`data:image/png;base64,${pic.Image}`}
-                            style={{width: "auto", maxWidth: "1100px"}} onClick={HandleModalClick}/>,
+                            style={{width: "auto", maxWidth: "1100px"}} onClick={HandleModalClick} alt={''}/>,
         })
     }
 

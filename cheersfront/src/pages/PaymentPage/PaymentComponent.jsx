@@ -1,15 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import BackToIdea from "./Components/BackToIdea";
 import DonationInput from "./Components/DonationInput";
 import DonationPanel from "./Components/DonationPanel";
 import TipComponent from "./Components/TipComponent";
 import ContinuePaymentComponent from "./Components/ContinuePaymentComponent";
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {getTotal} from './PaymentSlice'
 
 
 const PaymentComponent = () => {
-    const [price, setPrice] = useState([]);
-    const [tip, setTip] = useState([]);
+    const dispatch = useDispatch();
+    const payment = useSelector((store) => store.payment)
+
+    useEffect(() => {
+        dispatch(getTotal());
+    }, [payment]);
 
     return (
         <div className="parent">

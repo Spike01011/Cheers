@@ -115,7 +115,6 @@ export default function AddIdea() {
                 id={"Description"}
                 value={data.Description}
                 placeholder={"Description"}
-                type={"text"}
             />
 
 
