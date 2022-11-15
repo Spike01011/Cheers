@@ -18,12 +18,16 @@ namespace Cheers.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PayIdeea([FromBody] Order order)
+        public async Task<IActionResult> PayIdea([FromBody] Order order)
         {
+
+            Console.WriteLine("------------");
+            Console.WriteLine(" Total: " + order.Total);
+            Console.WriteLine("------------");
             if (order == null) return NotFound();
 
-            //var intent = await _paymentService.CreateOrUpdatePaymentIntent(order);
-            var intent = await _paymentService.IsPaymentWorking(); //For Testing
+            var intent = await _paymentService.CreateOrUpdatePaymentIntent(order);
+            //var intent = await _paymentService.IsPaymentWorking(); // For Testing
             if (intent == null) return BadRequest(
                 new ProblemDetails { Title = "Creating Payment Intent Problem" });
             order.PaymentIntentId ??= intent.Id;

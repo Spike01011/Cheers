@@ -3,7 +3,6 @@ import {useSelector} from "react-redux";
 
 const DonationPanel = () => {
     const payment = useSelector((store) => store.payment)
-    const total = useSelector((store) => store.payment.total)
 
     return (<div className="div2">
         <aside
@@ -18,7 +17,7 @@ const DonationPanel = () => {
                 <div>
                     <div className="hrt-rule hrt-rule--horizontal"></div>
                     <dt className="color-dark-gray">Total due today</dt>
-                    <dd className="color-dark-gray">€{total}.00</dd>
+                    <dd className="color-dark-gray">€{payment.total}.00</dd>
                 </div>
             </dl>
         </aside>

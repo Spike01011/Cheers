@@ -28,8 +28,6 @@ namespace Cheers.Services.PaymentService
                     PaymentMethodTypes = new List<string> { "card" }
                 };
                 intent = await service.CreateAsync(options);
-                //order.PaymentIntentId = intent.Id;
-                //order.ClientSecret = intent.ClientSecret;
             }
             else
             {
@@ -66,8 +64,6 @@ namespace Cheers.Services.PaymentService
                     PaymentMethodTypes = new List<string> { "card" }
                 };
                 intent = await service.CreateAsync(options);
-                //order.PaymentIntentId = intent.Id;
-                //order.ClientSecret = intent.ClientSecret;
             }
             else
             {

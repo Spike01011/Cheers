@@ -1,13 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import CountrySelect from "./CountrySelectionComponent";
-import {loadStripe} from "@stripe/stripe-js";
 import TextField from "@mui/material/TextField";
 import {CardCvcElement, CardExpiryElement, CardNumberElement} from "@stripe/react-stripe-js";
 import StripeInput from "../StripeInput";
+// import {StripeElementType} from "@stripe/stripe-js";
 
 
 const AfterContinue = () => {
-	const stripePromise = loadStripe('pk_test_51M1UwLAWK0lCDMBJ77KNHdxv5tbRNUEGgjRAPfreyd6IITddlX4lwYGEKkQANUIw8XgCjRAvNKoO4j5DzWAflMST00TJAfYe6H');
+
+	// function handle(e) {
+	// 	const newData = {
+	// 		...cardState,
+	// 		elementError: {
+	// 			[e.elementType]: e.error?.message
+	// 		}
+	// 	};
+	// 	newData[e.target.id] = e.target.value;
+	// 	setCardState(newData);
+	// }
 
 	return (
 		<div className="">
@@ -123,6 +133,9 @@ const AfterContinue = () => {
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
 																<TextField
+																	// onChange={handle}
+																	// error={!!cardState.elementError.cardNumber}
+																	// helperText={cardState.elementError.cardNumber}
 																	variant={'standard'}
 																	aria-invalid="false"
 																	className="hrt-text-field-input"
@@ -153,6 +166,9 @@ const AfterContinue = () => {
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
 																<TextField
+																	// onChange={handle}
+																	// error={!!cardState.elementError.cardDate}
+																	// helperText={cardState.elementError.cardDate}
 																	variant={'standard'}
 																	aria-invalid="false"
 																	className="hrt-text-field-input"
@@ -179,13 +195,14 @@ const AfterContinue = () => {
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
 																<TextField
+																	// onChange={handle}
+																	// error={!!cardState.elementError.cardCvC}
+																	// helperText={cardState.elementError.cardCvC}
 																	variant={'standard'}
 																	aria-invalid="false"
 																	className="hrt-text-field-input"
 																	id="card-cvv" placeholder=" " name="card.CVV"
 																	type="text" autoComplete="cc-csc"
-																	inputMode="numeric"
-																	maxLength="4" pattern="[0-9]*"
 																	InputProps={{
 																		inputComponent: StripeInput,
 																		inputProps: {
