@@ -12,7 +12,6 @@ import {getTotal} from './PaymentSlice'
 const PaymentComponent = () => {
     const dispatch = useDispatch();
     const payment = useSelector((store) => store.payment)
-    const ideaDetails = useSelector((store) => store.idea.allIdea)
 
     useEffect(() => {
         dispatch(getTotal());
@@ -45,7 +44,8 @@ const PaymentComponent = () => {
                         <form name="ucForm">
                             <div
                                 className="checkoutCurrencyField m-form-field m-form-field--stacked mb3x donationAmountField">
-                                <div className="m-form-field-inner"><label
+                                <div className="m-form-field-inner">
+                                    <label
                                     className="m-form-field-label m-form-field-label--prepend"
                                     htmlFor="checkout-donation">
                                     <div className="heading-3">Enter your donation</div>

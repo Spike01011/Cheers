@@ -1,6 +1,7 @@
 import React from 'react';
 import CountrySelect from "./CountrySelectionComponent";
 import {loadStripe} from "@stripe/stripe-js";
+import TextField from "@mui/material/TextField";
 
 
 const AfterContinue = () => {
@@ -15,83 +16,6 @@ const AfterContinue = () => {
                     <div className="mt2x">
                         <ul className="checkout-form-fields_checkoutPaymentOptions__9pBu5 rounded list-unstyled">
                             <li className="payment-method-option_checkoutPaymentItem__wvNPO">
-                                <div
-                                    className="payment-method-option_checkoutPaymentOption__iocS7 hrt-radio-field">
-                                    <input className="hrt-radio-field-input"
-                                           id="google-pay" type="radio"
-                                           name="paymentMethod"
-                                           value="GOOGLE_PAY">
-                                    </input>
-                                    <label
-                                        className="hrt-radio-field-label"
-                                        htmlFor="google-pay">
-                                        <div className="disp-flex align-center">
-                                            <svg aria-hidden="true"
-                                                 className="mr2x hrt-icon hrt-icon--xlarge"
-                                                 focusable="false"
-                                                 viewBox="0 0 24 24">
-                                                <use
-                                                    href="/_next/static/images/payment-icons-90b71b369a5fd4263314f052a14c5dbc.svg#google-pay">
-                                                </use>
-                                            </svg>
-                                            <span>Google Pay</span>
-                                        </div>
-                                    </label>
-                                </div>
-                            </li>
-                            <li className="payment-method-option_checkoutPaymentItem__wvNPO">
-                                <div className="payment-method-option_checkoutPaymentOption__iocS7 hrt-radio-field">
-                                    <input className="hrt-radio-field-input" id="add-card" type="radio"
-                                           name="paymentMethod" value="CREDIT_CARD">
-                                    </input>
-                                    <label
-                                        className="hrt-radio-field-label" htmlFor="add-card">
-                                        <div className="disp-flex align-center">
-                                            <svg aria-hidden="true" className="mr2x hrt-icon hrt-icon--xlarge"
-                                                 focusable="false" viewBox="0 0 24 24">
-                                                <use
-                                                    href="/_next/static/images/payment-icons-90b71b369a5fd4263314f052a14c5dbc.svg#card"></use>
-                                            </svg>
-                                            <span>Credit or debit</span>
-                                            <div className="disp-flex flex-child-grow justify-end">
-                                                <ul className="hide-for-small-only hide-for-large-only payment-icon-list list-unstyled disp-flex align-center">
-                                                    <li className="mr">
-                                                        <svg aria-hidden="true"
-                                                             className="hrt-icon hrt-icon--xlarge"
-                                                             focusable="false" viewBox="0 0 24 24">
-                                                            <use
-                                                                href="/_next/static/images/payment-icons-90b71b369a5fd4263314f052a14c5dbc.svg#american-express-disabled"></use>
-                                                        </svg>
-                                                    </li>
-                                                    <li className="mr">
-                                                        <svg aria-hidden="true"
-                                                             className="hrt-icon hrt-icon--xlarge"
-                                                             focusable="false" viewBox="0 0 24 24">
-                                                            <use
-                                                                href="/_next/static/images/payment-icons-90b71b369a5fd4263314f052a14c5dbc.svg#discover-disabled"></use>
-                                                        </svg>
-                                                    </li>
-                                                    <li className="mr">
-                                                        <svg aria-hidden="true"
-                                                             className="hrt-icon hrt-icon--xlarge"
-                                                             focusable="false" viewBox="0 0 24 24">
-                                                            <use
-                                                                href="/_next/static/images/payment-icons-90b71b369a5fd4263314f052a14c5dbc.svg#mastercard-disabled"></use>
-                                                        </svg>
-                                                    </li>
-                                                    <li className="">
-                                                        <svg aria-hidden="true"
-                                                             className="hrt-icon hrt-icon--xlarge"
-                                                             focusable="false" viewBox="0 0 24 24">
-                                                            <use
-                                                                href="/_next/static/images/payment-icons-90b71b369a5fd4263314f052a14c5dbc.svg#visa-disabled"></use>
-                                                        </svg>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
                                 <fieldset
                                     className="credit-card-form-fields mt ml4x credit-card-form-fields_creditCardPaymentHideLegend__pk4_0 hrt-fieldset">
                                     <legend className="heading-3">
@@ -136,12 +60,15 @@ const AfterContinue = () => {
                                                     <div className="hrt-text-field">
                                                         <div className="hrt-text-field-wrapper">
                                                             <div className="hrt-text-field-inner">
-                                                                <input
+                                                                <TextField
+                                                                    variant={'standard'}
                                                                     aria-invalid="false"
                                                                     className="hrt-text-field-input"
-                                                                    id="email-address" placeholder=" " name="email"
-                                                                    type="email" autoComplete="email" value="">
-                                                                </input>
+                                                                    id="email-address" name="email"
+                                                                    type="email" autoComplete="email"
+                                                                    InputLabelProps={{shrink: true}}
+                                                                    InputProps={{disableUnderline: true}}
+                                                                />
                                                                 <label
                                                                     className="hrt-text-field-label"
                                                                     htmlFor="email-address">Email address
@@ -159,7 +86,7 @@ const AfterContinue = () => {
                                                                     aria-invalid="false"
                                                                     className="hrt-text-field-input"
                                                                     id="first-name" placeholder=" " name="firstName"
-                                                                    type="text" autoComplete="given-name" value="">
+                                                                    type="text" autoComplete="given-name">
                                                                 </input>
                                                                 <label
                                                                     className="hrt-text-field-label"
@@ -176,7 +103,7 @@ const AfterContinue = () => {
                                                                     aria-invalid="false"
                                                                     className="hrt-text-field-input"
                                                                     id="last-name" placeholder=" " name="lastName"
-                                                                    type="text" autoComplete="family-name" value="">
+                                                                    type="text" autoComplete="family-name">
                                                                 </input>
                                                                 <label
                                                                     className="hrt-text-field-label"
@@ -188,31 +115,20 @@ const AfterContinue = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="hrt-checkbox-field">
-                                                <input
-                                                    className="hrt-checkbox-field-input" id="use-donor-name"
-                                                    type="checkbox"
-                                                    name="useDonorName" value="">
-                                                </input>
-                                                <label
-                                                    className="hrt-checkbox-field-label"
-                                                    htmlFor="use-donor-name">Use as
-                                                    billing name
-                                                </label>
-                                            </div>
                                             <div className="credit-card-form-fields_creditCardPaymentGridFields__uhBiA">
                                                 <div>
                                                     <div className="hrt-text-field">
                                                         <div className="hrt-text-field-wrapper">
                                                             <div className="hrt-text-field-inner">
-                                                                <input
+                                                                <TextField
+                                                                    variant={'standard'}
                                                                     aria-invalid="false"
                                                                     className="hrt-text-field-input"
                                                                     id="card-number" placeholder=" " name="card.number"
                                                                     type="text" autoComplete="cc-number"
                                                                     inputMode="numeric"
-                                                                    value="">
-                                                                </input>
+                                                                >
+                                                                </TextField>
                                                                 <label className="hrt-text-field-label"
                                                                        htmlFor="card-number">Card
                                                                     number
@@ -220,55 +136,23 @@ const AfterContinue = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <ul className="hide-for-medium-only hide-for-xlarge-only payment-icon-list list-unstyled disp-flex align-center">
-                                                        <li className="mr">
-                                                            <svg aria-hidden="true"
-                                                                 className="hrt-icon hrt-icon--xlarge" focusable="false"
-                                                                 viewBox="0 0 24 24">
-                                                                <use
-                                                                    href="/_next/static/images/payment-icons-90b71b369a5fd4263314f052a14c5dbc.svg#american-express-disabled"></use>
-                                                            </svg>
-                                                        </li>
-                                                        <li className="mr">
-                                                            <svg aria-hidden="true"
-                                                                 className="hrt-icon hrt-icon--xlarge" focusable="false"
-                                                                 viewBox="0 0 24 24">
-                                                                <use
-                                                                    href="/_next/static/images/payment-icons-90b71b369a5fd4263314f052a14c5dbc.svg#discover-disabled"></use>
-                                                            </svg>
-                                                        </li>
-                                                        <li className="mr">
-                                                            <svg aria-hidden="true"
-                                                                 className="hrt-icon hrt-icon--xlarge" focusable="false"
-                                                                 viewBox="0 0 24 24">
-                                                                <use
-                                                                    href="/_next/static/images/payment-icons-90b71b369a5fd4263314f052a14c5dbc.svg#mastercard-disabled"></use>
-                                                            </svg>
-                                                        </li>
-                                                        <li className="">
-                                                            <svg aria-hidden="true"
-                                                                 className="hrt-icon hrt-icon--xlarge" focusable="false"
-                                                                 viewBox="0 0 24 24">
-                                                                <use
-                                                                    href="/_next/static/images/payment-icons-90b71b369a5fd4263314f052a14c5dbc.svg#visa-disabled"></use>
-                                                            </svg>
-                                                        </li>
-                                                    </ul>
                                                 </div>
                                                 <div
                                                     className="credit-card-form-fields_creditCardPaymentGridRowDateCvv__wAVUY">
                                                     <div className="o-credit-card-payment-date hrt-text-field">
                                                         <div className="hrt-text-field-wrapper">
                                                             <div className="hrt-text-field-inner">
-                                                                <input
+                                                                <TextField
+                                                                    variant={'standard'}
                                                                     aria-invalid="false"
                                                                     className="hrt-text-field-input"
                                                                     id="card-expiration" placeholder=" "
                                                                     name="card.expirationDate" type="text"
                                                                     autoComplete="cc-exp" inputMode="numeric"
                                                                     maxLength="5"
-                                                                    value="">
-                                                                </input>
+                                                                    InputProps={{disableUnderline: true}}
+                                                                >
+                                                                </TextField>
                                                                 <label className="hrt-text-field-label"
                                                                        htmlFor="card-expiration">MM/YY
                                                                 </label>
@@ -278,14 +162,16 @@ const AfterContinue = () => {
                                                     <div className="o-credit-card-payment-cvv hrt-text-field">
                                                         <div className="hrt-text-field-wrapper">
                                                             <div className="hrt-text-field-inner">
-                                                                <input
+                                                                <TextField
+                                                                    variant={'standard'}
                                                                     aria-invalid="false"
                                                                     className="hrt-text-field-input"
                                                                     id="card-cvv" placeholder=" " name="card.CVV"
                                                                     type="text" autoComplete="cc-csc"
                                                                     inputMode="numeric"
-                                                                    maxLength="4" pattern="[0-9]*" value="">
-                                                                </input>
+                                                                    maxLength="4" pattern="[0-9]*"
+                                                                    InputProps={{disableUnderline: true}}>
+                                                                </TextField>
                                                                 <label
                                                                     className="hrt-text-field-label"
                                                                     htmlFor="card-cvv">CVV
@@ -305,7 +191,7 @@ const AfterContinue = () => {
                                                                name="card.name"
                                                                type="text"
                                                                autoComplete="cc-name"
-                                                               value="">
+                                                        >
                                                         </input>
                                                         <label
                                                             className="hrt-text-field-label" htmlFor="card-name">Name on
@@ -327,16 +213,14 @@ const AfterContinue = () => {
                                                             <div className="hrt-text-field-wrapper">
                                                                 <div className="hrt-text-field-inner">
                                                                     <input
-                                                                        aria-invalid="false"
+                                                                        aria-invalid="true"
                                                                         className="hrt-text-field-input"
                                                                         id="location-postal-code" placeholder=" "
                                                                         name="postalCode" type="text"
-                                                                        value="">
-                                                                    </input>
+                                                                    />
                                                                     <label className="hrt-text-field-label"
                                                                            htmlFor="location-postal-code">Postal
-                                                                        code
-                                                                    </label>
+                                                                        code</label>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -361,7 +245,7 @@ const AfterContinue = () => {
                                     type="checkbox"
                                     className="hrt-checkbox-field-input"
                                     id="checkout-optional-anonymous"
-                                    name="checkoutPersonalAnonymous" value="">
+                                    name="checkoutPersonalAnonymous">
                                 </input>
                                 <label
                                     className="hrt-checkbox-field-label"
@@ -395,7 +279,7 @@ const AfterContinue = () => {
                                 <input
                                     type="checkbox"
                                     className="hrt-checkbox-field-input"
-                                    id="email-list" name="emailOptIn" value="">
+                                    id="email-list" name="emailOptIn">
                                 </input>
                                 <label
                                     className="hrt-checkbox-field-label"

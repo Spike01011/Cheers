@@ -840,7 +840,7 @@ input:focus-visible {
 .credit-card-form-fields_creditCardPaymentGridFields__uhBiA {
     display: grid;
     grid-column-gap: 1rem;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
 }
 
@@ -898,4 +898,9 @@ input:focus-visible {
 
 .m-value-prop-content {
     grid-area: content;
+}
+
+.hrt-text-field-inner:focus-within .hrt-text-field-label, .hrt-text-field-input:not(:placeholder-shown) + .hrt-text-field-label {
+    font-size: .75rem;
+    top: 0.5rem;
 }

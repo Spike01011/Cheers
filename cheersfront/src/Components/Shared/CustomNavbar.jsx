@@ -9,11 +9,12 @@ import Logout from "../Logout";
 import LogInComponent from "../../pages/LogInPage/LogInComponent";
 import SignUpComponent from "../../pages/SignUpPage/SignUpComponent";
 import AddCategory from "../AddCategory";
-import PaymentComponent from "../../pages/PaymentPage/PaymentComponent";
 import About from "../About";
 import AccountPage from "../AccountPage";
 import Contact from "../Contact";
 import AfterContinue from "../../pages/PaymentPage/Components/AfterContinue";
+import PaymentWrapper from "../../pages/PaymentPage/PaymentWrapper";
+import PaymentComponent from "../../pages/PaymentPage/PaymentComponent";
 
 // Nu clasa
 export default class CustomNavbar extends Component {
@@ -109,7 +110,7 @@ export default class CustomNavbar extends Component {
                     <Route path="/get-details/:id" element={<GetDetails/>}/>
                     <Route path="/add-photo/:id" element={<AddPhoto/>}/>
                     <Route path={"/add-category"} element={<AddCategory/>}/>
-                    <Route path={"/afterContinue"} element={<AfterContinue/>}/>
+                    <Route path={"/afterContinue"} element={<PaymentWrapper/>}/>
                     <Route path={"/payment/:id"} element={<PaymentComponent/>}/>
                     <Route path={"/register"} element={<SignUpComponent/>}/>
                     <Route path={"/login"} element={<LogInComponent/>}/>

@@ -63,9 +63,9 @@ export default function Employee() {
 
     function validate() {
         let temp = {}
-        temp.imageSrc = values.imageSrc == defaultImageSrc ? false : true;
+        temp.imageSrc = values.imageSrc !== defaultImageSrc;
         setErrors(temp)
-        return Object.values(temp).every(x => x == true)
+        return Object.values(temp).every(x => x === true)
     }
 
     const resetForm = () => {

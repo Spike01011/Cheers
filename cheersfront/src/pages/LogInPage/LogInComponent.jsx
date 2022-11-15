@@ -114,7 +114,7 @@ export default function SignIn() {
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="src/Pages/LogInPage/LogInComponent#" variant="body2">
+                                    <Link href="src/Pages/LogInPage/LogInComponent#" variant="body2" to={"/"}>
                                         Forgot password?
                                     </Link>
                                 </Grid>

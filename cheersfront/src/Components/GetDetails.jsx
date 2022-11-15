@@ -14,7 +14,6 @@ export default function GetDetails() {
     const [data, setData] = useState();
     const [photos, setPhotos] = useState();
     const [show, setShow] = useState(false);
-    const dispatch = useDispatch();
     const [activePhoto, setActivePhoto] = useState({identifier: null, actualImg: null});
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

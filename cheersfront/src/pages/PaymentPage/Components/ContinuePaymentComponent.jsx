@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
-import axios from "axios";
-import {useNavigation} from "react-router-dom";
-import {loadStripe} from "@stripe/stripe-js";
+import {useNavigate} from "react-router-dom";
 
 const ContinuePaymentComponent = () => {
-    const navigate = useNavigation();
+    const navigate = useNavigate();
     const [data, setData] = useState({
         Total: "",
         TipAmount: "",
@@ -16,20 +14,20 @@ const ContinuePaymentComponent = () => {
         console.log("Ana are mere!")
     }
 
-    function submit(e) {
-        e.preventDefault();
-        axios
-            .post(url, {
-                Name: data.Name,
-            }, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`
-                }
-            })
-            .then((res) => {
-                navigate("/");
-            });
-    }
+    // function submit(e) {
+    //     e.preventDefault();
+    //     axios
+    //         .post(url, {
+    //             Name: data.Name,
+    //         }, {
+    //             headers: {
+    //                 Authorization: `Bearer ${localStorage.getItem("token")}`
+    //             }
+    //         })
+    //         .then((res) => {
+    //             navigate("/");
+    //         });
+    // }
 
     return (
         <button
