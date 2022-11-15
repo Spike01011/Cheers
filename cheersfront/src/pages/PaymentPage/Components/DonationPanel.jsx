@@ -13,7 +13,7 @@ const DonationPanel = () => {
                 <dt>Your donation</dt>
                 <dd>€{payment.donation}.00</dd>
                 <dt>Cheers tip</dt>
-                <dd>{0 ? isNaN(payment.tip) : payment.tip}.00 %</dd>
+                <dd>{isNaN(payment.tip) ? '0' : payment.tip}.00 %</dd>
                 {/*de ce nu merge?*/}
                 <div>
                     <div className="hrt-rule hrt-rule--horizontal"></div>

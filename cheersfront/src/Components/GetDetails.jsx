@@ -2,6 +2,7 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {Modal} from "react-bootstrap";
+import {useDispatch} from "react-redux";
 
 export default function GetDetails() {
     const url = "https://localhost:7021/home/GetIdea";
@@ -13,6 +14,7 @@ export default function GetDetails() {
     const [data, setData] = useState();
     const [photos, setPhotos] = useState();
     const [show, setShow] = useState(false);
+    const dispatch = useDispatch();
     const [activePhoto, setActivePhoto] = useState({identifier: null, actualImg: null});
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -27,8 +29,9 @@ export default function GetDetails() {
                 console.error(e);
             }
         };
-        get();
+        get()
     }, []);
+
     useEffect(() => {
         const get = async () => {
             try {
@@ -39,6 +42,7 @@ export default function GetDetails() {
                 console.error(e);
             }
         };
+        // get().then(dispatch(setIdeaAuthor(data.Author)));
         get();
     }, []);
 

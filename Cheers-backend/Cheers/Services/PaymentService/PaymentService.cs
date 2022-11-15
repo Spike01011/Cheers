@@ -14,9 +14,11 @@ namespace Cheers.Services.PaymentService
         public async Task<PaymentIntent> CreateOrUpdatePaymentIntent(Order order)
         {
             StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
+
             PaymentIntentService service = new();
+            
             PaymentIntent intent = new();
-            long total = order.Price;
+            long total = order.Total;
             if (string.IsNullOrEmpty(order.PaymentIntentId))
             {
                 var options = new PaymentIntentCreateOptions
@@ -26,15 +28,15 @@ namespace Cheers.Services.PaymentService
                     PaymentMethodTypes = new List<string> { "card" }
                 };
                 intent = await service.CreateAsync(options);
-                order.PaymentIntentId = intent.Id;
-                order.ClientSecret = intent.ClientSecret;
+                //order.PaymentIntentId = intent.Id;
+                //order.ClientSecret = intent.ClientSecret;
             }
             else
             {
                 var options = new PaymentIntentUpdateOptions
                 {
                     Amount = total,
-                    Currency = "usd"
+                    //Currency = "usd"
                 };
                 await service.UpdateAsync(order.PaymentIntentId, options);
             }
@@ -44,6 +46,39 @@ namespace Cheers.Services.PaymentService
         public bool IsPaymentSuccesfull()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<PaymentIntent> IsPaymentWorking()
+        {
+            var order = new Order(75010, 12345, "", "");
+            StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
+
+            PaymentIntentService service = new();
+
+            PaymentIntent intent = new();
+            long total = order.Total;
+            if (string.IsNullOrEmpty(order.PaymentIntentId))
+            {
+                var options = new PaymentIntentCreateOptions
+                {
+                    Amount = total,
+                    Currency = "usd",
+                    PaymentMethodTypes = new List<string> { "card" }
+                };
+                intent = await service.CreateAsync(options);
+                //order.PaymentIntentId = intent.Id;
+                //order.ClientSecret = intent.ClientSecret;
+            }
+            else
+            {
+                var options = new PaymentIntentUpdateOptions
+                {
+                    Amount = total,
+                    //Currency = "usd"
+                };
+                await service.UpdateAsync(order.PaymentIntentId, options);
+            }
+            return intent;
         }
     }
 }

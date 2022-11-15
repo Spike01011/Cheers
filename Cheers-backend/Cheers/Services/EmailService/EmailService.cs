@@ -14,15 +14,15 @@ namespace Cheers.Services.EmailService
         {
             _configuration = configuration;
         }
-        public void SendEmail(string userEmail)
+        public void SendEmail(string userEmail, string emailSubject, string emailBodyMessage)
         {
             var email = new MimeMessage();
             int smtpPort = int.Parse(_configuration["EmailConnection:SmtpPort"]);
 
             email.From.Add(MailboxAddress.Parse(_configuration["EmailConnection:EmailUserName"]));
             email.To.Add(MailboxAddress.Parse(userEmail));
-            email.Subject = Statics.GetEmailSignUpSubject();
-            email.Body = new TextPart(TextFormat.Html) { Text = Statics.GetEmaiSignUpBody() };
+            email.Subject = emailSubject;
+            email.Body = new TextPart(TextFormat.Html) { Text = emailBodyMessage };
 
             using var smtp = new SmtpClient();
             smtp.Connect(_configuration["EmailConnection:EmailHost"],

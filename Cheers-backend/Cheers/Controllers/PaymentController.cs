@@ -1,17 +1,15 @@
 ﻿using Cheers.Models;
 using Cheers.Services.EmailService;
 using Cheers.Services.PaymentService;
-using Microsoft.AspNetCore.Authorization;
+using Cheers.Utils;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cheers.Controllers
 {
-    [Route("payment")]
-    [ApiController]
-    public class PaymentController : ControllerBase
+    public class PaymentController : Controller
     {
-        private IPaymentService _paymentService;
-        private IEmailService _emailService;
+        private readonly IPaymentService _paymentService;
+        private readonly IEmailService _emailService;
 
         public PaymentController(IPaymentService paymentService, IEmailService emailService)
         {
@@ -19,17 +17,33 @@ namespace Cheers.Controllers
             _emailService = emailService;
         }
 
-        [Authorize]
         [HttpGet]
+        public ActionResult TestGet()
+        {
+            return Ok("ana are mere");
+        }
+
+        [HttpPost]
         public async Task<IActionResult> PayIdeea([FromBody] Order order)
         {
-            if (order ==  null) return NotFound();
+            Console.WriteLine("------------");
+            Console.WriteLine(" Total: " + order.Total);
+            Console.WriteLine(" Tip: " + order.TipAmount);
+            Console.WriteLine("PaymentIntentId: " + order.PaymentIntentId);
+            Console.WriteLine(" ClientSecret: " + order.ClientSecret);
+            Console.WriteLine("------------");
 
-            var intent = await _paymentService.CreateOrUpdatePaymentIntent(order);
-            if (intent == null) return BadRequest();
-            
-            _emailService.SendEmail("asd");
-            return Ok("asda");
+            if (order == null) return NotFound();
+
+            //var intent = await _paymentService.CreateOrUpdatePaymentIntent(order);
+            var intent = await _paymentService.IsPaymentWorking(); //For Testing
+            if (intent == null) return BadRequest(
+                new ProblemDetails { Title = "Creating Payment Intent Problem" });
+            order.PaymentIntentId ??= intent.Id;
+            order.ClientSecret ??= intent.ClientSecret;
+
+            _emailService.SendEmail("cristianbalan2021@gmail.com", Statics.GetPaymentEmailSubject(), Statics.GetEmailPaymentMessage());
+            return Ok("PaymentSuccesfull");
         }
     }
 }

@@ -32,7 +32,6 @@ const paymentSlice = createSlice({
     }
 })
 
-// console.log(initialState)
 export const {setDonation, selectTip, getTotal, clearData} = paymentSlice.actions;
 
 export default paymentSlice.reducer

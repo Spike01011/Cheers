@@ -7,5 +7,6 @@ namespace Cheers.Services.PaymentService
     {
         Task<PaymentIntent> CreateOrUpdatePaymentIntent(Order order);
         bool IsPaymentSuccesfull();
+        Task<PaymentIntent> IsPaymentWorking();
     }
 }

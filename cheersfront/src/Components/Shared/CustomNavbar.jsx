@@ -13,6 +13,7 @@ import PaymentComponent from "../../pages/PaymentPage/PaymentComponent";
 import About from "../About";
 import AccountPage from "../AccountPage";
 import Contact from "../Contact";
+import AfterContinue from "../../pages/PaymentPage/Components/AfterContinue";
 
 // Nu clasa
 export default class CustomNavbar extends Component {
@@ -74,6 +75,9 @@ export default class CustomNavbar extends Component {
                                 <Nav.Link as={Link} to={"/contact"}>
                                     Contact
                                 </Nav.Link>
+                                <Nav.Link as={Link} to={"/afterContinue"}>
+                                    AfterContinue
+                                </Nav.Link>
                                 <NavDropdown
                                     title="Add"
                                     id="basic-nav-dropdown">
@@ -105,6 +109,7 @@ export default class CustomNavbar extends Component {
                     <Route path="/get-details/:id" element={<GetDetails/>}/>
                     <Route path="/add-photo/:id" element={<AddPhoto/>}/>
                     <Route path={"/add-category"} element={<AddCategory/>}/>
+                    <Route path={"/afterContinue"} element={<AfterContinue/>}/>
                     <Route path={"/payment/:id"} element={<PaymentComponent/>}/>
                     <Route path={"/register"} element={<SignUpComponent/>}/>
                     <Route path={"/login"} element={<LogInComponent/>}/>

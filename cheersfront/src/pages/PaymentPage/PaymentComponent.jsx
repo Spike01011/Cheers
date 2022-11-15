@@ -12,6 +12,7 @@ import {getTotal} from './PaymentSlice'
 const PaymentComponent = () => {
     const dispatch = useDispatch();
     const payment = useSelector((store) => store.payment)
+    const ideaDetails = useSelector((store) => store.idea.allIdea)
 
     useEffect(() => {
         dispatch(getTotal());
@@ -30,7 +31,8 @@ const PaymentComponent = () => {
                             <h1
                                 className="mb0 text-regular weight-400">You're supporting
                                 <strong>
-                                    SPORT E SALUTE- coltiviamo campioni
+                                    {/*{ideaDetails.name} */}
+                                    {' '} Vezi ce e cu el
                                 </strong>
                             </h1>
                             <h2
