@@ -41,29 +41,17 @@ namespace Cheers.Models.Daos
 
         public void UpdateProduct(Order order)
         {
-            Console.WriteLine("UpdateProduct Order Over View ClientSecret: " + order.ClientSecret);
-            Console.WriteLine("UpdateProduct Order Over View PaymentIntentId: " + order.PaymentIntentId);
-
             var toEditOrder = _appDbContext.Orders.FirstOrDefault(cat => cat.Id == order.Id);
             if (toEditOrder != null)
             {
-                Console.WriteLine("Primul If din UpdateProduct");
-                //if (toEditOrder.ClientSecret != order.ClientSecret || toEditOrder.PaymentIntentId != order.PaymentIntentId)
-                //{
-                //Console.WriteLine("Al doilea If din UpdateProduct");
                 toEditOrder.ClientSecret = order.ClientSecret;
                 toEditOrder.PaymentIntentId = order.PaymentIntentId;
                 _appDbContext.Orders.Update(toEditOrder);
                 _appDbContext.SaveChanges();
-                //}
-                //else 
-                //{
-                //    Console.WriteLine(toEditOrder.Total);
-                //}
             }
             else
             {
-                Console.WriteLine(toEditOrder.Id);
+                Console.WriteLine("UpdateProduct -> else: toEditOrder is null");
             }
         }
     }

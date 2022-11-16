@@ -28,7 +28,7 @@ export default function PaymentWrapper() {
 				}
 			}
 		).then(
-			Api.get("payment/PayIdeaDao")
+			Api.get("payment/payidea")
 				.then(response => console.log(response))
 				.catch(error => console.log("Payment Fetch Error: " + error))
 		)

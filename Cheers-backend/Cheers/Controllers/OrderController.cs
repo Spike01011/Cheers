@@ -1,10 +1,8 @@
 ﻿using Cheers.Models;
-using Cheers.Models.Daos;
 using Cheers.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Crypto;
 using System.Security.Claims;
 
 namespace Cheers.Controllers
