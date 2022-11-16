@@ -21,5 +21,10 @@
         {
             return "Payment succesfull!";
         }
+
+        public static string GeneralErrorMessage()
+        {
+            return "Something Went Wrong!";
+        }
     }
 }

@@ -97,6 +97,7 @@ namespace Cheers
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IImageClDAO, ImageClDbDAO>();
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IOrderDao, OrderDbDao>();
 
             services.AddControllersWithViews();
             services.AddCors(options =>
