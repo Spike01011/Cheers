@@ -105,9 +105,9 @@ namespace Cheers
                 });
             });
             services.AddHttpContextAccessor();
-            //var lol = services.BuildServiceProvider();
-            //CreateRoles(lol).Wait();
-            //CreateRoles(services.BuildServiceProvider()).Wait(); NU MERGE ASTA
+            var lol = services.BuildServiceProvider();
+            CreateRoles(lol).Wait();
+            CreateRoles(services.BuildServiceProvider()).Wait(); /*NU MERGE ASTA*/
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

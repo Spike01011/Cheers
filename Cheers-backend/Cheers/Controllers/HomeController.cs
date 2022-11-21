@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Cors;
 
 namespace Cheers.Controllers
 {
     //[Authorize]
+    [EnableCors]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -47,8 +49,8 @@ namespace Cheers.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity != null)
             {
-                var clm = identity.FindFirst(ClaimTypes.Email).Value;
-                var user = await _accountRepository.GetByMail(clm);
+                var email = identity.FindFirst(ClaimTypes.Email).Value;
+                var user = await _accountRepository.GetByMail(email);
                 idea.Author = user;
                 _daosMananger.AddIdea(idea);
             }
@@ -79,19 +81,49 @@ namespace Cheers.Controllers
             return Ok();
 
         }
+
         [Authorize]
-        public IActionResult AddImage([FromForm]ImageCl img)
+        public async Task<IActionResult> AddImage([FromForm]ImageCl img)
         {
-            img.Image = SaveImage(img.ImageFile);
-            _daosMananger.AddImage(img);
-            return Ok();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var email = identity.FindFirst(ClaimTypes.Email).Value;
+                var user = await _accountRepository.GetByMail(email);
+                var role = identity.FindFirst(ClaimTypes.Role).Value;
+                var expectedUser = _daosMananger.GetIdea(img.IdeaId).Author;
+                if (user != expectedUser && role != "admin") return Unauthorized("You're not the author of this Idea");
+                img.Image = SaveImage(img.ImageFile);
+                _daosMananger.AddImage(img);
+
+                return Ok();
+            }
+
+            return Unauthorized("Log in Before adding a photo");
         }
+
+
         [Authorize]
         [HttpDelete]
-        public IActionResult RemoveImage(int id)
+        public async Task<IActionResult> RemoveImage(int id)
         {
-            _daosMananger.DeleteImage(id);
-            return Ok();
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var email = identity.FindFirst(ClaimTypes.Email).Value;
+                var user = await _accountRepository.GetByMail(email);
+                var role = identity.FindFirst(ClaimTypes.Role).Value;
+                var img = _daosMananger.GetImage(id);
+                var expectedUser = _daosMananger.GetIdea(img.IdeaId).Author;
+                
+                if (user != expectedUser && role != "admin") return Unauthorized("You're not the author of this Idea");
+                
+                _daosMananger.DeleteImage(id);
+                
+                return Ok();
+            }
+
+            return Unauthorized("Log in Before deleting a photo");
         }
 
         [AllowAnonymous]
