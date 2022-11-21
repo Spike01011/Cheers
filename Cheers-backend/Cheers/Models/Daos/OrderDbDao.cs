@@ -54,12 +54,5 @@ namespace Cheers.Models.Daos
                 Console.WriteLine("UpdateProduct -> else: toEditOrder is null");
             }
         }
-
-        public async Task<string> AddAna(Order entity)
-        {
-            _appDbContext.Orders.Add(entity);
-            _appDbContext.SaveChangesAsync().Wait();
-            return "ASJAS";
-        }
     }
 }

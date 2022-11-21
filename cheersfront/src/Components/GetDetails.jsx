@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import {Modal} from "react-bootstrap";
 import {useDispatch} from "react-redux";
@@ -22,9 +21,7 @@ export default function GetDetails() {
 	const handleShow = () => setShow(true);
 
 	function clearPaymentValues() {
-		console.log("Enter clearPaymentValues")
 		dispatch(clearPaymentData())
-		console.log("Exit clearPaymentValues")
 	}
 
 	useEffect(() => {

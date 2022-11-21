@@ -23,15 +23,13 @@ namespace Cheers.Controllers
         public async Task<IActionResult> AddOrder([FromBody] Order order)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            Console.WriteLine(order.ClientSecret + " ANA ARE MERER");
-            Console.WriteLine(order.PaymentIntentId + " ANA ARE MERER");
 
             if (identity != null)
             {
                 var clm = identity.FindFirst(ClaimTypes.Email).Value;
                 var user = await _accountRepository.GetByMail(clm);
                 order.Author = user;
-                _orderDao.AddAna(order).Wait();
+                _orderDao.Add(order);
             }
             else return BadRequest("Add Order Faild");
 
@@ -51,6 +49,13 @@ namespace Cheers.Controllers
             //    else return BadRequest("Add Order Faild");
             //}
             //return Ok("OrderAdded Succesfull: " + JsonConvert.SerializeObject(order));
+        }
+
+        [HttpGet]
+        public IActionResult GetLastOrderClientSecret()
+        {
+            var order = _orderDao.GetAll().Last().ClientSecret;
+            return Ok(order);
         }
     }
 }

@@ -1,69 +1,54 @@
-import React, {forwardRef, useState} from 'react';
-import CountrySelect from "./CountrySelectionComponent";
+import React, {forwardRef, useEffect, useState} from 'react';
 import TextField from "@mui/material/TextField";
-import {CardCvcElement, CardExpiryElement, CardNumberElement} from "@stripe/react-stripe-js";
-import StripeInput from "../StripeInput";
 // import {useFormContext} from 'react-hook-form';
+import {CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe} from "@stripe/react-stripe-js";
+import {StripeInput} from "../StripeInput";
+import {useDispatch} from "react-redux";
+import Api from "../../../Utils/Api";
 
 const AfterContinue = forwardRef((props, ref) => {
-	// const {control} = useFormContext();
-	// const stripe = useStripe();
-	const [loading, setLoading] = useState(true)
-	const [cardState, setCardState] = useState({elementError: {}});
-	// const [cardState, setCardState] = useState<{ [key in StripeElementType]: string }>({});
+	const stripe = useStripe();
+	const elements = useElements();
+	const dispatch = useDispatch();
+	const [loading, setLoading] = useState(false)
+	const [clientSecret, setClientSecret] = useState("")
 
-	// function onCardInputChange(e) {
-	// 	setCardState({
-	// 		...cardState,
-	// 		elementError: {
-	// 			[e.elementType]: event.error.message
-	// 		}
-	// 	})
-	// }
+	useEffect(() => {
+		//todo
+		const get = async () => {
+			try {
+				const response = Api.get('order/GetLastOrderClientSecret')
+				const responseData = await response.data;
+				setClientSecret(responseData);
+			} catch (e) {
+				console.error(e);
+			}
+		};
+	}, []);
 
-	const [cardData, setCardData] = useState(
-		{
-			CardNumberElement: "",
-			CardExpiryElement: "",
-			CardCvcElement: "",
+	const submit = async () => {
+		if (!stripe) return; // stripe is not ready
+		const response = Api.get('order/GetLastOrderClientSecret')
+		let data = await (await response).data
+		console.log(data)
+		await setClientSecret(data)
+		console.log(clientSecret)
+		try {
+			const cardElement = elements.getElement(CardNumberElement);
+			const paymentResult = await stripe.confirmCardPayment(data, {
+				payment_method: {
+					card: cardElement,
+					billing_details: {
+						name: 'nameOnCard'
+					}
+				}
+			})
+			console.log(paymentResult);
+			console.log(paymentResult.paymentIntent.status);
+		} catch (error) {
+			console.log(error)
 		}
-	)
-	//
-	// async function submitOrder() {
-	// 	setLoading(true)
-	// 	if (!stripe) return;
-	// 	try {
-	// 		const cardElement = cardData.CardNumberElement;
-	// 		const paymentResult = await stripe.confirmCardPayment("", {
-	// 			payment_method: {
-	// 				card: cardElement,
-	// 				billing_details: {
-	// 					name: '',
-	// 				}
-	// 			}
-	// 		});
-	// 		console.log(paymentResult)
-	// 		if (paymentResult.paymentIntent.status === 'succeeded') {
-	//
-	// 		}
-	// 	} catch (error) {
-	// 		console.log(error + "PayError")
-	// 		setLoading(false);
-	// 	}
-	//
-	// }
-
-	function handle(e) {
-
-		console.log(e)
-		console.log(e.props + " Value")
-		console.log(e.brand)
-		console.log(e.elementType)
-
-		// const newData = {...cardData};
-		// newData[e.target.id] = e.target.value;
-		// setCardData(newData);
-	}
+	};
 
 	return (
 		<div className="">
@@ -119,7 +104,6 @@ const AfterContinue = forwardRef((props, ref) => {
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
 																<TextField
-																	onChange={(e) => handle(e)}
 																	variant={'standard'}
 																	aria-invalid="false"
 																	className="hrt-text-field-input"
@@ -136,43 +120,6 @@ const AfterContinue = forwardRef((props, ref) => {
 														</div>
 													</div>
 												</div>
-												<div
-													className="donation-personal-fields_donationPersonalRow__WilEu donation-personal-fields_donationPersonalRowParent__11L1A">
-													<div className="hrt-text-field">
-														<div className="hrt-text-field-wrapper">
-															<div className="hrt-text-field-inner">
-																<input
-																	aria-invalid="false"
-																	className="hrt-text-field-input"
-																	id="first-name" placeholder=" " name="firstName"
-																	type="text" autoComplete="given-name">
-																</input>
-																<label
-																	className="hrt-text-field-label"
-																	htmlFor="first-name">First
-																	name
-																</label>
-															</div>
-														</div>
-													</div>
-													<div className="hrt-text-field">
-														<div className="hrt-text-field-wrapper">
-															<div className="hrt-text-field-inner">
-																<input
-																	aria-invalid="false"
-																	className="hrt-text-field-input"
-																	id="last-name" placeholder=" " name="lastName"
-																	type="text" autoComplete="family-name">
-																</input>
-																<label
-																	className="hrt-text-field-label"
-																	htmlFor="last-name">Last
-																	name
-																</label>
-															</div>
-														</div>
-													</div>
-												</div>
 											</div>
 											<div
 												className="credit-card-form-fields_creditCardPaymentGridFields__uhBiA">
@@ -181,23 +128,22 @@ const AfterContinue = forwardRef((props, ref) => {
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
 																<TextField ref={ref}
-																		   onChange={(e) => handle(e)}
 																		   variant={'standard'}
-																		   aria-invalid="false"
+																		   aria-invalid={false}
 																		   className="hrt-text-field-input"
 																		   name="CardNumberElement"
 																		   id={"CardNumberElement"}
 																		   type="text" autoComplete={false}
-																		   inputMode="numeric"
 																		   InputLabelProps={{shrink: true}}
 																		   InputProps={{
 																			   inputComponent: StripeInput,
-																			   value: CardNumberElement.defaultProps,
 																			   inputProps: {
 																				   component: CardNumberElement
 																			   },
 																			   disableUnderline: true,
 																		   }}
+
+
 																>
 																</TextField>
 																<label className="hrt-text-field-label"
@@ -214,7 +160,6 @@ const AfterContinue = forwardRef((props, ref) => {
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
 																<CardExpiryElement
-																	// onChange={(e) => handle(e)}
 																	variant={'standard'}
 																	aria-invalid="false"
 																	className="hrt-text-field-input"
@@ -222,13 +167,13 @@ const AfterContinue = forwardRef((props, ref) => {
 																	name="card.expirationDate" type="text"
 																	autoComplete="cc-exp" inputMode="numeric"
 																	maxLength="5"
-																	// InputProps={{
-																	// 	inputComponent: StripeInput,
-																	// 	inputProps: {
-																	// 		component: CardExpiryElement
-																	// 	},
-																	// 	disableUnderline: true
-																	// }}
+																	InputProps={{
+																		inputComponent: StripeInput,
+																		inputProps: {
+																			component: CardExpiryElement
+																		},
+																		disableUnderline: true
+																	}}
 																>
 																</CardExpiryElement>
 																<label className="hrt-text-field-label"
@@ -241,20 +186,19 @@ const AfterContinue = forwardRef((props, ref) => {
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
 																<CardCvcElement
-																	// onChange={(e) => handle(e)}
 																	variant={'standard'}
 																	aria-invalid="false"
 																	className="hrt-text-field-input"
 																	id="CardCvcElement" placeholder=" "
 																	name="card.CVV"
 																	type="text" autoComplete="cc-csc"
-																	// InputProps={{
-																	// 	inputComponent: StripeInput,
-																	// 	inputProps: {
-																	// 		component: CardCvcElement
-																	// 	},
-																	// 	disableUnderline: true
-																	// }}
+																	InputProps={{
+																		inputComponent: StripeInput,
+																		inputProps: {
+																			component: CardCvcElement
+																		},
+																		disableUnderline: true
+																	}}
 																>
 																</CardCvcElement>
 																<label
@@ -291,27 +235,7 @@ const AfterContinue = forwardRef((props, ref) => {
 													className="short-address-fields_donationLocationRow__IzV76 short-address-fields_donationLocationRowParent____9JH">
 													<div
 														className="short-address-fields_donationLocationRow__IzV76">
-														<div className="hrt-select-field">
-															<CountrySelect/>
-														</div>
-													</div>
-													<div
-														className="short-address-fields_donationLocationRow__IzV76">
-														<div className="hrt-text-field">
-															<div className="hrt-text-field-wrapper">
-																<div className="hrt-text-field-inner">
-																	<input
-																		aria-invalid="true"
-																		className="hrt-text-field-input"
-																		id="location-postal-code" placeholder=" "
-																		name="postalCode" type="text"
-																	/>
-																	<label className="hrt-text-field-label"
-																		   htmlFor="location-postal-code">Postal
-																		code</label>
-																</div>
-															</div>
-														</div>
+														<div className="hrt-select-field"></div>
 													</div>
 												</div>
 											</div>
@@ -388,9 +312,9 @@ const AfterContinue = forwardRef((props, ref) => {
 						<div
 							className="credit-card-submit-button_creditCardSubmitButtonWrapper__1_7UT width-full">
 							todo
-							<button
-								className="credit-card-submit-button_creditCardSubmitButton__dJYeD max-width-360--for-small disp-flex justify-center hrt-primary-button hrt-primary-button--green hrt-primary-button--full-for-small hrt-primary-button--large hrt-primary-button--shadow hrt-base-button"
-								id="donate-now" type="submit">Donate now
+							<button onClick={submit}
+									className="credit-card-submit-button_creditCardSubmitButton__dJYeD max-width-360--for-small disp-flex justify-center hrt-primary-button hrt-primary-button--green hrt-primary-button--full-for-small hrt-primary-button--large hrt-primary-button--shadow hrt-base-button"
+									id="donate-now" type="submit">Donate now
 							</button>
 						</div>
 					</div>
@@ -441,26 +365,3 @@ const AfterContinue = forwardRef((props, ref) => {
 });
 
 export default AfterContinue;
-
-
-// import {useEffect, useState} from "react";
-// import {useStripe, useElements} from "@stripe/react-stripe-js";
-// import {PaymentElement} from "@stripe/react-stripe-js";
-//
-// export default function AfterContinue(){
-// 	const [message, setMessage] = useState(null)
-// 	const [processing, setProcessing] = useState(false)
-//
-// 	const handleSubmit = async (e) => {
-// 		e.preventDefault();
-// 	}
-//
-// 	return(
-// 		<form id={'payment-form'}>
-// 			<PaymentElement/>
-// 			<button disabled={processing} id={'submit'}>
-// 				<span id={'button-text'}>{processing ? "Processing... :" : "Pay Now"}</span>
-// 			</button>
-// 		</form>
-// 	)
-// }

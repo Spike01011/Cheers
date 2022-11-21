@@ -14,7 +14,6 @@ const DonationInput = () => {
 	function handle(e) {
 		e.preventDefault()
 		setPrice(e.target.value);
-		console.log(price + " Price")
 	}
 
 	return (
