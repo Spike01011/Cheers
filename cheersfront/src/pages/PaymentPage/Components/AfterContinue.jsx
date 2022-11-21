@@ -1,23 +1,69 @@
-import React, {useState} from 'react';
+import React, {forwardRef, useState} from 'react';
 import CountrySelect from "./CountrySelectionComponent";
 import TextField from "@mui/material/TextField";
 import {CardCvcElement, CardExpiryElement, CardNumberElement} from "@stripe/react-stripe-js";
 import StripeInput from "../StripeInput";
-// import {StripeElementType} from "@stripe/stripe-js";
+// import {useFormContext} from 'react-hook-form';
 
+const AfterContinue = forwardRef((props, ref) => {
+	// const {control} = useFormContext();
+	// const stripe = useStripe();
+	const [loading, setLoading] = useState(true)
+	const [cardState, setCardState] = useState({elementError: {}});
+	// const [cardState, setCardState] = useState<{ [key in StripeElementType]: string }>({});
 
-const AfterContinue = () => {
-
-	// function handle(e) {
-	// 	const newData = {
+	// function onCardInputChange(e) {
+	// 	setCardState({
 	// 		...cardState,
 	// 		elementError: {
-	// 			[e.elementType]: e.error?.message
+	// 			[e.elementType]: event.error.message
 	// 		}
-	// 	};
-	// 	newData[e.target.id] = e.target.value;
-	// 	setCardState(newData);
+	// 	})
 	// }
+
+	const [cardData, setCardData] = useState(
+		{
+			CardNumberElement: "",
+			CardExpiryElement: "",
+			CardCvcElement: "",
+		}
+	)
+	//
+	// async function submitOrder() {
+	// 	setLoading(true)
+	// 	if (!stripe) return;
+	// 	try {
+	// 		const cardElement = cardData.CardNumberElement;
+	// 		const paymentResult = await stripe.confirmCardPayment("", {
+	// 			payment_method: {
+	// 				card: cardElement,
+	// 				billing_details: {
+	// 					name: '',
+	// 				}
+	// 			}
+	// 		});
+	// 		console.log(paymentResult)
+	// 		if (paymentResult.paymentIntent.status === 'succeeded') {
+	//
+	// 		}
+	// 	} catch (error) {
+	// 		console.log(error + "PayError")
+	// 		setLoading(false);
+	// 	}
+	//
+	// }
+
+	function handle(e) {
+
+		console.log(e)
+		console.log(e.props + " Value")
+		console.log(e.brand)
+		console.log(e.elementType)
+
+		// const newData = {...cardData};
+		// newData[e.target.id] = e.target.value;
+		// setCardData(newData);
+	}
 
 	return (
 		<div className="">
@@ -73,6 +119,7 @@ const AfterContinue = () => {
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
 																<TextField
+																	onChange={(e) => handle(e)}
 																	variant={'standard'}
 																	aria-invalid="false"
 																	className="hrt-text-field-input"
@@ -127,29 +174,30 @@ const AfterContinue = () => {
 													</div>
 												</div>
 											</div>
-											<div className="credit-card-form-fields_creditCardPaymentGridFields__uhBiA">
+											<div
+												className="credit-card-form-fields_creditCardPaymentGridFields__uhBiA">
 												<div>
 													<div className="hrt-text-field">
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
-																<TextField
-																	// onChange={handle}
-																	// error={!!cardState.elementError.cardNumber}
-																	// helperText={cardState.elementError.cardNumber}
-																	variant={'standard'}
-																	aria-invalid="false"
-																	className="hrt-text-field-input"
-																	id="card-number" placeholder=" " name="card.number"
-																	type="text" autoComplete="cc-number"
-																	inputMode="numeric"
-																	InputLabelProps={{disableAnimation: true}}
-																	InputProps={{
-																		inputComponent: StripeInput,
-																		inputProps: {
-																			component: CardNumberElement
-																		},
-																		disableUnderline: true
-																	}}
+																<TextField ref={ref}
+																		   onChange={(e) => handle(e)}
+																		   variant={'standard'}
+																		   aria-invalid="false"
+																		   className="hrt-text-field-input"
+																		   name="CardNumberElement"
+																		   id={"CardNumberElement"}
+																		   type="text" autoComplete={false}
+																		   inputMode="numeric"
+																		   InputLabelProps={{shrink: true}}
+																		   InputProps={{
+																			   inputComponent: StripeInput,
+																			   value: CardNumberElement.defaultProps,
+																			   inputProps: {
+																				   component: CardNumberElement
+																			   },
+																			   disableUnderline: true,
+																		   }}
 																>
 																</TextField>
 																<label className="hrt-text-field-label"
@@ -165,26 +213,24 @@ const AfterContinue = () => {
 													<div className="o-credit-card-payment-date hrt-text-field">
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
-																<TextField
-																	// onChange={handle}
-																	// error={!!cardState.elementError.cardDate}
-																	// helperText={cardState.elementError.cardDate}
+																<CardExpiryElement
+																	// onChange={(e) => handle(e)}
 																	variant={'standard'}
 																	aria-invalid="false"
 																	className="hrt-text-field-input"
-																	id="card-expiration" placeholder=" "
+																	id={"CardExpiryElement"}
 																	name="card.expirationDate" type="text"
 																	autoComplete="cc-exp" inputMode="numeric"
 																	maxLength="5"
-																	InputProps={{
-																		inputComponent: StripeInput,
-																		inputProps: {
-																			component: CardExpiryElement
-																		},
-																		disableUnderline: true
-																	}}
+																	// InputProps={{
+																	// 	inputComponent: StripeInput,
+																	// 	inputProps: {
+																	// 		component: CardExpiryElement
+																	// 	},
+																	// 	disableUnderline: true
+																	// }}
 																>
-																</TextField>
+																</CardExpiryElement>
 																<label className="hrt-text-field-label"
 																	   htmlFor="card-expiration">MM/YY
 																</label>
@@ -194,24 +240,23 @@ const AfterContinue = () => {
 													<div className="o-credit-card-payment-cvv hrt-text-field">
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
-																<TextField
-																	// onChange={handle}
-																	// error={!!cardState.elementError.cardCvC}
-																	// helperText={cardState.elementError.cardCvC}
+																<CardCvcElement
+																	// onChange={(e) => handle(e)}
 																	variant={'standard'}
 																	aria-invalid="false"
 																	className="hrt-text-field-input"
-																	id="card-cvv" placeholder=" " name="card.CVV"
+																	id="CardCvcElement" placeholder=" "
+																	name="card.CVV"
 																	type="text" autoComplete="cc-csc"
-																	InputProps={{
-																		inputComponent: StripeInput,
-																		inputProps: {
-																			component: CardCvcElement
-																		},
-																		disableUnderline: true
-																	}}
+																	// InputProps={{
+																	// 	inputComponent: StripeInput,
+																	// 	inputProps: {
+																	// 		component: CardCvcElement
+																	// 	},
+																	// 	disableUnderline: true
+																	// }}
 																>
-																</TextField>
+																</CardCvcElement>
 																<label
 																	className="hrt-text-field-label"
 																	htmlFor="card-cvv">CVV
@@ -234,7 +279,8 @@ const AfterContinue = () => {
 														>
 														</input>
 														<label
-															className="hrt-text-field-label" htmlFor="card-name">Name on
+															className="hrt-text-field-label" htmlFor="card-name">Name
+															on
 															card
 														</label>
 													</div>
@@ -243,12 +289,14 @@ const AfterContinue = () => {
 											<div className="short-address-fields_donationLocationFields__7jil6">
 												<div
 													className="short-address-fields_donationLocationRow__IzV76 short-address-fields_donationLocationRowParent____9JH">
-													<div className="short-address-fields_donationLocationRow__IzV76">
+													<div
+														className="short-address-fields_donationLocationRow__IzV76">
 														<div className="hrt-select-field">
 															<CountrySelect/>
 														</div>
 													</div>
-													<div className="short-address-fields_donationLocationRow__IzV76">
+													<div
+														className="short-address-fields_donationLocationRow__IzV76">
 														<div className="hrt-text-field">
 															<div className="hrt-text-field-wrapper">
 																<div className="hrt-text-field-inner">
@@ -339,6 +387,7 @@ const AfterContinue = () => {
 						<div id="threeds-div"></div>
 						<div
 							className="credit-card-submit-button_creditCardSubmitButtonWrapper__1_7UT width-full">
+							todo
 							<button
 								className="credit-card-submit-button_creditCardSubmitButton__dJYeD max-width-360--for-small disp-flex justify-center hrt-primary-button hrt-primary-button--green hrt-primary-button--full-for-small hrt-primary-button--large hrt-primary-button--shadow hrt-base-button"
 								id="donate-now" type="submit">Donate now
@@ -389,6 +438,29 @@ const AfterContinue = () => {
 			</div>
 		</div>
 	)
-};
+});
 
 export default AfterContinue;
+
+
+// import {useEffect, useState} from "react";
+// import {useStripe, useElements} from "@stripe/react-stripe-js";
+// import {PaymentElement} from "@stripe/react-stripe-js";
+//
+// export default function AfterContinue(){
+// 	const [message, setMessage] = useState(null)
+// 	const [processing, setProcessing] = useState(false)
+//
+// 	const handleSubmit = async (e) => {
+// 		e.preventDefault();
+// 	}
+//
+// 	return(
+// 		<form id={'payment-form'}>
+// 			<PaymentElement/>
+// 			<button disabled={processing} id={'submit'}>
+// 				<span id={'button-text'}>{processing ? "Processing... :" : "Pay Now"}</span>
+// 			</button>
+// 		</form>
+// 	)
+// }

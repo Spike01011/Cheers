@@ -1,95 +1,110 @@
-import * as React from 'react';
-import {useState} from 'react';
-import Button from '@mui/joy/Button';
-import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import ListItemDecorator from '@mui/joy/ListItemDecorator';
-import ListDivider from '@mui/joy/ListDivider';
-import Menu from '@mui/joy/Menu';
-import MenuItem from '@mui/joy/MenuItem';
-import ArrowRight from '@mui/icons-material/ArrowRight';
-import ArrowDown from '@mui/icons-material/ArrowDown';
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import React, {useMemo} from "react";
+import {CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe} from "@stripe/react-stripe-js";
 
-export default function BasicMenu() {
-    const SIZES = ['X-Small', 'Small', 'Medium', 'Large', 'X-Large'];
-    const [size, setSize] = useState('Medium');
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
 
-    return (
-        <div>
-            <Button
-                id="group-demo-button"
-                aria-controls={open ? 'group-menu' : undefined}
-                aria-haspopup="true"
-                aria-expanded={open ? 'true' : undefined}
-                variant="outlined"
-                color="neutral"
-                onClick={handleClick}
-                endDecorator={<ArrowDropDown/>}
-            >
-                Size
-            </Button>
-            <Menu
-                id="group-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="group-demo-button"
-                sx={{minWidth: 160, '--List-decorator-size': '24px'}}
-            >
-                <MenuItem
-                    onClick={() => {
-                        const nextIndex = SIZES.indexOf(size) - 1;
-                        const value = nextIndex < 0 ? SIZES[SIZES.length - 1] : SIZES[nextIndex];
-                        setSize(value);
-                        handleClose();
-                    }}
-                >
-                    Smaller
-                </MenuItem>
-                <MenuItem
-                    onClick={() => {
-                        const nextIndex = SIZES.indexOf(size) + 1;
-                        const value = nextIndex > SIZES.length - 1 ? SIZES[0] : SIZES[nextIndex];
-                        setSize(value);
-                        handleClose();
-                    }}
-                >
-                    Larger
-                </MenuItem>
-                <ListDivider/>
-                <ListItem nested>
-                    <List aria-label="Font sizes">
-                        {SIZES.map((item) => (
-                            <MenuItem
-                                key={item}
-                                role="menuitemradio"
-                                aria-checked={item === size ? 'true' : 'false'}
-                                onClick={() => {
-                                    setSize(item);
-                                    handleClose();
-                                }}
-                            >
-                                <ListItemDecorator>
-                                    {item === size && <ArrowRight/>}
-                                </ListItemDecorator>{' '}
-                                <ListItemDecorator>
-                                    {item === size && <ArrowDown/>}
-                                </ListItemDecorator>{' '}
-                                {item}
-                            </MenuItem>
-                        ))}
-                    </List>
-                </ListItem>
-            </Menu>
-        </div>
-    );
-}
+const useOptions = () => {
+	return useMemo(
+		() => ({
+			style: {
+				base: {
+					color: "#424770",
+					letterSpacing: "0.025em",
+					fontFamily: "Source Code Pro, monospace",
+					"::placeholder": {
+						color: "#aab7c4"
+					}
+				},
+				invalid: {
+					color: "#9e2146"
+				}
+			}
+		}),
+		[]
+	);
+};
+
+const AfterContinueTest = () => {
+	const stripe = useStripe();
+	const elements = useElements();
+	const options = useOptions();
+
+	const handleSubmit = async event => {
+		event.preventDefault();
+
+		if (!stripe || !elements) {
+			// Stripe.js has not loaded yet. Make sure to disable
+			// form submission until Stripe.js has loaded.
+			return;
+		}
+
+		const payload = await stripe.createPaymentMethod({
+			type: "card",
+			card: elements.getElement(CardNumberElement)
+		});
+		console.log("[PaymentMethod]", payload);
+	};
+
+	return (
+		<form onSubmit={handleSubmit}>
+			<label>
+				Card number
+				<CardNumberElement
+					options={options}
+					onReady={() => {
+						console.log("CardNumberElement [ready]");
+					}}
+					onChange={event => {
+						console.log("CardNumberElement [change]", event);
+					}}
+					onBlur={() => {
+						console.log("CardNumberElement [blur]");
+					}}
+					onFocus={() => {
+						console.log("CardNumberElement [focus]");
+					}}
+				/>
+			</label>
+			<label>
+				Expiration date
+				<CardExpiryElement
+					options={options}
+					onReady={() => {
+						console.log("CardNumberElement [ready]");
+					}}
+					onChange={event => {
+						console.log("CardNumberElement [change]", event);
+					}}
+					onBlur={() => {
+						console.log("CardNumberElement [blur]");
+					}}
+					onFocus={() => {
+						console.log("CardNumberElement [focus]");
+					}}
+				/>
+			</label>
+			<label>
+				CVC
+				<CardCvcElement
+					options={options}
+					onReady={() => {
+						console.log("CardNumberElement [ready]");
+					}}
+					onChange={event => {
+						console.log("CardNumberElement [change]", event);
+					}}
+					onBlur={() => {
+						console.log("CardNumberElement [blur]");
+					}}
+					onFocus={() => {
+						console.log("CardNumberElement [focus]");
+					}}
+				/>
+			</label>
+			<button type="submit" disabled={!stripe}>
+				Pay
+			</button>
+		</form>
+	);
+};
+
+export default AfterContinueTest;

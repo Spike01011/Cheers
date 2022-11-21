@@ -1,17 +1,25 @@
-import React, {useImperativeHandle, useRef} from 'react'
+import React, {forwardRef, useImperativeHandle, useRef} from 'react'
+import {InputBaseComponentProps} from "@mui/material";
 
-const StripeInput = (
-	{component: Component, inputRef, ...props}
-) => {
-	const elementRef = useRef();
-	useImperativeHandle(inputRef, () => ({
-		focus: () => elementRef.current.focus
-	}));
-	return (
-		<Component
-			onReady={element => (elementRef.current = element)}
-			{...props}
-		/>
-	)
+interface Props extends InputBaseComponentProps {
 }
+
+const StripeInput =
+	forwardRef(
+		function StripeInput(
+			{component: Component, ...props}: Props, ref) {
+
+			const elementRef = useRef();
+			console.log(elementRef)
+			useImperativeHandle(ref, () => ({
+				focus: () => elementRef.current.focus()
+			}));
+
+			return (
+				<Component
+					onReady={element => (elementRef.current = element)}
+					ref={elementRef} {...props}
+				/>
+			)
+		})
 export default StripeInput
