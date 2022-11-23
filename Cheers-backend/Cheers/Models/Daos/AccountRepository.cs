@@ -87,11 +87,21 @@ namespace Cheers.Models.Daos
                 return null;
             }
 
+            ApplicationUser user = await _userManager.FindByEmailAsync(signInModel.Email);
+            var roles = await _userManager.GetRolesAsync(user);
+
             var authorClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, signInModel.Email),
                 new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
+
+            foreach (var role in roles)
+            {
+                var roleClaim = new Claim(ClaimTypes.Role, role);
+                authorClaims.Add(roleClaim);
+            }
+
 
             var authKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
 

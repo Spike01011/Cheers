@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Cheers.Controllers
 {
@@ -90,9 +91,8 @@ namespace Cheers.Controllers
             {
                 var email = identity.FindFirst(ClaimTypes.Email).Value;
                 var user = await _accountRepository.GetByMail(email);
-                var role = identity.FindFirst(ClaimTypes.Role).Value;
                 var expectedUser = _daosMananger.GetIdea(img.IdeaId).Author;
-                if (user != expectedUser && role != "admin") return Unauthorized("You're not the author of this Idea");
+                if (user != expectedUser) return Unauthorized("You're not the author of this Idea");
                 img.Image = SaveImage(img.ImageFile);
                 _daosMananger.AddImage(img);
 
@@ -125,6 +125,22 @@ namespace Cheers.Controllers
 
             return Unauthorized("Log in Before deleting a photo");
         }
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult AdminPage()
+        {
+            //var identity = HttpContext.User.Identity as ClaimsIdentity;
+            //Console.WriteLine("BBBBBBBBBB");
+            //if (identity != null)
+            //{
+            //    var role = identity.FindFirst(ClaimTypes.Role).Value;
+            //    Console.WriteLine("AAAAAAAAAAA" + role);
+            //    if (role == "Admin") return Ok("Admin");
+            //}
+
+            return Ok("Admin");
+        }
+
 
         [AllowAnonymous]
         public IActionResult GetImagesForIdea(int id)

@@ -12,6 +12,7 @@ import SignUpComponent from "../pages/SignUpPage/SignUpComponent";
 import About from "./About";
 import Contact from "./Contact";
 import AddCategory from "./AddCategory";
+import AdminPage from "./AdminPage";
 
 // Nu clasa
 export default class CustomNavbar extends Component {
@@ -91,6 +92,9 @@ export default class CustomNavbar extends Component {
 										Separated link
 									</NavDropdown.Item>
 								</NavDropdown>
+								<Nav.Link as={Link} to={"/adminPage"}>
+									Admin Page
+								</Nav.Link>
 								{AccountDropDown()}
 							</Nav>
 						</Navbar.Collapse>
@@ -109,6 +113,7 @@ export default class CustomNavbar extends Component {
 					<Route path={"/login"} element={<LogInComponent/> } />
 					<Route path={"/logout"} element={<Logout/> } />
 					<Route path={"/account-page"} element={<AccountPage/> } />
+					<Route path={"/adminPage"} element={<AdminPage/> } />
 				</Routes>
 			</div>
 		);
