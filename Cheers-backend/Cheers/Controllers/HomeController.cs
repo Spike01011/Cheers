@@ -112,11 +112,11 @@ namespace Cheers.Controllers
             {
                 var email = identity.FindFirst(ClaimTypes.Email).Value;
                 var user = await _accountRepository.GetByMail(email);
-                var role = identity.FindFirst(ClaimTypes.Role).Value;
+                var roles = HttpContext.User.FindAll(ClaimTypes.Role);
                 var img = _daosMananger.GetImage(id);
                 var expectedUser = _daosMananger.GetIdea(img.IdeaId).Author;
                 
-                if (user != expectedUser && role != "admin") return Unauthorized("You're not the author of this Idea");
+                if (user != expectedUser && roles.All(x => x.Value != "Admin")) return Unauthorized("You're not the author of this Idea");
                 
                 _daosMananger.DeleteImage(id);
                 

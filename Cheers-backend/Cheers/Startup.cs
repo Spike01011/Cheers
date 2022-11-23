@@ -1,4 +1,5 @@
-﻿using Cheers.Data;
+﻿using System.Security.Claims;
+using Cheers.Data;
 using Cheers.Models;
 using Cheers.Models.Daos;
 using Cheers.Models.Interfaces;
@@ -31,6 +32,14 @@ namespace Cheers
                 if (!roleExists)
                 {
                     roleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+                    if (roleName == "Admin")
+                    {
+                        if (roleResult.Succeeded)
+                        {
+                            var role = roleManager.Roles.First(x => x.Name == "Admin");
+                            await roleManager.AddClaimAsync(role, new Claim(ClaimTypes.Role, "Admin"));
+                        }
+                    }
                 }
             }
             var user = new ApplicationUser()
