@@ -1,16 +1,15 @@
 import React, {forwardRef, useEffect, useState} from 'react';
 import TextField from "@mui/material/TextField";
-// import {useFormContext} from 'react-hook-form';
 import {CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import {StripeInput} from "../StripeInput";
-import {useDispatch} from "react-redux";
 import Api from "../../../Utils/Api";
+import {Link, useNavigate} from "react-router-dom";
 
 const AfterContinue = forwardRef((props, ref) => {
 	const stripe = useStripe();
 	const elements = useElements();
-	const dispatch = useDispatch();
-	const [loading, setLoading] = useState(false)
+	const navigate = useNavigate()
+	const [nameOnCard, setNameOnCard] = useState("Anon")
 	const [clientSecret, setClientSecret] = useState("")
 
 	useEffect(() => {
@@ -30,25 +29,28 @@ const AfterContinue = forwardRef((props, ref) => {
 		if (!stripe) return; // stripe is not ready
 		const response = Api.get('order/GetLastOrderClientSecret')
 		let data = await (await response).data
-		console.log(data)
-		await setClientSecret(data)
-		console.log(clientSecret)
 		try {
 			const cardElement = elements.getElement(CardNumberElement);
 			const paymentResult = await stripe.confirmCardPayment(data, {
 				payment_method: {
 					card: cardElement,
 					billing_details: {
-						name: 'nameOnCard'
+						name: nameOnCard
 					}
 				}
 			})
 			console.log(paymentResult);
 			console.log(paymentResult.paymentIntent.status);
+			navigate('/')
 		} catch (error) {
 			console.log(error)
 		}
 	};
+
+	function handle(e) {
+		e.preventDefault()
+		setNameOnCard(e.target.value);
+	}
 
 	return (
 		<div className="">
@@ -213,7 +215,7 @@ const AfterContinue = forwardRef((props, ref) => {
 											<div className="o-credit-card-payment-name hrt-text-field">
 												<div className="hrt-text-field-wrapper">
 													<div className="hrt-text-field-inner">
-														<input aria-invalid="false"
+														<input aria-invalid="false" onChange={handle}
 															   className="hrt-text-field-input"
 															   id="card-name"
 															   placeholder=" "
@@ -312,9 +314,12 @@ const AfterContinue = forwardRef((props, ref) => {
 						<div
 							className="credit-card-submit-button_creditCardSubmitButtonWrapper__1_7UT width-full">
 							todo
-							<button onClick={submit}
-									className="credit-card-submit-button_creditCardSubmitButton__dJYeD max-width-360--for-small disp-flex justify-center hrt-primary-button hrt-primary-button--green hrt-primary-button--full-for-small hrt-primary-button--large hrt-primary-button--shadow hrt-base-button"
-									id="donate-now" type="submit">Donate now
+							<button type={'button'} onClick={submit}
+								  className="credit-card-submit-button_creditCardSubmitButton__dJYeD
+								   max-width-360--for-small disp-flex justify-center hrt-primary-button
+								   hrt-primary-button--green hrt-primary-button--full-for-small
+								   hrt-primary-button--large hrt-primary-button--shadow hrt-base-button"
+								  id="donate-now">Donate now
 							</button>
 						</div>
 					</div>
@@ -323,14 +328,14 @@ const AfterContinue = forwardRef((props, ref) => {
 							className="adyen-google-pay_adyenGooglePayButtonWrapper__aF3N3 width-full">
 							<div id="googlepay-container"
 								 className="adyen-google-pay_adyenGooglePayButton__OuwIC">
-                                            <span className="adyen-checkout__paywithgoogle">
-                                                <div>
-                                                    <button
-														type="button" aria-label="Google Pay"
-														className="gpay-button black plain short en">
-                                                    </button>
-                                                </div>
-                                            </span>
+								<span className="adyen-checkout__paywithgoogle">
+									<div>
+										<button
+											type="button" aria-label="Google Pay"
+											className="gpay-button black plain short en">
+										</button>
+									</div>
+								</span>
 							</div>
 						</div>
 					</div>

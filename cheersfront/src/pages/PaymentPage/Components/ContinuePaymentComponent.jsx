@@ -9,7 +9,7 @@ const ContinuePaymentComponent = () => {
 	const payment = useSelector((store) => store.payment)
 	const dispatch = useDispatch();
 	const donationData = {
-		"Total": payment.total, "TipAmount": payment.tip, "PaymentIntentId": "", "ClientSecret": ""
+		"Total": payment.total * 100, "TipAmount": payment.tip, "PaymentIntentId": "", "ClientSecret": ""
 	}
 
 	function submit() {

@@ -6,7 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Cheers.Models.Daos
+namespace Cheers.Models
 {
     public class AccountRepository : IAccountRepository
     {
