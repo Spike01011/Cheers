@@ -113,6 +113,11 @@ namespace Cheers.Controllers
                 var user = await _accountRepository.GetByMail(email);
                 var idea = _daosMananger.GetIdea(id);
                 var roles = HttpContext.User.FindAll(ClaimTypes.Role);
+                Console.WriteLine("AAAAAAAAAAAA");
+                foreach (var role in roles)
+                {
+                    Console.WriteLine("AAAAAAAAAAAA" + role.Value);
+                }
                 if (user != idea.Author && roles.All(x => x.Value != "Admin")) return Unauthorized("You're not the author of this Idea");
                 _daosMananger.DeleteImagesForIdea(id);
                 _daosMananger.DeleteIdea(id);

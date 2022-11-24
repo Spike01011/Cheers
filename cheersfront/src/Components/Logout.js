@@ -8,6 +8,7 @@ export default function Logout() {
 	// localStorage.clear()
 	localStorage.removeItem("token");
 	localStorage.removeItem("user");
+	localStorage.removeItem("isAdmin");
 	window.dispatchEvent(new Event("storage"));
 	return navigate("/");
 }

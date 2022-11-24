@@ -124,5 +124,10 @@ namespace Cheers.Models.Daos
         {
             return await _userManager.FindByEmailAsync(email);
         }
+
+        public List<string> GetRolesForUser(ApplicationUser user)
+        {
+            return _userManager.GetRolesAsync(user).Result.ToList();
+        }
     }
 }

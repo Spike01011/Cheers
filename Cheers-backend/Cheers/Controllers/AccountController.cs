@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Cheers.Services.EmailService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Data;
 
 namespace Cheers.Controllers
 {
@@ -42,7 +44,17 @@ namespace Cheers.Controllers
             {
                 return Unauthorized("LogIn Error");
             }
-            return Ok(new LoginModel{Email = signUpModel.Email, Token = logInResopnse});
+
+            var user = _accountRepository.GetByMail(signUpModel.Email).Result;
+            var roles = _accountRepository.GetRolesForUser(user);
+            Console.WriteLine("AAAAAAAAAAAA");
+            foreach (var role in roles)
+            {
+                Console.WriteLine("AAAAAAAAAAAA" + role);   
+            }
+            bool isAdmin = roles.Any(x => x == "Admin");
+
+            return Ok(new LoginModel{Email = signUpModel.Email, Token = logInResopnse, IsAdmin = isAdmin});
         }
 
         [HttpGet]

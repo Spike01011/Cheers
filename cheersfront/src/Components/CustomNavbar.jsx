@@ -20,6 +20,17 @@ export default class CustomNavbar extends Component {
 		window.addEventListener("storage", () => {
 			this.forceUpdate();
 		})
+
+		function showAdminPage(){
+			if (localStorage.getItem("isAdmin") == "true"){
+				return(
+					<Nav.Link as={Link} to={"/adminPage"}>
+						Admin Page
+					</Nav.Link>
+				)
+			}
+		}
+
 		function AccountDropDown(){
 			if (localStorage.getItem("token") != null){
 				return (
@@ -92,10 +103,9 @@ export default class CustomNavbar extends Component {
 										Separated link
 									</NavDropdown.Item>
 								</NavDropdown>
-								<Nav.Link as={Link} to={"/adminPage"}>
-									Admin Page
-								</Nav.Link>
+
 								{AccountDropDown()}
+								{showAdminPage()}
 							</Nav>
 						</Navbar.Collapse>
 					</Container>
