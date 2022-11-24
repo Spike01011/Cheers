@@ -20,7 +20,7 @@ public class ImageClDbDAO : IImageClDAO
 
     public ImageCl Get(int id)
     {
-        return _appDbContext.ImageCls.Where(x => x.Id == id).Include(x => x.IdeaId).FirstOrDefault();
+        return _appDbContext.ImageCls.Where(x => x.Id == id).FirstOrDefault();
     }
 
     public List<ImageCl> GetByIdeaId(int ideaId)

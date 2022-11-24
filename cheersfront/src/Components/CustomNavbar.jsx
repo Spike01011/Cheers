@@ -22,7 +22,9 @@ export default class CustomNavbar extends Component {
 			this.forceUpdate();
 		})
 
-		function showAdminPage(){
+		function ShowAdminPage(){
+			console.log(localStorage.getItem("isAdmin"));
+			console.log(localStorage.getItem("isAdmin") == "true");
 			if (localStorage.getItem("isAdmin") == "true"){
 				return(
 					<Nav.Link as={Link} to={"/adminPage"}>
@@ -96,17 +98,8 @@ export default class CustomNavbar extends Component {
 									<NavDropdown.Item href="/add-category">
 										Category
 									</NavDropdown.Item>
-									<NavDropdown.Item href="#action/3.3">
-										Something
-									</NavDropdown.Item>
-									<NavDropdown.Divider />
-									<NavDropdown.Item href="#action/3.4">
-										Separated link
-									</NavDropdown.Item>
 								</NavDropdown>
-
 								{AccountDropDown()}
-								{showAdminPage()}
 							</Nav>
 						</Navbar.Collapse>
 					</Container>

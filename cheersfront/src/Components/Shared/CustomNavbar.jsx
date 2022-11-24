@@ -14,6 +14,8 @@ import AccountPage from "../AccountPage";
 import Contact from "../Contact";
 import PaymentWrapper from "../../pages/PaymentPage/PaymentWrapper";
 import PaymentComponent from "../../pages/PaymentPage/PaymentComponent";
+import AdminPage from "../AdminPage";
+import EditIdea from "../EditIdea";
 
 // Nu clasa
 export default class CustomNavbar extends Component {
@@ -21,6 +23,18 @@ export default class CustomNavbar extends Component {
         window.addEventListener("storage", () => {
             this.forceUpdate();
         })
+
+	    function ShowAdminPage(){
+		    console.log(localStorage.getItem("isAdmin"));
+		    console.log(localStorage.getItem("isAdmin") == "true");
+		    if (localStorage.getItem("isAdmin") == "true"){
+			    return(
+				    <Nav.Link as={Link} to={"/adminPage"}>
+					    Admin Page
+				    </Nav.Link>
+			    )
+		    }
+	    }
 
         function AccountDropDown() {
             if (localStorage.getItem("token") != null) {
@@ -84,15 +98,9 @@ export default class CustomNavbar extends Component {
                                     <NavDropdown.Item href="/add-category">
                                         Category
                                     </NavDropdown.Item>
-                                    <NavDropdown.Item href="#action/3.3">
-                                        Something
-                                    </NavDropdown.Item>
-                                    <NavDropdown.Divider/>
-                                    <NavDropdown.Item href="#action/3.4">
-                                        Separated link
-                                    </NavDropdown.Item>
                                 </NavDropdown>
                                 {AccountDropDown()}
+	                            {ShowAdminPage()}
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
@@ -112,6 +120,8 @@ export default class CustomNavbar extends Component {
                     <Route path={"/login"} element={<LogInComponent/>}/>
                     <Route path={"/logout"} element={<Logout/>}/>
                     <Route path={"/account-page"} element={<AccountPage/>}/>
+	                <Route path={"/adminPage"} element={<AdminPage/> } />
+	                <Route path={"/edit-idea/:id"} element={<EditIdea/>} />
                 </Routes>
             </div>
         );
