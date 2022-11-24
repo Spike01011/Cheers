@@ -16,30 +16,25 @@ namespace Cheers.Models.Daos
             _appDbContext.Categories.Add(category);
             _appDbContext.SaveChanges();
         }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Category Get(int id)
         {
             return _appDbContext.Categories.FirstOrDefault(cat => cat.Id == id);
         }
-
         public List<Category> GetAll()
         {
             return _appDbContext.Categories.ToList();
         }
-
         public Category GetByName(string name)
         {
             return _appDbContext.Categories.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
+        }
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public void Edit(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

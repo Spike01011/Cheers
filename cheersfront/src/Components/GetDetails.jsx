@@ -1,7 +1,9 @@
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
-import {Modal, Button} from "react-bootstrap";
+import {Modal} from "react-bootstrap";
+import {useDispatch} from "react-redux";
+import {clearPaymentData} from "../pages/PaymentPage/PaymentSlice";
 
 export default function GetDetails() {
 	const url = "https://localhost:7021/home/GetIdea";
@@ -10,12 +12,17 @@ export default function GetDetails() {
 	const reactUrl = window.location.href;
 	const reactUrlLength = reactUrl.split("/").length;
 	const id = reactUrl.split("/").at(reactUrlLength - 1);
+	const dispatch = useDispatch();
 	const [data, setData] = useState();
 	const [photos, setPhotos] = useState();
 	const [show, setShow] = useState(false);
 	const [activePhoto, setActivePhoto] = useState({identifier: null, actualImg: null});
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+
+	function clearPaymentValues() {
+		dispatch(clearPaymentData())
+	}
 
 	useEffect(() => {
 		const get = async () => {
@@ -27,8 +34,9 @@ export default function GetDetails() {
 				console.error(e);
 			}
 		};
-		get();
+		get()
 	}, []);
+
 	useEffect(() => {
 		const get = async () => {
 			try {
@@ -49,19 +57,31 @@ export default function GetDetails() {
 
 	const HandlePicClick = (e, pic) => {
 		handleShow();
-		setActivePhoto(<img id={pic.Id} src={`data:image/png;base64,${pic.Image}`} style={{width: "auto", maxWidth: "1100px"}} onClick={HandleModalClick}/>);
+		setActivePhoto(<img id={pic.Id} src={`data:image/png;base64,${pic.Image}`}
+							style={{width: "auto", maxWidth: "1100px"}} onClick={HandleModalClick} alt={''}/>);
 		setActivePhoto({
 			identifier: pic.Id,
-			actualImg: <img id={pic.Id} src={`data:image/png;base64,${pic.Image}`} style={{width: "auto", maxWidth: "1100px"}} onClick={HandleModalClick}/>,
+			actualImg: <img id={pic.Id} src={`data:image/png;base64,${pic.Image}`}
+							style={{width: "auto", maxWidth: "1100px"}} onClick={HandleModalClick} alt={''}/>,
 		})
 	}
 
 	const ManagePhotos = () => {
 		if (photos != null) {
 			return (
-				<div style={{display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", marginBottom: "30px", marginTop: "30px", rowGap: "30px", columnGap: "15px"}}>
-					{photos.map(pic => <img lmao={pic.Id} src={`data:image/png;base64,${pic.Image}`} style={{width: "350px"}} onClick={(e, x = pic) => {HandlePicClick(e, x)}}/>)}
-			</div>
+				<div style={{
+					display: "grid",
+					gridTemplateColumns: "1fr 1fr 1fr 1fr",
+					marginBottom: "30px",
+					marginTop: "30px",
+					rowGap: "30px",
+					columnGap: "15px"
+				}}>
+					{photos.map(pic => <img lmao={pic.Id} src={`data:image/png;base64,${pic.Image}`}
+											style={{width: "350px"}} onClick={(e, x = pic) => {
+						HandlePicClick(e, x)
+					}}/>)}
+				</div>
 			)
 		}
 	}
@@ -69,9 +89,11 @@ export default function GetDetails() {
 	const DeletePhoto = (e, imgId) => {
 		e.preventDefault();
 		axios
-			.delete(`${deletePhotoUrl}/${imgId}`, {headers: {
-				Authorization: `Bearer ${localStorage.getItem("token")}`
-				}})
+			.delete(`${deletePhotoUrl}/${imgId}`, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`
+				}
+			})
 			.then((res) => {
 				console.log(res.data);
 				window.location.reload();
@@ -80,12 +102,14 @@ export default function GetDetails() {
 
 	return data != null ? (
 		<div className={"DetailsDiv"}>
-				<Modal show={show} onHide={handleClose} size={"xl"}>
-					<Modal.Body>{activePhoto.actualImg}</Modal.Body>
-					<Modal.Footer>
-						<button className={"btn btn-danger"} onClick={(e, imgId = activePhoto.identifier) => DeletePhoto(e, imgId)}>Delete</button>
-					</Modal.Footer>
-				</Modal>
+			<Modal show={show} onHide={handleClose} size={"xl"}>
+				<Modal.Body>{activePhoto.actualImg}</Modal.Body>
+				<Modal.Footer>
+					<button className={"btn btn-danger"}
+							onClick={(e, imgId = activePhoto.identifier) => DeletePhoto(e, imgId)}>Delete
+					</button>
+				</Modal.Footer>
+			</Modal>
 			<i>{data.Author === null ? "Anonymous" : data.Author.Email}</i>
 			<h1
 				className={"TitleClass"}
@@ -112,14 +136,15 @@ export default function GetDetails() {
 					marginTop: "50px",
 				}}
 			>
-				<button
-					style={{textAlign: "center"}}
-					as={Link}
-					to=""
+				<Link
+					type={"button"}
+					onClick={clearPaymentValues}
 					className={"btn btn-light"}
+					style={{textAlign: "center"}}
+					as={Link} to={`/payment/${id}`}
 				>
 					🍻 Buy us a beer
-				</button>
+				</Link>
 				<Link
 					type={"button"}
 					style={{textAlign: "center"}}

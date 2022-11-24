@@ -1,12 +1,11 @@
 ﻿using Cheers.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Cheers.Models.Daos
+namespace Cheers.Models
 {
     public class AccountRepository : IAccountRepository
     {

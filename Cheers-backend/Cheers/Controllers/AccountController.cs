@@ -1,9 +1,8 @@
 ﻿using Cheers.Models;
 using Cheers.Models.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using Cheers.Services.EmailService;
+using Cheers.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Cheers.Controllers
 {
@@ -27,7 +26,7 @@ namespace Cheers.Controllers
             var model = await _accountRepository.SignUpAsync(signUpModel);
             if (model.Succeeded)
             {
-                _emailService.SendEmail(signUpModel.Email);
+                _emailService.SendEmail(signUpModel.Email, Statics.GetEmailSignUpSubject(), Statics.GetEmaiSignUpBodyMessage());
                 return Ok(model.Succeeded);
             }
             return Unauthorized("De ce nu merge?");
