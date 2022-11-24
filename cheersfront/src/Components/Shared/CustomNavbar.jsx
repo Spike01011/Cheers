@@ -12,7 +12,6 @@ import AddCategory from "../AddCategory";
 import About from "../About";
 import AccountPage from "../AccountPage";
 import Contact from "../Contact";
-import AfterContinue from "../../pages/PaymentPage/Components/AfterContinue";
 import PaymentWrapper from "../../pages/PaymentPage/PaymentWrapper";
 import PaymentComponent from "../../pages/PaymentPage/PaymentComponent";
 
@@ -75,9 +74,6 @@ export default class CustomNavbar extends Component {
                                 </Nav.Link>
                                 <Nav.Link as={Link} to={"/contact"}>
                                     Contact
-                                </Nav.Link>
-                                <Nav.Link as={Link} to={"/afterContinue"}>
-                                    AfterContinue
                                 </Nav.Link>
                                 <NavDropdown
                                     title="Add"

@@ -4,7 +4,6 @@ using Cheers.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Diagnostics;
 using System.Security.Claims;
 
 namespace Cheers.Controllers
@@ -12,19 +11,20 @@ namespace Cheers.Controllers
     //[Authorize]
     public class HomeController : Controller
     {
-        private readonly DaoMananger _daosMananger;
+        private readonly DaoMananger _daoManager;
         private readonly IAccountRepository _accountRepository;
 
-        public HomeController(IIdeeaDAO ideaDao, ICategoryDAO categoryDao, IImageClDAO imgDao, IAccountRepository accountRepository)
+        public HomeController(IIdeeaDAO ideaDao, ICategoryDAO categoryDao, IImageClDAO imgDao,
+            IAccountRepository accountRepository)
         {
-            _daosMananger = new DaoMananger(categoryDao, ideaDao, imgDao);
+            _daoManager = new DaoMananger(categoryDao, ideaDao, imgDao);
             _accountRepository = accountRepository;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            List<Idea> ideas = _daosMananger.GetAllIdeas();
+            List<Idea> ideas = _daoManager.GetAllIdeas();
             return Ok(JsonConvert.SerializeObject(ideas));
         }
 
@@ -32,7 +32,7 @@ namespace Cheers.Controllers
         [Authorize]
         public IActionResult IndexJWT()
         {
-            List<Idea> ideas = _daosMananger.GetAllIdeas();
+            List<Idea> ideas = _daoManager.GetAllIdeas();
             return Ok(JsonConvert.SerializeObject(ideas));
         }
 
@@ -46,72 +46,67 @@ namespace Cheers.Controllers
                 var clm = identity.FindFirst(ClaimTypes.Email).Value;
                 var user = await _accountRepository.GetByMail(clm);
                 idea.Author = user;
-                _daosMananger.AddIdea(idea);
+                _daoManager.AddIdea(idea);
             }
+
             return Ok();
         }
 
         [HttpGet]
         public IActionResult GetCategories()
         {
-            return Ok(_daosMananger.GetAllCategories());
+            return Ok(_daoManager.GetAllCategories());
         }
 
         [HttpGet]
         public IActionResult GetIdea(int id)
         {
-            var idea = _daosMananger.GetIdea(id);
+            var idea = _daoManager.GetIdea(id);
             return Ok(JsonConvert.SerializeObject(idea));
         }
+
         [Authorize]
         public IActionResult AddCategory([FromBody] Category category)
         {
-            var check = _daosMananger.CategoryExists(category);
+            var check = _daoManager.CategoryExists(category);
             if (!check)
             {
-                _daosMananger.AddCategory(category);
+                _daoManager.AddCategory(category);
             }
 
             return Ok();
-
         }
+
         [Authorize]
         public IActionResult AddImage([FromForm] ImageCl img)
         {
             img.Image = SaveImage(img.ImageFile);
-            _daosMananger.AddImage(img);
+            _daoManager.AddImage(img);
             return Ok();
         }
+
         [Authorize]
         [HttpDelete]
         public IActionResult RemoveImage(int id)
         {
-            _daosMananger.DeleteImage(id);
+            _daoManager.DeleteImage(id);
             return Ok();
         }
 
         [AllowAnonymous]
         public IActionResult GetImagesForIdea(int id)
         {
-            return Ok(JsonConvert.SerializeObject(_daosMananger.GetImagesForIdea(id)));
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return Ok(JsonConvert.SerializeObject(_daoManager.GetImagesForIdea(id)));
         }
 
         [NonAction]
-        public string SaveImage(IFormFile imageFile)
+        private string SaveImage(IFormFile imageFile)
         {
-            string base64string;
-            using MemoryStream _mStream = new();
-
-            imageFile.CopyTo(_mStream);
-            byte[] _imageBytes = _mStream.ToArray();
-            base64string = Convert.ToBase64String(_imageBytes);
-            return base64string;
+            using MemoryStream memoryStream = new();
+            imageFile.CopyTo(memoryStream);
+            var imageBytes = memoryStream.ToArray();
+            var base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
         }
     }
 }

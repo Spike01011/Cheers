@@ -24,44 +24,7 @@ namespace Cheers.Controllers
             _orderDao = orderDao;
             _accountRepository = accountRepository;
         }
-
-        [HttpPost]
-        public async Task<IActionResult> PayIdea([FromBody] Order order)
-        {
-            var orderTest = _orderDao.GetAll().FirstOrDefault();
-
-            if (order == null) return NotFound();
-
-            var intent = await _paymentService.CreateOrUpdatePaymentIntent(order);
-            if (intent == null)
-                return BadRequest(new ProblemDetails { Title = "Creating Payment Intent Problem" });
-
-            order.PaymentIntentId = order.PaymentIntentId ?? intent.Id;
-            order.ClientSecret = order.ClientSecret ?? intent.ClientSecret;
-
-            _emailService.SendEmail("cristianbalan2021@gmail.com", Statics.GetPaymentEmailSubject(), Statics.GetEmailPaymentMessage());
-            return Ok("RawPaymentJObject: " + intent.RawJObject);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> PayIdea()
-        {
-            var order = _orderDao.GetAll().Last();
-            if (order == null) return NotFound();
-
-            var intent = await _paymentService.CreateOrUpdatePaymentIntent(order);
-            if (intent == null)
-                return BadRequest(new ProblemDetails { Title = "Creating Payment Intent Problem" });
-
-            order.PaymentIntentId = intent.Id;
-            order.ClientSecret = intent.ClientSecret;
-            _orderDao.UpdateProduct(order);
-
-            _emailService.SendEmail("cristianbalan2021@gmail.com", Statics.GetPaymentEmailSubject(), Statics.GetEmailPaymentMessage());
-            return Ok(intent.RawJObject);
-        }
-
-
+        
         [HttpPost]
         public async Task<IActionResult> PayIdeaAna([FromBody] Order order)
         {
@@ -79,9 +42,12 @@ namespace Cheers.Controllers
             if (order == null) return NotFound();
 
             var intent = await _paymentService.CreateOrUpdatePaymentIntent(order);
+            
             if (intent == null)
+            {
                 return BadRequest(new ProblemDetails { Title = "Creating Payment Intent Problem" });
-
+            }
+            order.Total = order.Total / 100;
             order.PaymentIntentId = intent.Id;
             order.ClientSecret = intent.ClientSecret;
             _orderDao.Add(order);
