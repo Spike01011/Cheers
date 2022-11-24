@@ -92,6 +92,33 @@ export default function GetDetails() {
 			}))
 	}
 
+	function DisplayAddPhoto(){
+		if (localStorage.getItem("user") == data.Author.Email){
+			return(
+				<Link
+					type={"button"}
+					style={{textAlign: "center"}}
+					to={`/add-photo/${id}`}
+					className={"btn btn-light"}>
+					AddPhoto
+				</Link>
+			)
+		}
+	}
+
+	function DisplayDeleteBtn(){
+		if (localStorage.getItem("user") == data.Author.Email || localStorage.getItem("isAdmin") == "true"){
+			return(
+				<button
+					style={{textAlign: "center"}}
+					className={"btn btn-danger"}
+					onClick={(e) => {HandleDeleteIdea(e)}}>
+					Delete
+				</button>
+			)
+		}
+	}
+
 	return data != null ? (
 		<div className={"DetailsDiv"}>
 				<Modal show={show} onHide={handleClose} size={"xl"}>
@@ -134,19 +161,9 @@ export default function GetDetails() {
 				>
 					🍻 Buy us a beer
 				</button>
-				<Link
-					type={"button"}
-					style={{textAlign: "center"}}
-					to={`/add-photo/${id}`}
-					className={"btn btn-light"}>
-					AddPhoto
-				</Link>
-				<button
-				style={{textAlign: "center"}}
-				className={"btn btn-danger"}
-				onClick={(e) => {HandleDeleteIdea(e)}}>
-					Delete
-				</button>
+				{DisplayAddPhoto()}
+				{DisplayDeleteBtn()}
+
 			</div>
 		</div>
 	) : (
