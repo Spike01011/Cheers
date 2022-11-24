@@ -1,12 +1,13 @@
 import axios from "axios";
 import {useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, redirect, useNavigate} from "react-router-dom";
 import {Modal, Button} from "react-bootstrap";
 
 export default function GetDetails() {
 	const url = "https://localhost:7021/home/GetIdea";
 	const photoUrl = "https://localhost:7021/home/GetImagesForIdea";
 	const deletePhotoUrl = "https://localhost:7021/home/RemoveImage";
+	const deleteIdeaUrl = "https://localhost:7021/home/RemoveIdea";
 	const reactUrl = window.location.href;
 	const reactUrlLength = reactUrl.split("/").length;
 	const id = reactUrl.split("/").at(reactUrlLength - 1);
@@ -16,6 +17,7 @@ export default function GetDetails() {
 	const [activePhoto, setActivePhoto] = useState({identifier: null, actualImg: null});
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const get = async () => {
@@ -78,6 +80,18 @@ export default function GetDetails() {
 			});
 	}
 
+	function HandleDeleteIdea(e){
+		e.preventDefault();
+		console.log(id);
+		axios.delete(`${deleteIdeaUrl}/${id}`, {headers: {
+			Authorization: `Bearer ${localStorage.getItem("token")}`
+			}})
+			.then((res => {
+				console.log(res.data);
+				navigate("/");
+			}))
+	}
+
 	return data != null ? (
 		<div className={"DetailsDiv"}>
 				<Modal show={show} onHide={handleClose} size={"xl"}>
@@ -127,6 +141,12 @@ export default function GetDetails() {
 					className={"btn btn-light"}>
 					AddPhoto
 				</Link>
+				<button
+				style={{textAlign: "center"}}
+				className={"btn btn-danger"}
+				onClick={(e) => {HandleDeleteIdea(e)}}>
+					Delete
+				</button>
 			</div>
 		</div>
 	) : (

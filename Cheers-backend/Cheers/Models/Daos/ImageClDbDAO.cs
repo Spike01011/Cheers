@@ -1,5 +1,6 @@
 ﻿using Cheers.Data;
 using Cheers.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cheers.Models.Daos;
 
@@ -19,7 +20,7 @@ public class ImageClDbDAO : IImageClDAO
 
     public ImageCl Get(int id)
     {
-        return _appDbContext.ImageCls.Where(x => x.Id == id).FirstOrDefault();
+        return _appDbContext.ImageCls.Where(x => x.Id == id).Include(x => x.IdeaId).FirstOrDefault();
     }
 
     public List<ImageCl> GetByIdeaId(int ideaId)

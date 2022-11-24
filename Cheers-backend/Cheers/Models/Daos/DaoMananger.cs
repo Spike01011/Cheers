@@ -100,5 +100,14 @@ namespace Cheers.Models.Daos
             var check = _categoryDbDAO.GetByName(category.Name);
             return (check != null);
         }
+
+        public void DeleteImagesForIdea(int ideaId)
+        {
+            var images = GetImagesForIdea(ideaId);
+            foreach (var image in images)
+            {
+                DeleteImage(image.Id);
+            }
+        }
     }
 }

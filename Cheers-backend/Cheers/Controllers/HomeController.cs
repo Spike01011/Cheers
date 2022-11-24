@@ -102,6 +102,26 @@ namespace Cheers.Controllers
             return Unauthorized("Log in Before adding a photo");
         }
 
+        [Authorize]
+        [HttpDelete]
+        public async Task<IActionResult> RemoveIdea(int id)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var email = identity.FindFirst(ClaimTypes.Email).Value;
+                var user = await _accountRepository.GetByMail(email);
+                var idea = _daosMananger.GetIdea(id);
+                var roles = HttpContext.User.FindAll(ClaimTypes.Role);
+                if (user != idea.Author && roles.All(x => x.Value != "Admin")) return Unauthorized("You're not the author of this Idea");
+                _daosMananger.DeleteImagesForIdea(id);
+                _daosMananger.DeleteIdea(id);
+                return Ok();
+            }
+
+            return Unauthorized("You have to Log In to do that!");
+        }
+
 
         [Authorize]
         [HttpDelete]
@@ -129,15 +149,6 @@ namespace Cheers.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult AdminPage()
         {
-            //var identity = HttpContext.User.Identity as ClaimsIdentity;
-            //Console.WriteLine("BBBBBBBBBB");
-            //if (identity != null)
-            //{
-            //    var role = identity.FindFirst(ClaimTypes.Role).Value;
-            //    Console.WriteLine("AAAAAAAAAAA" + role);
-            //    if (role == "Admin") return Ok("Admin");
-            //}
-
             return Ok("Admin");
         }
 
