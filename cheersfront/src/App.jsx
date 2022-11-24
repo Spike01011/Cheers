@@ -5,7 +5,6 @@ import CustomNavbar from "./Components/Shared/CustomNavbar";
 import {BrowserRouter} from "react-router-dom";
 
 function App() {
-    // document.body.style.backgroundColor = "darkgray";
     return (
         <>
             <BrowserRouter>
