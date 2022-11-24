@@ -47,7 +47,6 @@ export default function SignIn() {
 				Password: data.Password,
 			},)
 			.then((res) => {
-				console.log(res.data.isAdmin);
 				localStorage.setItem("token", res.data.token);
 				localStorage.setItem("user", res.data.email);
 				localStorage.setItem("isAdmin", res.data.isAdmin);
