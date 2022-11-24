@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Cheers.Models.Interfaces
+﻿namespace Cheers.Models.Interfaces
 {
     public interface IDao<T>
     {

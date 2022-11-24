@@ -22,7 +22,7 @@ namespace Cheers.Models.Daos
             throw new NotImplementedException();
         }
 
-        public void Edit(int id, Category category)
+        public void Edit(int id)
         {
             throw new NotImplementedException();
         }
@@ -40,6 +40,14 @@ namespace Cheers.Models.Daos
         public Category GetByName(string name)
         {
             return _appDbContext.Categories.FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
+        }
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+        public void Edit(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

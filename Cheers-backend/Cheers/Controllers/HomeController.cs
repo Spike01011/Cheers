@@ -4,7 +4,6 @@ using Cheers.Models.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System.Diagnostics;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -89,17 +88,17 @@ namespace Cheers.Controllers
             var idea = _daosMananger.GetIdea(id);
             return Ok(JsonConvert.SerializeObject(idea));
         }
+
         [Authorize]
         public IActionResult AddCategory([FromBody] Category category)
         {
-            var check = _daosMananger.CategoryExists(category);
-            if (!_daosMananger.CategoryExists(category))
+            var check = _daoManager.CategoryExists(category);
+            if (!check)
             {
-                _daosMananger.AddCategory(category);
+                _daoManager.AddCategory(category);
             }
 
             return Ok();
-
         }
 
         [Authorize]
@@ -196,24 +195,13 @@ namespace Cheers.Controllers
         }
 
         [NonAction]
-        public string SaveImage(IFormFile imageFile)
+        private string SaveImage(IFormFile imageFile)
         {
-            string base64string;
-                using (MemoryStream _mStream = new MemoryStream())
-                {
-                    imageFile.CopyTo(_mStream);
-                    byte[] _imageBytes = _mStream.ToArray();
-                    base64string = Convert.ToBase64String(_imageBytes);
-                    return base64string;
-                }
-            //string imageName =new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()).Replace(' ', '-');
-            //imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
-            //var imagePath = Path.Combine(_hostEnv.ContentRootPath, "Images", imageName);
-            //using (var fileStream = new FileStream(imagePath, FileMode.Create))
-            //{
-            //    await imageFile.CopyToAsync(fileStream);
-            //}
-
+            using MemoryStream memoryStream = new();
+            imageFile.CopyTo(memoryStream);
+            var imageBytes = memoryStream.ToArray();
+            var base64String = Convert.ToBase64String(imageBytes);
+            return base64String;
         }
     }
 }

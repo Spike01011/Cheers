@@ -1,5 +1,4 @@
 ﻿using Cheers.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,12 +7,11 @@ namespace Cheers.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+            : base(options) { }
         public DbSet<Idea> Ideas { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ImageCl> ImageCls { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override async void OnModelCreating(ModelBuilder modelBuilder)
         {

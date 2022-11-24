@@ -1,16 +1,6 @@
 ﻿using Cheers.Data;
 using Cheers.Models.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Cheers.Models.Daos
 {

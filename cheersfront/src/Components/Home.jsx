@@ -12,9 +12,11 @@ const Home = () => {
     useEffect(() => {
         const get = async () => {
             try {
-                const response = await axios.get("https://localhost:7021/home/index", {headers: {
-					Authorization: `Bearer ${localStorage.getItem("token")}`
-                }});
+                const response = await axios.get("https://localhost:7021/home/index", {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("token")}`
+                    }
+                });
                 const responseJson = await response.data;
                 await setData(responseJson);
             } catch (e) {
@@ -32,12 +34,8 @@ const Home = () => {
                     <Col xs lg='3'
                          style={{display: "inline-block; max-width: 350px; height: 650px;", marginTop: "20px"}}>
                         <Card>
-	                        <i>{ (idea.Author === null) ?  "Anonymous" : idea.Author.Email}</i>
-                            {/*<Card className={"card-body"}>*/}
+                            <i>{(idea.Author === null) ? "Anonymous" : idea.Author.Email}</i>
                             <CardContent className="card-body">
-                                {/*<Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>*/}
-                                {/*    {idea.Author}*/}
-                                {/*</Typography>*/}
                                 <Typography variant="h5" component="div" className={"card-title text-center"}>
                                     <p key={idea.Id}>
                                         <Link
