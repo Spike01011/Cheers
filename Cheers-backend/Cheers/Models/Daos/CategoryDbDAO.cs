@@ -22,7 +22,7 @@ namespace Cheers.Models.Daos
             throw new NotImplementedException();
         }
 
-        public void Edit(int id)
+        public void Edit(int id, Category category)
         {
             throw new NotImplementedException();
         }

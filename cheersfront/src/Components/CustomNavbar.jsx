@@ -13,6 +13,7 @@ import About from "./About";
 import Contact from "./Contact";
 import AddCategory from "./AddCategory";
 import AdminPage from "./AdminPage";
+import EditIdea from "./EditIdea";
 
 // Nu clasa
 export default class CustomNavbar extends Component {
@@ -124,6 +125,7 @@ export default class CustomNavbar extends Component {
 					<Route path={"/logout"} element={<Logout/> } />
 					<Route path={"/account-page"} element={<AccountPage/> } />
 					<Route path={"/adminPage"} element={<AdminPage/> } />
+					<Route path={"/edit-idea/:id"} element={<EditIdea/>} />
 				</Routes>
 			</div>
 		);

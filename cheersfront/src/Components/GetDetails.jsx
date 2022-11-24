@@ -100,7 +100,21 @@ export default function GetDetails() {
 					style={{textAlign: "center"}}
 					to={`/add-photo/${id}`}
 					className={"btn btn-light"}>
-					AddPhoto
+					Add Photo
+				</Link>
+			)
+		}
+	}
+
+	function DisplayEdit(){
+		if (localStorage.getItem("user") == data.Author.Email){
+			return(
+				<Link
+					type={"button"}
+					style={{textAlign: "center"}}
+					to={`/edit-idea/${id}`}
+					className={"btn btn-light"}>
+					Edit Idea
 				</Link>
 			)
 		}
@@ -162,6 +176,8 @@ export default function GetDetails() {
 					🍻 Buy us a beer
 				</button>
 				{DisplayAddPhoto()}
+				{DisplayEdit()}
+
 				{DisplayDeleteBtn()}
 
 			</div>

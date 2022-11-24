@@ -28,7 +28,7 @@ public class ImageClDbDAO : IImageClDAO
         return _appDbContext.ImageCls.Where(x => x.IdeaId == ideaId).ToList();
     }
 
-    public void Edit(int id)
+    public void Edit(int id, ImageCl img)
     {
         throw new NotImplementedException();
     }

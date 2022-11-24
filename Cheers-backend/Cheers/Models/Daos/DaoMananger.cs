@@ -25,9 +25,9 @@ namespace Cheers.Models.Daos
             _categoryDbDAO.Delete(categoryId);
         }
 
-        public void EditCategory(int categoryId)
+        public void EditCategory(int categoryId, Category category)
         {
-            _categoryDbDAO.Edit(categoryId);
+            _categoryDbDAO.Edit(categoryId, category);
         }
 
         public Category GetCategory(int categoryId)
@@ -50,9 +50,9 @@ namespace Cheers.Models.Daos
             _ideaDbDAO.Delete(ideaId);
         }
 
-        public void EditIdea(int ideaId)
+        public void EditIdea(int ideaId, Idea idea)
         {
-            _ideaDbDAO.Edit(ideaId);
+            _ideaDbDAO.Edit(ideaId, idea);
         }
 
         public Idea GetIdea(int ideaId)

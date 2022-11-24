@@ -1,42 +1,59 @@
 import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {Link, useNavigate} from "react-router-dom";
-import {Modal} from "react-bootstrap";
 
-export default function AddIdea() {
-	const url = "https://localhost:7021/home/addidea";
+export default function EditIdea(){
+	const url = "https://localhost:7021/home/editidea";
+	const dataUrl = "https://localhost:7021/home/GetIdea";
 	const [cat, setCat] = useState([]);
+	const categoryUrl = "https://localhost:7021/home/GetCategories";
 	// const [formatedCat, setFormatedCat] = useState([]);
 	const [data, setData] = useState({
 		Name: "",
 		Description: "",
 		ShortDescription: "",
-		CategoryId: "1",
+		CategoryId: "",
 		Target: "",
 	});
+	const reactUrl = window.location.href;
+	const reactUrlLength = reactUrl.split("/").length;
+	const id = reactUrl.split("/").at(reactUrlLength - 1);
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		const get = async () => {
 			try {
 				const response = await axios.get(
-					"https://localhost:7021/home/GetCategories"
+					categoryUrl
 				);
 				const responseData = await response.data;
-				console.log("responseData", responseData);
 				setCat(responseData);
-				// const tempFormatedCat = [];
-				// cat.forEach(e => {
-				//     tempFormatedCat.push(<select key={e.id} value={e.id}>{e.name}</select>);
-				// });
-				// console.log("formatCat", tempFormatedCat);
-				// setFormatedCat(tempFormatedCat);
 			} catch (e) {
 				console.error(e);
 			}
 		};
 		get();
 	}, []);
+
+	useEffect( () => {
+			try {
+				axios.get(`${dataUrl}/${id}`).then(
+					response => {
+						console.log("responseData", response.data);
+						setData({
+							Name: response.data.Name,
+							Description: response.data.Description,
+							ShortDescription: response.data.ShortDescription,
+							CategoryId: response.data.CategoryId,
+							Target: response.data.Target
+						})
+					}
+				);
+			}catch (e){
+				console.error(e)
+			}
+
+	},[])
 
 	function handle(e) {
 		const newData = {...data};
@@ -47,7 +64,7 @@ export default function AddIdea() {
 	function submit(e) {
 		e.preventDefault();
 		axios
-			.post(url, {
+			.put(`${url}/${id}`, {
 				Name: data.Name,
 				Description: data.Description,
 				ShortDescription: data.ShortDescription,
@@ -56,7 +73,7 @@ export default function AddIdea() {
 				Target: parseInt(data.Target),
 				Token: localStorage.getItem("token")
 			}, {headers: {
-				Authorization: `Bearer ${localStorage.getItem("token")}`
+					Authorization: `Bearer ${localStorage.getItem("token")}`
 				}})
 			.then((res) => {
 				console.log(res.data);
@@ -64,7 +81,7 @@ export default function AddIdea() {
 			});
 	}
 
-	return cat != null ?
+	return cat != null && data != null ?
 
 		<form className={"DetailsDiv"}
 		      style={{display: "flex", flexDirection: "column"}}>
@@ -76,7 +93,7 @@ export default function AddIdea() {
 					marginBottom: "50px",
 				}}
 			>
-				Add Idea
+				Edit Idea
 			</h1>
 			<input className={"DetailsDivContents"}
 			       onChange={(e) => handle(e)}
@@ -117,11 +134,11 @@ export default function AddIdea() {
 			/>
 			<textarea
 				className={"DetailsDivContents"}
-			       onChange={(e) => handle(e)}
-			       id={"Description"}
-			       value={data.Description}
-			       placeholder={"Description"}
-			       type={"text"}
+				onChange={(e) => handle(e)}
+				id={"Description"}
+				value={data.Description}
+				placeholder={"Description"}
+				type={"text"}
 			/>
 
 

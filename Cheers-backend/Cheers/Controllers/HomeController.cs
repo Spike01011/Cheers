@@ -58,6 +58,21 @@ namespace Cheers.Controllers
             return Ok();
         }
 
+        [HttpPut]
+        [Authorize]
+        public async Task<IActionResult> EditIdea(int id, [FromBody] Idea idea)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var email = identity.FindFirst(ClaimTypes.Email).Value;
+                var user = await _accountRepository.GetByMail(email);
+                idea.Author = user;
+                _daosMananger.EditIdea(id, idea);
+            }
+            return Ok();
+        }
+
         [HttpGet]
         public IActionResult GetCategories()
         {

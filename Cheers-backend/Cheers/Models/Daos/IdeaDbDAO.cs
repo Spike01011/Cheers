@@ -40,9 +40,11 @@ namespace Cheers.Models.Daos
             }
         }
 
-        public void Edit(int id)
+        public void Edit(int id, Idea idea)
         {
-            throw new NotImplementedException();
+            idea.Id = id;
+            _appDbContext.Ideas.Update(idea);
+            _appDbContext.SaveChanges();
         }
 
         public Idea Get(int id)
