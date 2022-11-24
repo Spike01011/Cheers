@@ -34,7 +34,7 @@ namespace Cheers.Models.Daos
             throw new NotImplementedException();
         }
 
-        public void Edit(int id)
+        public void Edit(int id, Order order)
         {
             throw new NotImplementedException();
         }

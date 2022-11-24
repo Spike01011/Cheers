@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {useEffect, useState} from "react";
 import {Link, redirect, useNavigate} from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import { clearPaymentData } from "../pages/PaymentPage/PaymentSlice";
+import {useDispatch} from "react-redux";
 
 export default function GetDetails() {
 	const url = "https://localhost:7021/home/GetIdea";
@@ -200,7 +200,6 @@ export default function GetDetails() {
 				>
 					🍻 Buy us a beer
 				</Link>
-				</button>
 				{DisplayAddPhoto()}
 				{DisplayEdit()}
 

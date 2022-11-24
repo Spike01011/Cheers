@@ -17,16 +17,6 @@ namespace Cheers.Models.Daos
             _appDbContext.SaveChanges();
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public Category Get(int id)
         {
             return _appDbContext.Categories.FirstOrDefault(cat => cat.Id == id);
@@ -45,7 +35,7 @@ namespace Cheers.Models.Daos
         {
             throw new NotImplementedException();
         }
-        public void Edit(int id)
+        public void Edit(int id, Category obj)
         {
             throw new NotImplementedException();
         }

@@ -92,10 +92,10 @@ namespace Cheers.Controllers
         [Authorize]
         public IActionResult AddCategory([FromBody] Category category)
         {
-            var check = _daoManager.CategoryExists(category);
+            var check = _daosMananger.CategoryExists(category);
             if (!check)
             {
-                _daoManager.AddCategory(category);
+                _daosMananger.AddCategory(category);
             }
 
             return Ok();
@@ -180,18 +180,6 @@ namespace Cheers.Controllers
         public IActionResult GetImagesForIdea(int id)
         {
             return Ok(JsonConvert.SerializeObject(_daosMananger.GetImagesForIdea(id)));
-        }
-
-        public IActionResult Privacy()
-        {
-            TestModel testModel = new TestModel(10, "Privacy");
-            return Ok(JsonConvert.SerializeObject(testModel));
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         [NonAction]
