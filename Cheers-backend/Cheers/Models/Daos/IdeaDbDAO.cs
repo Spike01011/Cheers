@@ -42,8 +42,13 @@ namespace Cheers.Models.Daos
 
         public void Edit(int id, Idea idea)
         {
-            idea.Id = id;
-            _appDbContext.Ideas.Update(idea);
+            var lol = _appDbContext.Ideas.FirstOrDefault(x => x.Id == id);
+            lol.Description = idea.Description;
+            lol.Name = idea.Name;
+            lol.ShortDescription = idea.ShortDescription;
+            lol.CategoryId = idea.CategoryId;
+            lol.Target = idea.Target;
+            _appDbContext.Update(lol);
             _appDbContext.SaveChanges();
         }
 

@@ -65,10 +65,14 @@ namespace Cheers.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             if (identity != null)
             {
+                var oldIdeaAuthor = _daosMananger.GetIdea(id).Author;
                 var email = identity.FindFirst(ClaimTypes.Email).Value;
                 var user = await _accountRepository.GetByMail(email);
-                idea.Author = user;
-                _daosMananger.EditIdea(id, idea);
+                if (oldIdeaAuthor.NormalizedEmail == user.NormalizedEmail)
+                {
+                    idea.Author = user;
+                    _daosMananger.EditIdea(id, idea);
+                }
             }
             return Ok();
         }
