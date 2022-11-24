@@ -1,10 +1,8 @@
 ﻿using Cheers.Models;
 using Cheers.Models.Interfaces;
-using Microsoft.AspNetCore.Identity;
 using Cheers.Services.EmailService;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Cheers.Utils;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cheers.Controllers
 {

@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import {CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import {StripeInput} from "../StripeInput";
 import Api from "../../../Utils/Api";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const AfterContinue = forwardRef((props, ref) => {
 	const stripe = useStripe();
@@ -129,24 +129,22 @@ const AfterContinue = forwardRef((props, ref) => {
 													<div className="hrt-text-field">
 														<div className="hrt-text-field-wrapper">
 															<div className="hrt-text-field-inner">
-																<TextField ref={ref}
-																		   variant={'standard'}
-																		   aria-invalid={false}
-																		   className="hrt-text-field-input"
-																		   name="CardNumberElement"
-																		   id={"CardNumberElement"}
-																		   type="text" autoComplete={false}
-																		   InputLabelProps={{shrink: true}}
-																		   InputProps={{
-																			   inputComponent: StripeInput,
-																			   inputProps: {
-																				   component: CardNumberElement
-																			   },
-																			   disableUnderline: true,
-																		   }}
-
-
-																>
+																<TextField
+																	ref={ref}
+																	variant={'standard'}
+																	aria-invalid={false}
+																	className="hrt-text-field-input"
+																	name="CardNumberElement"
+																	id={"CardNumberElement"}
+																	type="text" autoComplete={false}
+																	InputLabelProps={{shrink: true}}
+																	InputProps={{
+																		inputComponent: StripeInput,
+																		inputProps: {
+																			component: CardNumberElement
+																		},
+																		disableUnderline: true,
+																	}}>
 																</TextField>
 																<label className="hrt-text-field-label"
 																	   htmlFor="card-number">Card
@@ -175,8 +173,7 @@ const AfterContinue = forwardRef((props, ref) => {
 																			component: CardExpiryElement
 																		},
 																		disableUnderline: true
-																	}}
-																>
+																	}}>
 																</CardExpiryElement>
 																<label className="hrt-text-field-label"
 																	   htmlFor="card-expiration">MM/YY
@@ -200,8 +197,7 @@ const AfterContinue = forwardRef((props, ref) => {
 																			component: CardCvcElement
 																		},
 																		disableUnderline: true
-																	}}
-																>
+																	}}>
 																</CardCvcElement>
 																<label
 																	className="hrt-text-field-label"
@@ -221,8 +217,7 @@ const AfterContinue = forwardRef((props, ref) => {
 															   placeholder=" "
 															   name="card.name"
 															   type="text"
-															   autoComplete="cc-name"
-														>
+															   autoComplete="cc-name">
 														</input>
 														<label
 															className="hrt-text-field-label" htmlFor="card-name">Name
@@ -315,11 +310,11 @@ const AfterContinue = forwardRef((props, ref) => {
 							className="credit-card-submit-button_creditCardSubmitButtonWrapper__1_7UT width-full">
 							todo
 							<button type={'button'} onClick={submit}
-								  className="credit-card-submit-button_creditCardSubmitButton__dJYeD
+									className="credit-card-submit-button_creditCardSubmitButton__dJYeD
 								   max-width-360--for-small disp-flex justify-center hrt-primary-button
 								   hrt-primary-button--green hrt-primary-button--full-for-small
 								   hrt-primary-button--large hrt-primary-button--shadow hrt-base-button"
-								  id="donate-now">Donate now
+									id="donate-now">Donate now
 							</button>
 						</div>
 					</div>
@@ -356,13 +351,17 @@ const AfterContinue = forwardRef((props, ref) => {
 					</div>
 				</div>
 				<div className="text-small color-gray mt3x mb0">By continuing, you
-					agree with <a className="hrt-link hrt-link--gray-dark"
-								  id="link-donate-terms" target="_blank"
-								  rel="noreferrer" href="/c/terms">Cheers
-						terms</a> and <a
+					agree with
+					<a className="hrt-link hrt-link--gray-dark"
+					   id="link-donate-terms" target="_blank"
+					   rel="noreferrer" href="/c/terms">Cheers
+						terms
+					</a> and
+					<a
 						className="hrt-link hrt-link--gray-dark"
 						id="link-donate-privacy" target="_blank" rel="noreferrer"
-						href="/c/privacy">privacy notice</a>.
+						href="/c/privacy">privacy notice
+					</a>.
 				</div>
 			</div>
 		</div>

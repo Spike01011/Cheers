@@ -28,13 +28,14 @@ const ContinuePaymentComponent = () => {
 		}
 	}
 
-	return (<Link as={Link} type={'button'} to={'/afterContinue'}
-				  style={{pointerEvents: donationButtonToggle()}}
-				  onClick={submit}
-				  className="m-auto max-width-360--for-small hide hrt-primary-button hrt-primary-button--green
+	return (
+		<Link as={Link} type={'button'} to={'/afterContinue'}
+			  style={{pointerEvents: donationButtonToggle()}}
+			  onClick={submit}
+			  className="m-auto max-width-360--for-small hide hrt-primary-button hrt-primary-button--green
 			  	hrt-primary-button--full-for-small hrt-primary-button--large hrt-primary-button--shadow hrt-base-button"
-				  data-element-id="btn_continue">Continue
-	</Link>)
+			  data-element-id="btn_continue">Continue
+		</Link>)
 };
 
 export default ContinuePaymentComponent;
