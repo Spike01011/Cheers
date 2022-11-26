@@ -29,16 +29,6 @@ namespace Cheers.Models.Daos
         {
             return _appDbContext.Orders.ToList();
         }
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Edit(int id, Order order)
-        {
-            throw new NotImplementedException();
-        }
-
         public void UpdateProduct(Order order)
         {
             var toEditOrder = _appDbContext.Orders.FirstOrDefault(cat => cat.Id == order.Id);
@@ -53,6 +43,15 @@ namespace Cheers.Models.Daos
             {
                 Console.WriteLine("UpdateProduct -> else: toEditOrder is null");
             }
+        }
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Edit(int id, Order order)
+        {
+            throw new NotImplementedException();
         }
     }
 }

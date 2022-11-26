@@ -40,12 +40,6 @@ namespace Cheers.Services.PaymentService
             }
             return intent;
         }
-
-        public bool IsPaymentSuccesfull()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<PaymentIntent> IsPaymentWorking()
         {
             var order = new Order(75010, 12345, "", "");

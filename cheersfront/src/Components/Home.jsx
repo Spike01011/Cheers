@@ -12,7 +12,7 @@ const Home = () => {
     useEffect(() => {
         const get = async () => {
             try {
-                const response = await axios.get("https://localhost:7021/home/index", {
+                const response = await axios.get("https://localhost:7021/idea/index", {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem("token")}`
                     }

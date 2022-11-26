@@ -23,17 +23,6 @@ namespace Cheers.Data
             modelBuilder.Entity<Category>().HasData(webCategory);
             modelBuilder.Entity<Category>().HasData(escapeCategory);
 
-            //_roleManager.CreateAsync(new IdentityRole("Admin"));
-
-            //var admin = new ApplicationUser(){Email = "admin@admin.admin", UserName = "admin@admin.admin", };
-            //string adminPwd = "Admin@1234";
-            //var createUser = await _userManager.CreateAsync(admin, adminPwd);
-            //if (createUser.Succeeded)
-            //{
-            //    var actualAdmin = await _userManager.FindByEmailAsync("admin@admin.admin");
-            //    _userManager.AddToRoleAsync(actualAdmin, "Admin");
-            //}
-
             modelBuilder.Entity<Idea>().HasData(new Idea { Id = 1, Description = $@"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At risus viverra adipiscing at in tellus integer. Quisque egestas diam in arcu cursus euismod quis. Feugiat pretium nibh ipsum consequat nisl vel pretium. Pellentesque habitant morbi tristique senectus et netus et malesuada. Amet consectetur adipiscing elit duis tristique sollicitudin nibh sit amet. Lectus vestibulum mattis ullamcorper velit sed ullamcorper. Nibh sed pulvinar proin gravida hendrerit lectus. Orci phasellus egestas tellus rutrum tellus pellentesque. Sed vulputate mi sit amet mauris commodo. Orci dapibus ultrices in iaculis nunc. Sagittis nisl rhoncus mattis rhoncus. Fermentum iaculis eu non diam phasellus vestibulum lorem. Augue interdum velit euismod in pellentesque. Scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique. Tortor aliquam nulla facilisi cras fermentum odio eu.
 
 Sit amet nisl purus in mollis.Ac turpis egestas integer eget aliquet nibh praesent tristique.{"\n"}Ullamcorper velit sed ullamcorper morbi tincidunt.Feugiat nibh sed pulvinar proin gravida.Sollicitudin tempor id eu nisl.{"\n"}Suspendisse faucibus interdum posuere lorem ipsum dolor sit.Vel eros donec ac odio tempor orci dapibus ultrices.Venenatis a condimentum vitae sapien pellentesque.Tristique senectus et netus et malesuada fames ac.Bibendum ut tristique et egestas quis.Cursus eget nunc scelerisque viverra mauris.Nulla posuere sollicitudin aliquam ultrices sagittis orci a.{"\n"}Quam quisque id diam vel quam elementum pulvinar.Amet porttitor eget dolor morbi non.Facilisis leo vel fringilla est ullamcorper eget nulla.

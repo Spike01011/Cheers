@@ -1,7 +1,5 @@
 ﻿using Cheers.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,10 +14,12 @@ namespace Cheers.Models
         private readonly IConfiguration _configuration;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountRepository(UserManager<ApplicationUser> userManager,
+        public AccountRepository(
+            UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IConfiguration configuration,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -52,7 +52,7 @@ namespace Cheers.Models
             var authorClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, signInModel.Email),
-                new Claim(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
             foreach (var role in roles)

@@ -5,15 +5,15 @@ namespace Cheers.Models
     public class SignUpModel
     {
         [Required]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         [Required]
         [Compare("ConfirmPassword")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
         [Required]
-        public string ConfirmPassword { get; set; }
+        public string? ConfirmPassword { get; set; }
 
         public SignUpModel(string userName, string email, string password)
         {

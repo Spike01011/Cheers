@@ -4,9 +4,9 @@ namespace Cheers.Models.Daos
 {
     public class DaoMananger
     {
-        private ICategoryDAO _categoryDbDAO;
-        private IIdeeaDAO _ideaDbDAO;
-        private IImageClDAO _imageClDbDAO;
+        private readonly ICategoryDAO _categoryDbDAO;
+        private readonly IIdeeaDAO _ideaDbDAO;
+        private readonly IImageClDAO _imageClDbDAO;
 
         public DaoMananger(ICategoryDAO categoryDbDAO, IIdeeaDAO ideaDbDAO, IImageClDAO imageClDbDAO)
         {

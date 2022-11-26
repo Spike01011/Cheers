@@ -3,9 +3,6 @@ using Cheers.Models.Interfaces;
 using Cheers.Services.EmailService;
 using Cheers.Utils;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
-using System.Data;
 
 namespace Cheers.Controllers
 {
@@ -21,7 +18,7 @@ namespace Cheers.Controllers
             _accountRepository = accountRepository;
             _emailService = emailService;
         }
-        
+
         [HttpPost]
         [Route("SignUp")]
         public async Task<IActionResult> SignUp([FromBody] SignUpModel signUpModel)
@@ -50,11 +47,11 @@ namespace Cheers.Controllers
             Console.WriteLine("AAAAAAAAAAAA");
             foreach (var role in roles)
             {
-                Console.WriteLine("AAAAAAAAAAAA" + role);   
+                Console.WriteLine("AAAAAAAAAAAA" + role);
             }
             bool isAdmin = roles.Any(x => x == "Admin");
 
-            return Ok(new LoginModel{Email = signUpModel.Email, Token = logInResopnse, IsAdmin = isAdmin});
+            return Ok(new LoginModel { Email = signUpModel.Email, Token = logInResopnse, IsAdmin = isAdmin });
         }
 
         [HttpGet]

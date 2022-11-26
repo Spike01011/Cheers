@@ -1,15 +1,15 @@
-﻿using System.Security.Claims;
-using Cheers.Data;
+﻿using Cheers.Data;
 using Cheers.Models;
 using Cheers.Models.Daos;
 using Cheers.Models.Interfaces;
 using Cheers.Services.EmailService;
+using Cheers.Services.ImageService;
 using Cheers.Services.PaymentService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 namespace Cheers
@@ -107,6 +107,7 @@ namespace Cheers
             services.AddScoped<IImageClDAO, ImageClDbDAO>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IOrderDao, OrderDbDao>();
+            services.AddScoped<IImageService, ImageService>();
 
             services.AddControllersWithViews();
             services.AddCors(options =>
@@ -135,12 +136,12 @@ namespace Cheers
                 //app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "images")),
-                RequestPath = "/Images"
-            });
+            //TODO -Vezi ce e cu el
+            //app.UseStaticFiles(new StaticFileOptions
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "images")),
+            //    RequestPath = "/Images"
+            //});
 
             app.UseAuthentication();
 

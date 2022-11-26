@@ -3,7 +3,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
 export default function AddCategory() {
-    const url = "https://localhost:7021/home/AddCategory";
+    const url = "https://localhost:7021/category/AddCategory";
 
     const [data, setData] = useState({
         Name: "",

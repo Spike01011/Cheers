@@ -19,24 +19,17 @@ export default function Employee() {
 
 
     const PostImage = (formData, onSuccess) => {
-        const url = "/Home/AddImage";
+        const url = "/image/AddImage";
         Api.post(url, formData, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             }
         })
             .then(res => {
+				console.log(res)
                 onSuccess()
             })
             .catch(err => console.error(err));
-    }
-
-    const handleInputChange = e => {
-        const {name, value} = e.target;
-        setValues({
-            ...values,
-            [name]: value
-        })
     }
 
     const showPreview = e => {
@@ -83,16 +76,14 @@ export default function Employee() {
             formData.append('imageFile', values.imageFile)
             PostImage(formData, resetForm)
         }
-
     }
-
 
     return (
         <>
             <div className={"container text-center"}>
                 <p className={"lead"}>Photo</p>
             </div>
-            <img src={values.imageSrc}/>
+            <img src={values.imageSrc} alt={''}/>
             <form autoComplete={"off"} noValidate onSubmit={handleFormSubmit}>
                 <input type={"file"} accept={"image/*"} onChange={showPreview} id={"image-uploader"}/>
                 <button type={"submit"} className={"btn btn-light"}>Submit</button>

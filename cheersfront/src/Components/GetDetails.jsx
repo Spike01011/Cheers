@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {Link, redirect, useNavigate} from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
-import { clearPaymentData } from "../pages/PaymentPage/PaymentSlice";
+import {Link, useNavigate} from "react-router-dom";
+import {Modal} from "react-bootstrap";
+import {clearPaymentData} from "../pages/PaymentPage/PaymentSlice";
 import {useDispatch} from "react-redux";
 
 export default function GetDetails() {
-	const url = "https://localhost:7021/home/GetIdea";
-	const photoUrl = "https://localhost:7021/home/GetImagesForIdea";
-	const deletePhotoUrl = "https://localhost:7021/home/RemoveImage";
-	const deleteIdeaUrl = "https://localhost:7021/home/RemoveIdea";
+	const url = "https://localhost:7021/idea/GetIdea";
+	const photoUrl = "https://localhost:7021/image/GetImagesForIdea";
+	const deletePhotoUrl = "https://localhost:7021/image/RemoveImage";
+	const deleteIdeaUrl = "https://localhost:7021/idea/RemoveIdea"; //TODO to delete img from database
 	const reactUrl = window.location.href;
 	const reactUrlLength = reactUrl.split("/").length;
 	const id = reactUrl.split("/").at(reactUrlLength - 1);
@@ -29,7 +29,11 @@ export default function GetDetails() {
 	useEffect(() => {
 		const get = async () => {
 			try {
-				const response = await axios.get(`${url}/${id}`);
+				const response = await axios.get(`${url}/${id}`, {
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("token")}`
+					}
+				});
 				const responseData = await response.data;
 				setData(responseData);
 			} catch (e) {
@@ -42,7 +46,11 @@ export default function GetDetails() {
 	useEffect(() => {
 		const get = async () => {
 			try {
-				const response = await axios.get(`${photoUrl}/${id}`);
+				const response = await axios.get(`${photoUrl}/${id}`, {
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem("token")}`
+					}
+				});
 				const responseData = await response.data;
 				setPhotos(responseData);
 			} catch (e) {
@@ -79,10 +87,10 @@ export default function GetDetails() {
 					rowGap: "30px",
 					columnGap: "15px"
 				}}>
-					{photos.map(pic => <img lmao={pic.Id} src={`data:image/png;base64,${pic.Image}`}
+					{photos.map(pic => <img id={pic.Id} src={`data:image/png;base64,${pic.Image}`}
 											style={{width: "350px"}} onClick={(e, x = pic) => {
 						HandlePicClick(e, x)
-					}}/>)}
+					}} alt={''}/>)}
 				</div>
 			)
 		}
@@ -102,21 +110,23 @@ export default function GetDetails() {
 			});
 	}
 
-	function HandleDeleteIdea(e){
+	function HandleDeleteIdea(e) {
 		e.preventDefault();
 		console.log(id);
-		axios.delete(`${deleteIdeaUrl}/${id}`, {headers: {
-			Authorization: `Bearer ${localStorage.getItem("token")}`
-			}})
+		axios.delete(`${deleteIdeaUrl}/${id}`, {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem("token")}`
+			}
+		})
 			.then((res => {
 				console.log(res.data);
 				navigate("/");
 			}))
 	}
 
-	function DisplayAddPhoto(){
-		if (localStorage.getItem("user") == data.Author.Email){
-			return(
+	function DisplayAddPhoto() {
+		if (localStorage.getItem("user") === data.Author.Email) {
+			return (
 				<Link
 					type={"button"}
 					style={{textAlign: "center"}}
@@ -128,9 +138,9 @@ export default function GetDetails() {
 		}
 	}
 
-	function DisplayEdit(){
-		if (localStorage.getItem("user") == data.Author.Email){
-			return(
+	function DisplayEdit() {
+		if (localStorage.getItem("user") === data.Author.Email) {
+			return (
 				<Link
 					type={"button"}
 					style={{textAlign: "center"}}
@@ -142,13 +152,15 @@ export default function GetDetails() {
 		}
 	}
 
-	function DisplayDeleteBtn(){
-		if (localStorage.getItem("user") == data.Author.Email || localStorage.getItem("isAdmin") == "true"){
-			return(
+	function DisplayDeleteBtn() {
+		if (localStorage.getItem("user") === data.Author.Email || localStorage.getItem("isAdmin") === "true") {
+			return (
 				<button
 					style={{textAlign: "center"}}
 					className={"btn btn-danger"}
-					onClick={(e) => {HandleDeleteIdea(e)}}>
+					onClick={(e) => {
+						HandleDeleteIdea(e)
+					}}>
 					Delete
 				</button>
 			)
@@ -189,15 +201,13 @@ export default function GetDetails() {
 				style={{
 					textAlign: "center",
 					marginTop: "50px",
-				}}
-			>
+				}}>
 				<Link
 					type={"button"}
 					onClick={clearPaymentValues}
 					className={"btn btn-light"}
 					style={{textAlign: "center"}}
-					as={Link} to={`/payment/${id}`}
-				>
+					as={Link} to={`/payment/${id}`}>
 					🍻 Buy us a beer
 				</Link>
 				{DisplayAddPhoto()}

@@ -13,8 +13,11 @@ namespace Cheers.Models.Daos
         }
         public void Add(Category category)
         {
-            _appDbContext.Categories.Add(category);
-            _appDbContext.SaveChanges();
+            if (GetByName(category.Name) == null)
+            {
+                _appDbContext.Categories.Add(category);
+                _appDbContext.SaveChanges();
+            }
         }
 
         public Category Get(int id)

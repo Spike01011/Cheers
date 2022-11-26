@@ -2,12 +2,11 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
-export default function EditIdea(){
-	const url = "https://localhost:7021/home/editidea";
-	const dataUrl = "https://localhost:7021/home/GetIdea";
+export default function EditIdea() {
+	const url = "https://localhost:7021/idea/editidea";
+	const dataUrl = "https://localhost:7021/idea/GetIdea";
 	const [cat, setCat] = useState([]);
-	const categoryUrl = "https://localhost:7021/home/GetCategories";
-	// const [formatedCat, setFormatedCat] = useState([]);
+	const categoryUrl = "https://localhost:7021/category/GetCategories";
 	const [data, setData] = useState({
 		Name: "",
 		Description: "",
@@ -35,25 +34,25 @@ export default function EditIdea(){
 		get();
 	}, []);
 
-	useEffect( () => {
-			try {
-				axios.get(`${dataUrl}/${id}`).then(
-					response => {
-						console.log("responseData", response.data);
-						setData({
-							Name: response.data.Name,
-							Description: response.data.Description,
-							ShortDescription: response.data.ShortDescription,
-							CategoryId: response.data.CategoryId,
-							Target: response.data.Target
-						})
-					}
-				);
-			}catch (e){
-				console.error(e)
-			}
+	useEffect(() => {
+		try {
+			axios.get(`${dataUrl}/${id}`).then(
+				response => {
+					console.log("responseData", response.data);
+					setData({
+						Name: response.data.Name,
+						Description: response.data.Description,
+						ShortDescription: response.data.ShortDescription,
+						CategoryId: response.data.CategoryId,
+						Target: response.data.Target
+					})
+				}
+			);
+		} catch (e) {
+			console.error(e)
+		}
 
-	},[])
+	}, [])
 
 	function handle(e) {
 		const newData = {...data};
@@ -72,9 +71,11 @@ export default function EditIdea(){
 				/* global BigInt */
 				Target: parseInt(data.Target),
 				Token: localStorage.getItem("token")
-			}, {headers: {
+			}, {
+				headers: {
 					Authorization: `Bearer ${localStorage.getItem("token")}`
-				}})
+				}
+			})
 			.then((res) => {
 				console.log(res.data);
 				navigate("/");
@@ -84,33 +85,29 @@ export default function EditIdea(){
 	return cat != null && data != null ?
 
 		<form className={"DetailsDiv"}
-		      style={{display: "flex", flexDirection: "column"}}>
+			  style={{display: "flex", flexDirection: "column"}}>
 			<h1
 				className={"TitleClass"}
 				style={{
 					textAlign: "center",
 					paddingInline: "10%",
 					marginBottom: "50px",
-				}}
-			>
+				}}>
 				Edit Idea
 			</h1>
 			<input className={"DetailsDivContents"}
-			       onChange={(e) => handle(e)}
-			       id={"Name"}
-			       value={data.Name}
-			       placeholder={"Name"}
-			       type={"text"}
-			       style={{width: "250px"}}
-
-			/>
+				   onChange={(e) => handle(e)}
+				   id={"Name"}
+				   value={data.Name}
+				   placeholder={"Name"}
+				   type={"text"}
+				   style={{width: "250px"}}/>
 			<select className={"DetailsDivContents"}
-			        style={{width: "250px"}}
-			        onChange={(e) => handle(e)}
-			        id={"CategoryId"}
-			        value={data.CategoryId}
-			        placeholder={"Category"}
-			>
+					style={{width: "250px"}}
+					onChange={(e) => handle(e)}
+					id={"CategoryId"}
+					value={data.CategoryId}
+					placeholder={"Category"}>
 				{cat.map((c) => (
 					<option key={c.id} value={c.id}>
 						{c.name}
@@ -118,32 +115,28 @@ export default function EditIdea(){
 				))}
 			</select>
 			<input className={"DetailsDivContents"}
-			       style={{width: "250px"}}
-			       onChange={(e) => handle(e)}
-			       id={"Target"}
-			       value={data.Target}
-			       placeholder={"MoneyTarget"}
-			       type={"text"}
-			/>
+				   style={{width: "250px"}}
+				   onChange={(e) => handle(e)}
+				   id={"Target"}
+				   value={data.Target}
+				   placeholder={"MoneyTarget"}
+				   type={"text"}/>
 			<input className={"DetailsDivContents"}
-			       onChange={(e) => handle(e)}
-			       id={"ShortDescription"}
-			       value={data.ShortDescription}
-			       placeholder={"ShortDescription"}
-			       type={"text"}
-			/>
+				   onChange={(e) => handle(e)}
+				   id={"ShortDescription"}
+				   value={data.ShortDescription}
+				   placeholder={"ShortDescription"}
+				   type={"text"}/>
 			<textarea
 				className={"DetailsDivContents"}
 				onChange={(e) => handle(e)}
 				id={"Description"}
 				value={data.Description}
-				placeholder={"Description"}
-				type={"text"}
-			/>
+				placeholder={"Description"}/>
 
-
-
-			<button className={"btn btn-info align-self-md-center"} onClick={(e) => submit(e)} style={{width: "100px"}}>Submit</button>
+			<button className={"btn btn-info align-self-md-center"} onClick={(e) => submit(e)}
+					style={{width: "100px"}}>Submit
+			</button>
 		</form>
 		:
 		<p>Loading...</p>

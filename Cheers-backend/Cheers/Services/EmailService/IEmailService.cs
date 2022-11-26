@@ -1,6 +1,4 @@
-﻿using Cheers.Models;
-
-namespace Cheers.Services.EmailService
+﻿namespace Cheers.Services.EmailService
 {
     public interface IEmailService
     {
