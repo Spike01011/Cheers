@@ -44,11 +44,7 @@ namespace Cheers.Controllers
 
             var user = _accountRepository.GetByMail(signUpModel.Email).Result;
             var roles = _accountRepository.GetRolesForUser(user);
-            Console.WriteLine("AAAAAAAAAAAA");
-            foreach (var role in roles)
-            {
-                Console.WriteLine("AAAAAAAAAAAA" + role);
-            }
+            
             bool isAdmin = roles.Any(x => x == "Admin");
 
             return Ok(new LoginModel { Email = signUpModel.Email, Token = logInResopnse, IsAdmin = isAdmin });
