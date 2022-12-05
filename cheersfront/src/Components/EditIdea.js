@@ -23,7 +23,11 @@ export default function EditIdea() {
 		const get = async () => {
 			try {
 				const response = await axios.get(
-					categoryUrl
+					categoryUrl, {
+						headers: {
+							Authorization: `Bearer ${localStorage.getItem("token")}`
+						}
+					}
 				);
 				const responseData = await response.data;
 				setCat(responseData);
@@ -36,9 +40,12 @@ export default function EditIdea() {
 
 	useEffect(() => {
 		try {
-			axios.get(`${dataUrl}/${id}`).then(
+			axios.get(`${dataUrl}/${id}`, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("token")}`
+				}
+			}).then(
 				response => {
-					console.log("responseData", response.data);
 					setData({
 						Name: response.data.Name,
 						Description: response.data.Description,
@@ -77,7 +84,6 @@ export default function EditIdea() {
 				}
 			})
 			.then((res) => {
-				console.log(res.data);
 				navigate("/");
 			});
 	}

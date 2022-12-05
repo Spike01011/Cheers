@@ -12,19 +12,16 @@ namespace Cheers.Models
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountRepository(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IConfiguration configuration,
-            RoleManager<IdentityRole> roleManager
+            IConfiguration configuration
             )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _configuration = configuration;
-            _roleManager = roleManager;
         }
 
         public async Task<IdentityResult> SignUpAsync(SignUpModel signUpModel)
@@ -67,7 +64,8 @@ namespace Cheers.Models
             var token = new JwtSecurityToken(
                 issuer: _configuration["JWT:ValidIuser"],
                 audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddDays(1),
+                //expires: DateTime.Now.AddDays(1),
+                expires: DateTime.Now.AddMinutes(15),
                 claims: authorClaims,
                 signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha256Signature));
 

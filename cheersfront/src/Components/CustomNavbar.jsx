@@ -24,8 +24,8 @@ export default class CustomNavbar extends Component {
 
 		function ShowAdminPage(){
 			console.log(localStorage.getItem("isAdmin"));
-			console.log(localStorage.getItem("isAdmin") == "true");
-			if (localStorage.getItem("isAdmin") == "true"){
+			console.log(localStorage.getItem("isAdmin") === "true");
+			if (localStorage.getItem("isAdmin") === "true"){
 				return(
 					<Nav.Link as={Link} to={"/adminPage"}>
 						Admin Page
