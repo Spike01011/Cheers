@@ -83,7 +83,7 @@ export default function Employee() {
             <div className={"container text-center"}>
                 <p className={"lead"}>Photo</p>
             </div>
-            <img src={values.imageSrc} alt={''}/>
+            <img style={{maxWidth: 340, maxHeight:340}} src={values.imageSrc} alt={''}/>
             <form autoComplete={"off"} noValidate onSubmit={handleFormSubmit}>
                 <input type={"file"} accept={"image/*"} onChange={showPreview} id={"image-uploader"}/>
                 <button type={"submit"} className={"btn btn-light"}>Submit</button>
