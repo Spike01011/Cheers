@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./Home";
-import AddIdea from "./AddIdea";
+import AddIdea from "../pages/AddIdea/AddIdea";
 import GetDetails from "./GetDetails";
 import AddPhoto from "./AddPhoto";
 import Logout from "./Logout";
@@ -57,7 +57,7 @@ export default class CustomNavbar extends Component {
 						title="Account"
 						id="account-dropdown"
 					>
-						<NavDropdown.Item href="/login">
+						<NavDropdown.Item href="`/login`">
 							Log In
 						</NavDropdown.Item>
 						<NavDropdown.Divider />

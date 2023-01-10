@@ -89,7 +89,7 @@ export default function GetDetails() {
 					columnGap: "15px"
 				}}>
 					{photos.map(pic => <img id={pic.Id} src={`data:image/png;base64,${pic.Image}`}
-											style={{maxWidth: 340, maxHeight:340}} onClick={(e, x = pic) => {
+											style={{maxWidth: 340, maxHeight:240}} onClick={(e, x = pic) => {
 						HandlePicClick(e, x)
 					}} alt={''}/>)}
 				</div>
@@ -202,6 +202,7 @@ export default function GetDetails() {
 				style={{
 					textAlign: "center",
 					marginTop: "50px",
+					marginBottom: "50px",
 				}}>
 				<Link
 					type={"button"}

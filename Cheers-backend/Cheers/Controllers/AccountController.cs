@@ -2,6 +2,8 @@
 using Cheers.Models.Interfaces;
 using Cheers.Services.EmailService;
 using Cheers.Utils;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cheers.Controllers
@@ -20,13 +22,16 @@ namespace Cheers.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [EnableCors] 
         [Route("SignUp")]
+        
         public async Task<IActionResult> SignUp([FromBody] SignUpModel signUpModel)
         {
             var model = await _accountRepository.SignUpAsync(signUpModel);
             if (model.Succeeded)
             {
-                _emailService.SendEmail(signUpModel.Email, Statics.GetEmailSignUpSubject(), Statics.GetEmaiSignUpBodyMessage());
+                //_emailService.SendEmail(signUpModel.Email, Statics.GetEmailSignUpSubject(), Statics.GetEmaiSignUpBodyMessage());
                 return Ok(model.Succeeded);
             }
             return Unauthorized("De ce nu merge?");

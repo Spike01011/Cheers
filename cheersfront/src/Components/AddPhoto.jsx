@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Api from "../Utils/Api";
 
-export default function Employee() {
+export default function AddPhoto() {
 
     const defaultImageSrc = '/img/default-image.png';
     const reactUrl = window.location.href;
