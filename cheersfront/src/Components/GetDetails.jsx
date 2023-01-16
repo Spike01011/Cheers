@@ -60,20 +60,15 @@ export default function GetDetails() {
 		get();
 	}, []);
 
-	const HandleModalClick = () => {
-		setActivePhoto(null);
-		handleClose();
-	}
 
 	const HandlePicClick = (e, pic) => {
 		handleShow();
-		setActivePhoto(
-			<img id={pic.Id} src={`data:image/png;base64,${pic.Image}`}
-				 style={{maxWidth: 340, maxHeight:340}} onClick={HandleModalClick} alt={''}/>);
+		// setActivePhoto(<img id={pic.Id} src={`data:image/png;base64,${pic.Image}`}
+		//                     style={{width: "auto", maxWidth: "1100px"}} onClick={HandleModalClick} alt={''}/>);
 		setActivePhoto({
 			identifier: pic.Id,
 			actualImg: <img id={pic.Id} src={`data:image/png;base64,${pic.Image}`}
-							style={{maxWidth: 600, maxHeight:600}} onClick={HandleModalClick} alt={''}/>,
+			                style={{width: "auto", maxWidth: "1100px"}} alt={''}/>,
 		})
 	}
 

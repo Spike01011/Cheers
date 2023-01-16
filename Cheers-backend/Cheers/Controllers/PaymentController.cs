@@ -52,7 +52,7 @@ namespace Cheers.Controllers
             order.ClientSecret = intent.ClientSecret;
             _orderDao.Add(order);
 
-            _emailService.SendEmail("cristianbalan2021@gmail.com", Statics.GetPaymentEmailSubject(), Statics.GetEmailPaymentMessage());
+            //_emailService.SendEmail("cristianbalan2021@gmail.com", Statics.GetPaymentEmailSubject(), Statics.GetEmailPaymentMessage());
             return Ok(intent.RawJObject);
         }
     }
