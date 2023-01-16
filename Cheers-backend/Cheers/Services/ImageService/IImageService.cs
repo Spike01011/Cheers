@@ -2,6 +2,6 @@
 {
     public interface IImageService
     {
-        string SaveImage(IFormFile imageFile);
+        string ConvertImage(IFormFile imageFile);
     }
 }

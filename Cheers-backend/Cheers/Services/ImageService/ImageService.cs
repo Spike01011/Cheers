@@ -2,7 +2,7 @@
 {
     public class ImageService : IImageService
     {
-        public string SaveImage(IFormFile imageFile)
+        public string ConvertImage(IFormFile imageFile)
         {
             using MemoryStream memoryStream = new();
             imageFile.CopyTo(memoryStream);

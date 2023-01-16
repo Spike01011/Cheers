@@ -20,6 +20,7 @@ namespace Cheers.Models
         [NotMapped]
         public List<ImageCl>? Images { get; set; }
         [NotMapped, EmailAddress] public string? Email { get; set; }
+        public string? DefaultImage { get; set; }
 
         public override string ToString()
         {

@@ -84,19 +84,19 @@ namespace Cheers
                 option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 option.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(tokenAna =>
+            {
+                tokenAna.SaveToken = true;
+                tokenAna.RequireHttpsMetadata = false;
+                tokenAna.TokenValidationParameters =
+                new TokenValidationParameters()
                 {
-                    tokenAna.SaveToken = true;
-                    tokenAna.RequireHttpsMetadata = false;
-                    tokenAna.TokenValidationParameters =
-                    new TokenValidationParameters()
-                    {
-                        ValidateIssuer = false,
-                        ValidateAudience = true,
-                        ValidAudience = Configuration["JWT:ValidAudience"],
-                        ValidIssuer = Configuration["JWT:ValidIssuer"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
-                    };
-                });
+                    ValidateIssuer = false,
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["JWT:ValidAudience"],
+                    ValidIssuer = Configuration["JWT:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
+                };
+            });
 
             services.AddScoped<IIdeeaDAO, IdeaDbDAO>();
             services.AddScoped<ICategoryDAO, CategoryDbDAO>();
@@ -114,7 +114,7 @@ namespace Cheers
             {
                 options.AddPolicy("CorsPolicy", policy =>
                 {
-                    policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
             services.AddHttpContextAccessor();

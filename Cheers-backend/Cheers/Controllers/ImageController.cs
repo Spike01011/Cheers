@@ -32,7 +32,7 @@ namespace Cheers.Controllers
                 var user = await _accountRepository.GetByMail(email);
                 var expectedUser = _imageClDbDAO.GetIdea(img.IdeaId).Author;
                 if (user != expectedUser) return Unauthorized("You're not the author of this Idea");
-                img.Image = _imageService.SaveImage(img.ImageFile);
+                img.Image = _imageService.ConvertImage(img.ImageFile);
                 _imageClDbDAO.Add(img);
 
                 return Ok();
@@ -41,27 +41,34 @@ namespace Cheers.Controllers
             return Unauthorized("Log in Before adding a photo");
         }
 
+        //[HttpDelete]
+        //public async Task<IActionResult> RemoveImage(int ideaId)
+        //{
+        //    var identity = HttpContext.User.Identity as ClaimsIdentity;
+        //    if (identity != null)
+        //    {
+        //        var email = identity.FindFirst(ClaimTypes.Email).Value;
+        //        var user = await _accountRepository.GetByMail(email);
+        //        var roles = HttpContext.User.FindAll(ClaimTypes.Role);
+        //        var img = _imageClDbDAO.Get(ideaId);
+        //        var expectedUser = _imageClDbDAO.GetIdea(img.IdeaId).Author;
+
+        //        if (user != expectedUser && roles.All(x => x.Value != "Admin"))
+        //            return Unauthorized("You're not the author of this Idea");
+
+        //        _imageClDbDAO.Delete(ideaId);
+
+        //        return Ok();
+        //    }
+
+        //    return Unauthorized("Log in Before deleting a photo");
+        //}
+
         [HttpDelete]
-        public async Task<IActionResult> RemoveImage(int ideaId)
+        public IActionResult RemoveImage(int id)
         {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            if (identity != null)
-            {
-                var email = identity.FindFirst(ClaimTypes.Email).Value;
-                var user = await _accountRepository.GetByMail(email);
-                var roles = HttpContext.User.FindAll(ClaimTypes.Role);
-                var img = _imageClDbDAO.Get(ideaId);
-                var expectedUser = _imageClDbDAO.GetIdea(img.IdeaId).Author;
-
-                if (user != expectedUser && roles.All(x => x.Value != "Admin"))
-                    return Unauthorized("You're not the author of this Idea");
-
-                _imageClDbDAO.Delete(ideaId);
-
-                return Ok();
-            }
-
-            return Unauthorized("Log in Before deleting a photo");
+            _imageClDbDAO.Delete(id);
+            return Ok();
         }
 
         [AllowAnonymous]

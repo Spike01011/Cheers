@@ -10,5 +10,5 @@ export default function Logout() {
 	localStorage.removeItem("user");
 	localStorage.removeItem("isAdmin");
 	window.dispatchEvent(new Event("storage"));
-	return navigate("/");
+	return navigate("/login");
 }

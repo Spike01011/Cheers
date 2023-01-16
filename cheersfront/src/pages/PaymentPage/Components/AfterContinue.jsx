@@ -1,15 +1,16 @@
 import React, {forwardRef, useEffect, useState} from 'react';
-import TextField from "@mui/material/TextField";
 import {CardCvcElement, CardExpiryElement, CardNumberElement, useElements, useStripe} from "@stripe/react-stripe-js";
 import {StripeInput} from "../StripeInput";
 import Api from "../../../Utils/Api";
 import {useNavigate} from "react-router-dom";
+import TextField from "@mui/material/TextField";
 
 const AfterContinue = forwardRef((props, ref) => {
 	const stripe = useStripe();
 	const elements = useElements();
 	const navigate = useNavigate()
 	const [nameOnCard, setNameOnCard] = useState("Anon")
+	// const [email, setEmail] = useState("anon@anon.com") //Make an obj with name on card and email
 	const [clientSecret, setClientSecret] = useState("")
 
 	useEffect(() => {
@@ -53,7 +54,7 @@ const AfterContinue = forwardRef((props, ref) => {
 	}
 
 	return (
-		<div className="">
+		<div className="div2">
 			<div className="mb4x mt4x hrt-rule hrt-rule--horizontal"></div>
 			<div className="checkout-payment-options">
 				<fieldset className="hrt-fieldset">
@@ -308,8 +309,8 @@ const AfterContinue = forwardRef((props, ref) => {
 						<div id="threeds-div"></div>
 						<div
 							className="credit-card-submit-button_creditCardSubmitButtonWrapper__1_7UT width-full">
-							todo
-							<button type={'button'} onClick={submit}
+							<div></div>
+							<button style={{marginTop: '35px'}} type={'button'} onClick={submit}
 									className="credit-card-submit-button_creditCardSubmitButton__dJYeD
 								   max-width-360--for-small disp-flex justify-center hrt-primary-button
 								   hrt-primary-button--green hrt-primary-button--full-for-small
@@ -345,7 +346,7 @@ const AfterContinue = forwardRef((props, ref) => {
 										href="/_next/static/images/information-icons-8e28469525490b24db5532ee63323d3f.svg#lock">
 									</use>
 								</svg>
-								<span>Secure donation</span>
+								{/*<span>Secure donation</span>*/}
 							</p>
 						</div>
 					</div>
